@@ -8,7 +8,10 @@ import com.betteru.database.DatabaseObject;
 import com.betteru.database.DatabaseObjectListable;
 import com.betteru.database.MyResultRow;
 import com.betteru.ingredients.Calorie;
+import com.betteru.ingredients.Carbohydrate;
+import com.betteru.ingredients.Fat;
 import com.betteru.ingredients.Macro;
+import com.betteru.ingredients.Protein;
 import com.betteru.ingredients.forms.CreateIngredientForm;
 import com.github.mlaursen.bootstrap.forms.fields.errors.BasicValidation;
 
@@ -17,10 +20,12 @@ public class Ingredient extends DatabaseObject implements DatabaseObjectListable
 	private final String LOOKUP = "INGREDIENT_GET_BYID(:ID, :CURSOR)";
 	private final String CREATE = "INGREDIENT_INSERT(:NAME, :BRAND, :CATEGORY, :SERV_SIZE, :SERV_UNIT, :ALT_SERV_SIZE, :ALT_SERV_UNIT, :CALS, :FAT, :CARBS, :PROT)";
 	private static final String LOOKUP_ALL = "INGREDIENT_GETALL(:CURSOR)";
+	
+	private String name;
 	private Brand b;
 	private Category c;
 	private Serving def, alt;
-	private Macro fat, carb, protein;
+	private Macro fat, carbs, protein;
 	private Calorie cals;
 	public Ingredient() { }
 	public Ingredient(String id) {
@@ -37,10 +42,6 @@ public class Ingredient extends DatabaseObject implements DatabaseObjectListable
 		setFat(i.getFat());
 		setCarbs(i.getCarbs());
 		setProtein(i.getProtein());
-	}
-
-	public Ingredient(String id, String name) {
-		super(id, name);
 	}
 	
 	public Ingredient(CreateIngredientForm f) {
@@ -114,10 +115,10 @@ public class Ingredient extends DatabaseObject implements DatabaseObjectListable
 		Object[] params = new Object[] { getName()
 									   , getBrand().getId()
 									   , getCategory().getId()
-									   , getServingSize()
-									   , getServingUnit().getId()
-									   , getAltServingSize()
-									   , getAltServingUnit().getId()
+									   , getDefaultServingSize()
+									   , getDefaultServingUnitId()
+									   , getAlternateServingSize()
+									   , getAlternateServingUnitId()
 									   , getCalories()
 									   , getFat()
 									   , getCarbs()
@@ -136,8 +137,8 @@ public class Ingredient extends DatabaseObject implements DatabaseObjectListable
 		}
 	}
 
-	public void setCalories(double calories) {
-		this.calories = calories;
+	public void setCalories(double amt) {
+		cals = new Calorie(amt);
 	}
 
 	public void setFat(String fat) {
@@ -149,8 +150,8 @@ public class Ingredient extends DatabaseObject implements DatabaseObjectListable
 		}
 	}
 
-	public void setFat(double fat) {
-		this.fat = fat;
+	public void setFat(double amt) {
+		fat = new Fat(amt);
 	}
 
 	public void setCarbs(String carbs) {
@@ -162,8 +163,8 @@ public class Ingredient extends DatabaseObject implements DatabaseObjectListable
 		}
 	}
 
-	public void setCarbs(double carbs) {
-		this.carbs = carbs;
+	public void setCarbs(double amt) {
+		carbs = new Carbohydrate(amt);
 	}
 
 	public void setProtein(String protein) {
@@ -174,22 +175,26 @@ public class Ingredient extends DatabaseObject implements DatabaseObjectListable
 			
 		}
 	}
-	public void setProtein(double protein) {
-		this.protein = protein;
+	public void setProtein(double amt) {
+		protein = new Protein(amt);
 	}
 
 	public double getCalories() {
-		return this.calories;
+		return cals.getAmount();
 	}
 
 	public double getCarbs() {
-		return this.carbs;
+		return carbs.getAmount();
 	}
 
 	public double getProtein() {
-		return this.protein;
+		return protein.getAmount();
 	}
 
+	public double getFat() {
+		return fat.getAmount();
+	}
+	
 	public String getName() {
 		return name;
 	}
@@ -198,9 +203,6 @@ public class Ingredient extends DatabaseObject implements DatabaseObjectListable
 		name = n;
 	}
 
-	public double getFat() {
-		return fat;
-	}
 	
 	public void setDefaultServing(double size, Unit u) {
 		def = new Serving(size, u);
@@ -218,8 +220,16 @@ public class Ingredient extends DatabaseObject implements DatabaseObjectListable
 		return def.getSize();
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public Unit getDefaultServingUnit() {
 		return def.getUnit();
+	}
+	
+	public String getDefaultServingUnitId() {
+		return def.getUnit().getId();
 	}
 	
 	public Serving getAlternateServing() {
@@ -232,6 +242,10 @@ public class Ingredient extends DatabaseObject implements DatabaseObjectListable
 	
 	public Unit getAlternateServingUnit() {
 		return alt.getUnit();
+	}
+	
+	public String getAlternateServingUnitId() {
+		return alt.getUnit().getId();
 	}
 
 }
