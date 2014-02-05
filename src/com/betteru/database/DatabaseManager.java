@@ -22,7 +22,7 @@ public class DatabaseManager {
 	public static Connection getConnection() throws ClassNotFoundException, SQLException {
 		String username = "jspbetteru";
 		String password = "abcd1234";
-		String database = "jdbc:oracle:thin:@localhost:1521:orcl";
+		String database = "jdbc:oracle:thin:@localhost:1521:xe";
 		return getConnection(username, password, database);
 	}
 
