@@ -1,0 +1,71 @@
+package com.betteru.ingredients.servlets;
+
+import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.betteru.ingredients.database.Brand;
+import com.betteru.ingredients.database.Ingredient;
+import com.betteru.ingredients.forms.CreateIngredientForm;
+import com.github.mlaursen.bootstrap.forms.fields.TextAction;
+
+/**
+ * Servlet implementation class CreateIngredientServlet
+ */
+@WebServlet(name = "ingredients/create.jsp", urlPatterns = { "/ingredients/create.jsp" })
+public class CreateIngredientServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public CreateIngredientServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/ingredients/createingredient.jsp");
+		request.setAttribute("form", new CreateIngredientForm().toHtml());
+		rd.forward(request, response);
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/ingredients/createingredient.jsp");
+		CreateIngredientForm f = new CreateIngredientForm(request);
+		if(f.isValid()) {
+			TextAction brands = (TextAction) f.getField(CreateIngredientForm.BRANDS);
+			boolean success = true;
+			if(brands.getChosen() == 0)
+				success = new Brand("", brands.getValue()).create();
+			if(success) {
+				Ingredient i = new Ingredient(f);
+				success = i.create();
+			}
+			
+			if(!success) {
+				request.setAttribute("errors", "There was an error creating the ingredient. Please try again.");
+				request.setAttribute("form", f.toHtml());
+				rd.forward(request, response);
+			}
+			else
+				response.sendRedirect("index.jsp");
+		}
+		else {
+			request.setAttribute("form", f.toHtml());
+			rd.forward(request, response);
+		}
+	}
+
+}
