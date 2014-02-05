@@ -5,19 +5,23 @@ import java.util.List;
 import com.betteru.database.DatabaseCreateable;
 import com.betteru.database.DatabaseManager;
 import com.betteru.database.DatabaseObject;
+import com.betteru.database.DatabaseObjectListable;
 import com.betteru.database.MyResultRow;
+import com.betteru.ingredients.Calorie;
+import com.betteru.ingredients.Macro;
 import com.betteru.ingredients.forms.CreateIngredientForm;
 import com.github.mlaursen.bootstrap.forms.fields.errors.BasicValidation;
 
-public class Ingredient extends IngredientTemplate implements DatabaseCreateable {
+public class Ingredient extends DatabaseObject implements DatabaseObjectListable, DatabaseCreateable {
 
 	private final String LOOKUP = "INGREDIENT_GET_BYID(:ID, :CURSOR)";
 	private final String CREATE = "INGREDIENT_INSERT(:NAME, :BRAND, :CATEGORY, :SERV_SIZE, :SERV_UNIT, :ALT_SERV_SIZE, :ALT_SERV_UNIT, :CALS, :FAT, :CARBS, :PROT)";
 	private static final String LOOKUP_ALL = "INGREDIENT_GETALL(:CURSOR)";
 	private Brand b;
 	private Category c;
-	private Unit servingUnit, altServingUnit;
-
+	private Serving def, alt;
+	private Macro fat, carb, protein;
+	private Calorie cals;
 	public Ingredient() { }
 	public Ingredient(String id) {
 		super(id);
@@ -25,10 +29,10 @@ public class Ingredient extends IngredientTemplate implements DatabaseCreateable
 		setBrand(i.getBrand());
 		setCategory(i.getCategory());
 		setName(i.getName());
-		setServingUnit(i.getServingUnit());
-		setServingSize(i.getServingSize());
-		setAltServingUnit(i.getAltServingUnit());
-		setAltServingSize(i.getAltServingSize());
+		//setServingUnit(i.getServingUnit());
+		//setServingSize(i.getServingSize());
+		//setAltServingUnit(i.getAltServingUnit());
+		//setAltServingSize(i.getAltServingSize());
 		setCalories(i.getCalories());
 		setFat(i.getFat());
 		setCarbs(i.getCarbs());
@@ -47,27 +51,18 @@ public class Ingredient extends IngredientTemplate implements DatabaseCreateable
 		else
 			setBrand(Brand.lookupByName(brand));
 		setCategory(f.getFieldValue(CreateIngredientForm.CATEGORIES));
-		setServingSize(f.getFieldValue(CreateIngredientForm.SERVING_SIZE));
-		setServingUnit(f.getFieldValue(CreateIngredientForm.SERVING_UNIT));
-		setAltServingSize(f.getFieldValue(CreateIngredientForm.ALT_SERVING_SIZE));
-		setAltServingUnit(f.getFieldValue(CreateIngredientForm.ALT_SERVING_UNIT));
+		//setServingSize(f.getFieldValue(CreateIngredientForm.SERVING_SIZE));
+		//setServingUnit(f.getFieldValue(CreateIngredientForm.SERVING_UNIT));
+		//setAltServingSize(f.getFieldValue(CreateIngredientForm.ALT_SERVING_SIZE));
+		//setAltServingUnit(f.getFieldValue(CreateIngredientForm.ALT_SERVING_UNIT));
 		setCalories(f.getFieldValue(CreateIngredientForm.CALORIES));
 		setFat(f.getFieldValue(CreateIngredientForm.FAT));
 		setCarbs(f.getFieldValue(CreateIngredientForm.CARBS));
 		setProtein(f.getFieldValue(CreateIngredientForm.PROTEIN));
 	}
-
-	public Ingredient(String id, String name, Brand b, Category c, Unit servingUnit, double servingSize, Unit altServingUnit,
-			double altServingSize, double calories, double fat, double carbs, double prot) {
-		super(id, name, servingSize, altServingSize, calories, fat, carbs, prot);
-		this.b = b;
-		this.c = c;
-		this.servingUnit = servingUnit;
-		this.altServingUnit = altServingUnit;
-	}
 	
 	public Ingredient(MyResultRow r) {
-		super(r.get("id"), r.get("name"));
+		super(r.get("id"));
 		
 	}
 	
@@ -93,31 +88,6 @@ public class Ingredient extends IngredientTemplate implements DatabaseCreateable
 	
 	public void setCategory(Category c) {
 		this.c = c;
-	}
-	
-	public Unit getServingUnit() {
-		return this.servingUnit;
-	}
-	
-	public void setServingUnit(String id) {
-		setServingUnit(new Unit(id));
-	}
-	
-	public void setServingUnit(Unit su) {
-		this.servingUnit = su;
-	}
-	
-	public Unit getAltServingUnit() {
-		return this.altServingUnit;
-	}
-	
-	public void setAltServingUnit(String id) {
-		setAltServingUnit(new Unit(id));
-	}
-	
-	
-	public void setAltServingUnit(Unit asu) {
-		this.altServingUnit = asu;
 	}
 	
 	public List<Ingredient> lookupAll() {
@@ -153,6 +123,115 @@ public class Ingredient extends IngredientTemplate implements DatabaseCreateable
 									   , getCarbs()
 									   , getProtein() };
 		return DatabaseManager.executeUpdateProcedure(CREATE, params);
+	}
+	
+
+
+	public void setCalories(String calories) {
+		try {
+			setCalories(Double.parseDouble(calories));
+		}
+		catch (NumberFormatException e) {
+
+		}
+	}
+
+	public void setCalories(double calories) {
+		this.calories = calories;
+	}
+
+	public void setFat(String fat) {
+		try {
+			setFat(Double.parseDouble(fat));
+		}
+		catch (NumberFormatException e) {
+
+		}
+	}
+
+	public void setFat(double fat) {
+		this.fat = fat;
+	}
+
+	public void setCarbs(String carbs) {
+		try {
+			setCarbs(Double.parseDouble(carbs));
+		}
+		catch (NumberFormatException e) {
+
+		}
+	}
+
+	public void setCarbs(double carbs) {
+		this.carbs = carbs;
+	}
+
+	public void setProtein(String protein) {
+		try {
+			setProtein(Double.parseDouble(protein));
+		}
+		catch(NumberFormatException e) {
+			
+		}
+	}
+	public void setProtein(double protein) {
+		this.protein = protein;
+	}
+
+	public double getCalories() {
+		return this.calories;
+	}
+
+	public double getCarbs() {
+		return this.carbs;
+	}
+
+	public double getProtein() {
+		return this.protein;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String n) {
+		name = n;
+	}
+
+	public double getFat() {
+		return fat;
+	}
+	
+	public void setDefaultServing(double size, Unit u) {
+		def = new Serving(size, u);
+	}
+
+	public void setAlternateServing(double size, Unit u) {
+		alt = new Serving(size, u);
+	}
+	
+	public Serving getDefaultServing() {
+		return def;
+	}
+	
+	public double getDefaultServingSize() {
+		return def.getSize();
+	}
+	
+	public Unit getDefaultServingUnit() {
+		return def.getUnit();
+	}
+	
+	public Serving getAlternateServing() {
+		return alt;
+	}
+	
+	public double getAlternateServingSize() {
+		return alt.getSize();
+	}
+	
+	public Unit getAlternateServingUnit() {
+		return alt.getUnit();
 	}
 
 }
