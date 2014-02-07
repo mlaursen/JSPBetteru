@@ -18,16 +18,24 @@ public class MealView extends DatabaseObject implements DatabaseObjectListable {
 
 	private static final String LOOKUP = "MEAL_VIEW_GET_BYID(:ID, :CURSOR)";
 	private static final String LOOKUP_ALL = "MEAL_VIEW_GETALL(:CURSOR)";
-	public MealView() {
-		// TODO Auto-generated constructor stub
-	}
+	
+	private String name, desc;
+	private double totalCalories, totalFat, totalCarbs, totalProtein;
+	private List<MealPartView> mpvs;
+	public MealView() {	}
 
 	/**
 	 * @param id
 	 */
 	public MealView(String id) {
 		super(id);
-		// TODO Auto-generated constructor stub
+		MealView mv = lookup(id);
+		setName(mv.getName());
+		setDescription(mv.getDescription());
+		setTotalCalories(mv.getTotalCalories());
+		setTotalFat(mv.getTotalFat());
+		setTotalCarbs(mv.getTotalCarbs());
+		setTotalProtein(mv.getTotalProtein());
 	}
 
 	/**
@@ -35,7 +43,150 @@ public class MealView extends DatabaseObject implements DatabaseObjectListable {
 	 */
 	public MealView(MyResultRow r) {
 		super(r);
-		// TODO Auto-generated constructor stub
+		setName(r.get("name"));
+		setDescription(r.get("description"));
+		setTotalCalories(r.get("total_calories"));
+		setTotalFat(r.get("total_fat"));
+		setTotalCarbs(r.get("total_carbs"));
+		setTotalProtein(r.get("total_protein"));
+		setMealPartViewList(new MealPartView().lookupAll(r.get("id")));
+	}
+	
+	/**
+	 * @return the mpvs
+	 */
+	public List<MealPartView> getMealPartViewList() {
+		return mpvs;
+	}
+
+	/**
+	 * @param mpvs the mpvs to set
+	 */
+	public void setMealPartViewList(List<MealPartView> mpvs) {
+		this.mpvs = mpvs;
+	}
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * @return the desc
+	 */
+	public String getDescription() {
+		return desc;
+	}
+
+	/**
+	 * @param desc the desc to set
+	 */
+	public void setDescription(String desc) {
+		this.desc = desc;
+	}
+
+	/**
+	 * @return the totalCalories
+	 */
+	public double getTotalCalories() {
+		return totalCalories;
+	}
+	
+	public void setTotalCalories(String totalCalories) {
+		try {
+			this.totalCalories = Double.parseDouble(totalCalories);
+		}
+		catch(NumberFormatException e) {
+			this.totalCalories = 0;
+		}
+	}
+
+	/**
+	 * @param totalCalories the totalCalories to set
+	 */
+	public void setTotalCalories(double totalCalories) {
+		this.totalCalories = totalCalories;
+	}
+
+	/**
+	 * @return the totalFat
+	 */
+	public double getTotalFat() {
+		return totalFat;
+	}
+
+	public void setTotalFat(String totalFat) {
+		try {
+			this.totalFat = Double.parseDouble(totalFat);
+		}
+		catch(NumberFormatException e) {
+			this.totalFat = 0;
+		}
+	}
+	/**
+	 * @param totalFat the totalFat to set
+	 */
+	public void setTotalFat(double totalFat) {
+		this.totalFat = totalFat;
+	}
+
+	/**
+	 * @return the totalCarbs
+	 */
+	public double getTotalCarbs() {
+		return totalCarbs;
+	}
+
+	
+	public void setTotalCarbs(String totalCarbs) {
+		try {
+			this.totalCarbs = Double.parseDouble(totalCarbs);
+		}
+		catch(NumberFormatException e) {
+			this.totalCarbs = 0;
+		}
+	}
+	
+	/**
+	 * @param totalCarbs the totalCarbs to set
+	 */
+	public void setTotalCarbs(double totalCarbs) {
+		this.totalCarbs = totalCarbs;
+	}
+
+	/**
+	 * @return the totalProtein
+	 */
+	public double getTotalProtein() {
+		return totalProtein;
+	}
+
+	public void setTotalProtein(String totalProtein) {
+		try {
+			this.totalProtein = Double.parseDouble(totalProtein);
+		}
+		catch(NumberFormatException e) {
+			this.totalProtein = 0;
+		}
+	}
+	/**
+	 * @param totalProtein the totalProtein to set
+	 */
+	public void setTotalProtein(double totalProtein) {
+		this.totalProtein = totalProtein;
+	}
+
+	public List<MealView> lookupAll() {
+		return lookupAll(MealView.class);
 	}
 
 	/* (non-Javadoc)
@@ -45,14 +196,34 @@ public class MealView extends DatabaseObject implements DatabaseObjectListable {
 	public <T extends DatabaseObject> List<T> lookupAll(Class<T> type) {
 		return DatabaseManager.getStoredProcedureCursor(LOOKUP_ALL).toListOf(type);
 	}
+	
+	public MealView lookup(String id) {
+		return lookup(id, MealView.class);
+	}
 
 	/* (non-Javadoc)
 	 * @see com.betteru.database.DatabaseObject#lookup(java.lang.String, java.lang.Class)
 	 */
 	@Override
 	protected <T extends DatabaseObject> T lookup(String id, Class<T> type) {
-		// TODO Auto-generated method stub
-		return null;
+		return type.cast(new MealView(DatabaseManager.getStoredProcedureFirstRow(LOOKUP, id)));
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "MealView [name=" + name + ", desc=" + desc + ", totalCalories=" + totalCalories + ", totalFat=" + totalFat
+				+ ", totalCarbs=" + totalCarbs + ", totalProtein=" + totalProtein + ", getId()=" + getId() + ", MPV[" + mpvs + "]]";
+	}
+
+	public String getIngredientList() {
+		String s = "<ul>\n";
+		for(MealPartView v : mpvs) {
+			s += String.format("  <li>%s - %s %s</li>\n", v.getIngredientName(), v.getIngredientAmount(), v.getIngredientUnit());
+		}
+		return s += "</ul>\n";
+		
+	}
 }

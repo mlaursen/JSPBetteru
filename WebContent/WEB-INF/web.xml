@@ -41,6 +41,14 @@
     <servlet-name>Create Ingredient</servlet-name>
     <url-pattern>/ingredients/create.jsp</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>View Meals</servlet-name>
+    <servlet-class>com.betteru.meals.servlets.ViewMeals</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>View Meals</servlet-name>
+    <url-pattern>/meals/index.jsp</url-pattern>
+  </servlet-mapping>
   <error-page>
     <error-code>404</error-code>
     <location>/404.jsp</location>

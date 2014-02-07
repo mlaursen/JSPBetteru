@@ -3,17 +3,15 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<t:base>
+<t:nocontainer>
   <jsp:attribute name="title">View Meals</jsp:attribute>
   <jsp:attribute name="additional_css">
   <link href="${pageContext.request.contextPath}/css/meals.css" rel="stylesheet" />
   </jsp:attribute>
-  <jsp:attribute name="container">-fluid</jsp:attribute>
   <jsp:attribute name="content">
-  <h4>All Meals</h4>
-  <div class="row-fluid"><c:forEach var="meal" items="${meals}">
-    <t:mealbox meal="${meal}" />
-  </c:forEach></div>
+  <div class="meal-container">
+    <jsp:include page="meal_table.jsp"><jsp:param value="${meals}" name="meals"/></jsp:include>
+  </div>
   </jsp:attribute>
   <jsp:attribute name="additional_js">
   <script type="text/javascript">
@@ -26,4 +24,4 @@
   });
 </script>
   </jsp:attribute>
-</t:base>
+</t:nocontainer>

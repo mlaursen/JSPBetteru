@@ -1,12 +1,15 @@
 package com.betteru.meals.servlets;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.betteru.meals.database.MealView;
 
 /**
  * Servlet implementation class ViewMeals
@@ -18,7 +21,8 @@ import javax.servlet.http.HttpServletResponse;
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/meals/all_meals.jsp");
-		request.setAttribute("meals", new MealView());
+		List<MealView> meals = new MealView().lookupAll();
+		request.setAttribute("meals", meals);
 		rd.forward(request, response);
 	}
 
