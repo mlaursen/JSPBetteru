@@ -22,7 +22,7 @@
     id = item.getAttribute('id');
     $('li[name='+name+']').removeClass('active');
     item.setAttribute('class','active');
-    action = "${pageContext.request.contextPath}/ingredients/LoadTable";
+    action = "${pageContext.request.contextPath}/ingredients/filter";
 
     if(name === 'categories') {
       brnd = $('li[name=brands].active').attr('id');

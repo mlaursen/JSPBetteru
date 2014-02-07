@@ -15,16 +15,15 @@ import com.betteru.ingredients.forms.CreateIngredientForm;
 import com.github.mlaursen.bootstrap.forms.fields.TextAction;
 
 /**
- * Servlet implementation class CreateIngredientServlet
+ * Servlet implementation class CreateIngredient
  */
-@WebServlet(name = "ingredients/create.jsp", urlPatterns = { "/ingredients/create.jsp" })
-public class CreateIngredientServlet extends HttpServlet {
+public class CreateIngredient extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CreateIngredientServlet() {
+    public CreateIngredient() {
         super();
         // TODO Auto-generated constructor stub
     }

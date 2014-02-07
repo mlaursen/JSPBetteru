@@ -1,9 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:web="http://java.sun.com/xml/ns/javaee" 
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" 
+         id="WebApp_ID" version="3.0">
+  
+  <display-name>Betteru</display-name>
+  
+  <!-- Account Servlets -->
+  <servlet>
+    <servlet-name>EditAccountServlet</servlet-name>
+    <servlet-class>com.betteru.accounts.servlets.EditAccountServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>EditAccountServlet</servlet-name>
+    <url-pattern>/accounts/index.jsp</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>LoginPageServlet</servlet-name>
+    <servlet-class>com.betteru.accounts.servlets.LoginPageServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>LoginPageServlet</servlet-name>
+    <url-pattern>/index.jsp</url-pattern>
+  </servlet-mapping>
+  
+  <!-- Ingredient Servlets -->
+  <servlet>
+    <servlet-name>View Ingredients</servlet-name>
+    <servlet-class>com.betteru.ingredients.servlets.ViewIngredients</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>View Ingredients</servlet-name>
+    <url-pattern>/ingredients/index.jsp</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>Filter Ingredients</servlet-name>
+    <servlet-class>com.betteru.ingredients.servlets.FilterIngredients</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>Filter Ingredients</servlet-name>
+    <url-pattern>/ingredients/filter</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>Create Ingredient</servlet-name>
+    <servlet-class>com.betteru.ingredients.servlets.CreateIngredient</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>Create Ingredient</servlet-name>
+    <url-pattern>/ingredients/create.jsp</url-pattern>
+  </servlet-mapping>
+  
   <error-page>
     <error-code>404</error-code>
     <location>/404.jsp</location>
   </error-page>
+  
   <filter>
     <filter-name>AuthenticatedFilter</filter-name>
     <filter-class>com.betteru.filters.AuthenticatedFilter</filter-class>
@@ -12,4 +72,8 @@
     <filter-name>AuthenticatedFilter</filter-name>
     <url-pattern>/accounts/*</url-pattern>
   </filter-mapping>
+  
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
 </web-app>

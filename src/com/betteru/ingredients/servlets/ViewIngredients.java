@@ -16,10 +16,9 @@ import com.betteru.ingredients.database.IngredientView;
 import com.github.mlaursen.bootstrap.sidebar.SidebarNav;
 
 /**
- * Servlet implementation class IngredientServlet
+ * Servlet implementation class ViewIngredients
  */
-@WebServlet(name = "ingredients/index.jsp", urlPatterns = { "/ingredients/index.jsp" })
-public class IngredientServlet extends HttpServlet {
+public class ViewIngredients extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -30,7 +29,6 @@ public class IngredientServlet extends HttpServlet {
 		List<IngredientView> allIngs = new IngredientView().lookupAll();
 		SidebarNav nav = new SidebarNav(Category.getSidebarList(), Brand.getSidebarList());
 		request.setAttribute("filters", nav.toHtml());
-		request.setAttribute("ingredient_table", IngredientView.toHtmlTable(allIngs));
 		request.setAttribute("ingredients", allIngs);
 		rd.forward(request, response);
 	}

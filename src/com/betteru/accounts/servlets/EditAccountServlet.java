@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,12 +12,10 @@ import com.betteru.accounts.Account;
 import com.betteru.accounts.AccountSetting;
 import com.betteru.accounts.AccountView;
 import com.betteru.accounts.forms.EditAccountForm;
-import com.github.mlaursen.bootstrap.forms.fields.Errorable;
 
 /**
  * Servlet implementation class EditAccountServlet
  */
-@WebServlet(name = "accounts/index.jsp", description = "Manages editing all of the account settings.", urlPatterns = { "/accounts/index.jsp" })
 public class EditAccountServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
