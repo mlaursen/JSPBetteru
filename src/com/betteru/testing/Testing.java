@@ -1,16 +1,18 @@
 package com.betteru.testing;
 
-import java.util.List;
+import com.betteru.database.Procedure;
+import com.betteru.database.Package;
 
-import com.betteru.accounts.Account;
-import com.betteru.accounts.GenderChoice;
-import com.betteru.accounts.MultiplierChoice;
-import com.betteru.accounts.RecalcChoice;
-import com.betteru.accounts.UnitChoice;
-import com.github.mlaursen.bootstrap.forms.fields.DropdownChoice;
 public class Testing {
 
 	public static void main(String[] args) throws Exception {
+		Procedure p = new Procedure("GET", "ID");
+		Procedure p2 = new Procedure("GETALL");
+		p2.setDisplayName("GET");
+		Package gets = new Package("GETS", p, p2);
+		System.out.println(gets.call("GETALL"));
+		
+		/*
 		Account a = new Account("0");
 		Account a2 = new Account("test", "test");
 		System.out.println(a);

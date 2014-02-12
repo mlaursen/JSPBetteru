@@ -53,7 +53,7 @@ public class Account extends AccountTemplate {
 	}
 	
 	public Account(AccountView av) {
-		super(av.getId());
+		super(av.getPrimaryKey());
 		setUsername(av.getUsername());
 		setGenderByName(av.getGender());
 		setUnitByName(av.getUnit());
@@ -88,13 +88,13 @@ public class Account extends AccountTemplate {
 			String hash = Util.repeatedHashing(salt, getPassword());
 			valid = hash.equals(pswd);
 			if(valid)
-				setId(row.get(Fields.ID.toString()));
+				setPrimaryKey(row.get(Fields.ID.toString()));
 		}
 		return valid;
 	}
 	
 	public boolean updateLastLogin() {
-		return DatabaseManager.executeUpdateProcedure(UPDATE_LAST_LOGIN, getId());
+		return DatabaseManager.executeUpdateProcedure(UPDATE_LAST_LOGIN, getPrimaryKey());
 	}
 	
 	public GenderChoice getGender() {
@@ -102,7 +102,7 @@ public class Account extends AccountTemplate {
 	}
 	
 	public String getGenderId() {
-		return gender.getId();
+		return gender.getPrimaryKey();
 	}
 	
 	public void setGender(String id) {

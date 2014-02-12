@@ -43,6 +43,6 @@ public abstract class AccountTemplate extends DatabaseObject {
 	}
 	
 	public String toString() {
-		return "ID: " + getId() + ", Username: " + username + ", Password: " + password;
+		return "ID: " + getPrimaryKey() + ", Username: " + username + ", Password: " + password;
 	}
 }

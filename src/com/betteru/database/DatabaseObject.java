@@ -3,26 +3,36 @@ package com.betteru.database;
 
 public abstract class DatabaseObject {
 
-	private String id;
+	private String primaryKey;
+	private String primaryKeyName = "id";
 	public DatabaseObject() {
-		id = null;
+		primaryKey = null;
 	}
 	
-	public DatabaseObject(String id) {
-		this.id = id;
+	public DatabaseObject(String primaryKey) {
+		this.primaryKey = primaryKey;
 	}
 	
 	public DatabaseObject(MyResultRow r) {
-		this.id = r.get("id");
+		this.primaryKey = r.get(getPrimaryKeyName());
 	}
 	
-	public void setId(String id) {
-		this.id = id;
+	public void setPrimaryKey(String id) {
+		this.primaryKey = id;
 	}
 	
-	public String getId() {
-		return id;
+	public String getPrimaryKey() {
+		return primaryKey;
 	}
-
-	protected abstract <T extends DatabaseObject> T lookup(String id, Class<T> type);
+	
+	public void setPrimaryKeyName(String name) {
+		primaryKeyName = name;
+	}
+	
+	public String getPrimaryKeyName() {
+		return primaryKeyName;
+	}
+	
+	protected abstract <T extends DatabaseObject> T lookup(String primaryKey, Class<T> type);
+	
 }

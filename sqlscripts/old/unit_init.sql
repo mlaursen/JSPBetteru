@@ -1,0 +1,72 @@
+CREATE TABLE UNIT
+( ID INTEGER PRIMARY KEY
+, NAME VARCHAR2(15)
+, SHORT_NAME VARCHAR2(8)
+);
+
+CREATE SEQUENCE SEQ_UNITID
+START WITH 0
+MINVALUE 0
+INCREMENT BY 1
+CACHE 20
+NOCYCLE;
+
+-------------------------------------------------------------------------------
+-- UNIT PROCEDURES
+-------------------------------------------------------------------------------
+CREATE OR REPLACE PROCEDURE UNIT_INSERT(PNAME IN VARCHAR2, PSHORT IN UNIT.SHORT_NAME%TYPE)
+IS
+BEGIN
+  INSERT INTO UNIT(ID, NAME, SHORT_NAME)
+  VALUES(SEQ_UNITID.NEXTVAL, PNAME, PSHORT);
+  COMMIT;
+  
+  EXCEPTION
+    WHEN OTHERS THEN
+      ROLLBACK;
+      RAISE;
+END;
+/
+
+CREATE OR REPLACE PROCEDURE UNIT_GETALL(PCURSOR OUT SYS_REFCURSOR)
+IS
+BEGIN
+  OPEN PCURSOR FOR
+    SELECT * FROM UNIT ORDER BY ID;
+END;
+/
+
+CREATE OR REPLACE PROCEDURE UNIT_GET_BYID
+( PID IN UNIT.ID%TYPE
+, PCURSOR OUT SYS_REFCURSOR
+)
+IS
+BEGIN
+  OPEN PCURSOR FOR
+    SELECT * FROM UNIT WHERE ID=PID;
+END;
+/
+
+CREATE OR REPLACE PROCEDURE UNIT_GET_BYNAME
+( PNAME IN UNIT.NAME%TYPE
+, PCURSOR OUT SYS_REFCURSOR
+)
+IS
+BEGIN
+  OPEN PCURSOR FOR
+    SELECT * FROM UNIT WHERE UPPER(NAME)=UPPER(PNAME);
+END;
+/
+
+-------------------------------------------------------------------------------
+-- UNIT INITIAL DATA
+-------------------------------------------------------------------------------
+EXEC UNIT_INSERT('gram', 'g');
+EXEC UNIT_INSERT('millileter', 'mL');
+EXEC UNIT_INSERT('ounce', 'oz');
+EXEC UNIT_INSERT('unit', 'unit');
+EXEC UNIT_INSERT('cup', 'c');
+EXEC UNIT_INSERT('tablespoon', 'tbsp');
+EXEC UNIT_INSERT('teaspoon', 'tsp');
+EXEC UNIT_INSERT('unknown', 'unknown');
+EXEC UNIT_INSERT('scoop', 'scoop');
