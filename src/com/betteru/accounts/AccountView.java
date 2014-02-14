@@ -3,6 +3,8 @@
  */
 package com.betteru.accounts;
 
+import java.sql.Date;
+
 import javax.servlet.http.HttpServletRequest;
 
 import com.betteru.database.DatabaseObject;
@@ -126,23 +128,47 @@ public class AccountView extends DatabaseObject implements DatabaseUpdateable {
 		a.setBirthday(Util.stringToDate(b));
 	}
 	
+	public Date getBirthday() {
+		return a.getBirthday();
+	}
+	
 	public void setUnitSystem(String u) {
 		a.setUnitSystem(new UnitSystem(u));
+	}
+	
+	public UnitSystem getUnitSystem() {
+		return a.getUnitSystem();
 	}
 	
 	public void setHeight(String h) {
 		as.setHeight(Double.parseDouble(h));
 	}
 	
+	public double getHeight() {
+		return as.getHeight();
+	}
+	
 	public void setGender(String g) {
 		a.setGender(new Gender(g));
+	}
+	
+	public Gender getGender() {
+		return a.getGender();
 	}
 	
 	public void setMultiplier(String m) {
 		as.setMultiplier(new Multiplier(m));
 	}
 	
+	public Multiplier getMultiplier() {
+		return as.getMultiplier();
+	}
+	
 	public void setWeekday(String w) {
 		as.setWeekday(new Weekday(w));
+	}
+	
+	public Weekday getWeekday() {
+		return as.getWeekday();
 	}
 }

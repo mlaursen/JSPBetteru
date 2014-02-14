@@ -26,9 +26,7 @@ public class Util {
 		}
 	}
 
-	public static String sqlDateToString(java.sql.Date d) {
-		return d == null ? "" : new SimpleDateFormat("MM/dd/yyyy").format(d);
-	}
+	
 
 	public static java.sql.Date sysdateToDate(String sys) {
 		if (sys != null) {

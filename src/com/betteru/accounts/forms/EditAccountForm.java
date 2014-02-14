@@ -18,6 +18,8 @@ public class EditAccountForm extends HtmlForm {
 	
 	public EditAccountForm(AccountView av) {
 		super(ACTION);
+		DateField bday = new DateField(BIRTHDAY);
+		bday.setValue(av.getBirthday());
 	}
 	
 	public EditAccountForm(HttpServletRequest request, AccountView av) {
