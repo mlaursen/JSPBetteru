@@ -48,6 +48,10 @@ public class Account extends AccountTemplate implements DatabaseUpdateable {
 		setUnitSystem(a.getUnitSystem());
 		setGender(a.getGender());
 	}
+	
+	public Account(String user, String pass) {
+		super(user, pass);
+	}
 
 	/**
 	 * @param id
@@ -79,7 +83,7 @@ public class Account extends AccountTemplate implements DatabaseUpdateable {
 	 * @return
 	 */
 	public boolean isValidUser() {
-		MyResultRow row = DatabaseManager.getStoredProcedureFirstRow(call(""), getUsername());
+		MyResultRow row = DatabaseManager.getStoredProcedureFirstRow(call("get"), getUsername());
 		boolean valid = false;
 		if(row != null) {
 			String pswd = row.get("password");
@@ -115,8 +119,8 @@ public class Account extends AccountTemplate implements DatabaseUpdateable {
 		return false;
 	}
 	
-	public boolean createFromTemp(TempAccount ta) {
-		return DatabaseManager.executeStoredProcedure(call(CREATE), ta.getPrimaryKey());
+	public static boolean createFromTemp(TempAccount ta) {
+		return DatabaseManager.executeStoredProcedure(new Account().call(CREATE), ta.getPrimaryKey());
 	}
 	
 	public Account get(String id) {

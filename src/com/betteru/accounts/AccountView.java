@@ -10,6 +10,7 @@ import com.betteru.database.DatabaseUpdateable;
 import com.betteru.database.MyResultRow;
 import com.betteru.database.Package;
 import com.betteru.database.Procedure;
+import com.betteru.utils.Util;
 
 /**
  * @author mikkel.laursen
@@ -119,5 +120,29 @@ public class AccountView extends DatabaseObject implements DatabaseUpdateable {
 	
 	public AccountView get(String accountId) {
 		return get(accountId, AccountView.class);
+	}
+	
+	public void setBirthday(String b) {
+		a.setBirthday(Util.stringToDate(b));
+	}
+	
+	public void setUnitSystem(String u) {
+		a.setUnitSystem(new UnitSystem(u));
+	}
+	
+	public void setHeight(String h) {
+		as.setHeight(Double.parseDouble(h));
+	}
+	
+	public void setGender(String g) {
+		a.setGender(new Gender(g));
+	}
+	
+	public void setMultiplier(String m) {
+		as.setMultiplier(new Multiplier(m));
+	}
+	
+	public void setWeekday(String w) {
+		as.setWeekday(new Weekday(w));
 	}
 }

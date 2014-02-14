@@ -8,9 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.betteru.accounts.Account_Old;
-import com.betteru.accounts.AccountSetting_Old;
-import com.betteru.accounts.AccountView_Old;
+import com.betteru.accounts.Account;
+import com.betteru.accounts.AccountSetting;
+import com.betteru.accounts.AccountView;
 import com.betteru.accounts.forms.EditAccountForm;
 
 /**
@@ -31,7 +31,7 @@ public class EditAccountServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		AccountView_Old a = new AccountView_Old(request);
+		AccountView a = new AccountView(request);
 		RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/accounts/settings.jsp");
 		request.setAttribute("form", new EditAccountForm(a).toHtml());
 		rd.forward(request, response);
@@ -42,17 +42,18 @@ public class EditAccountServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userid = (String) request.getSession().getAttribute("userid");
-		AccountView_Old av = new AccountView_Old(userid);
+		AccountView av = new AccountView(userid);
 		EditAccountForm form = new EditAccountForm(request, av);
 		if(form.isValid()) {
 			String b = form.getFieldValue(EditAccountForm.BIRTHDAY);
 			String g = form.getFieldValue(EditAccountForm.GENDER);
 			String u = form.getFieldValue(EditAccountForm.UNIT);
 			String h = form.getFieldValue(EditAccountForm.HEIGHT);
-			String r = form.getFieldValue(EditAccountForm.RECALC);
+			String w = form.getFieldValue(EditAccountForm.RECALC);
 			String m = form.getFieldValue(EditAccountForm.MULTIPLIER);
-			Account_Old a = new Account_Old(av);
-			AccountSetting_Old as = new AccountSetting_Old(av);
+			/*
+			Account a = new Account(av);
+			AccountSetting as = new AccountSetting(av);
 			a.setBirthday(b);
 			a.setGender(g);
 			a.setUnit(u);
@@ -60,6 +61,14 @@ public class EditAccountServlet extends HttpServlet {
 			as.setRecalcById(r);
 			as.setMultiplierById(m);
 			if( a.update() && as.update() ) {
+			*/
+			av.setBirthday(b);
+			av.setGender(g);
+			av.setUnitSystem(u);
+			av.setHeight(h);
+			av.setWeekday(w);
+			av.setMultiplier(m);
+			if(av.update()) {
 				request.setAttribute("success", "Your settings have been successfully updated!");
 			}
 			else {
