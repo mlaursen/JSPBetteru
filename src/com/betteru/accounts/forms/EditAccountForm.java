@@ -3,7 +3,10 @@ package com.betteru.accounts.forms;
 import javax.servlet.http.HttpServletRequest;
 
 import com.betteru.accounts.AccountView;
-import com.betteru.utils.Util;
+import com.betteru.accounts.Gender;
+import com.betteru.accounts.Multiplier;
+import com.betteru.accounts.UnitSystem;
+import com.betteru.accounts.Weekday;
 import com.github.mlaursen.bootstrap.forms.HtmlForm;
 import com.github.mlaursen.bootstrap.forms.fields.ControlGroup;
 import com.github.mlaursen.bootstrap.forms.fields.Dropdown;
@@ -14,12 +17,33 @@ import com.github.mlaursen.bootstrap.forms.fields.input.NumberField;
 public class EditAccountForm extends HtmlForm {
 	public static final String ACTION = "index.jsp";
 	public static final String BIRTHDAY = "birthday", GENDER="gender", UNIT="unit", MULTIPLIER="multiplier",
-			RECALC="recalc", HEIGHT="height";
+			WEEKDAY="weekday", HEIGHT="height";
 	
 	public EditAccountForm(AccountView av) {
 		super(ACTION);
 		DateField bday = new DateField(BIRTHDAY);
 		bday.setValue(av.getBirthday());
+		bday.setCss("span2");
+		
+		Dropdown genders = new Dropdown(GENDER, new Gender().getAllChoices());
+		genders.setValue(av.getGender().getDropdownKey());
+		
+		Dropdown unitSystems = new Dropdown(UNIT, new UnitSystem().getAllChoices());
+		unitSystems.setValue(av.getUnitSystem().getDropdownKey());
+		
+		NumberField height = new NumberField(HEIGHT);
+		height.setValue(av.getHeight());
+		height.setCss("span2");
+		
+		Dropdown multipliers = new Dropdown(MULTIPLIER, new Multiplier().getAllChoices());
+		multipliers.setValue(av.getMultiplier().getDropdownKey());
+		
+		Dropdown weekdays = new Dropdown(WEEKDAY, new Weekday().getAllChoices());
+		weekdays.setValue(av.getWeekday().getDropdownKey());
+		
+		SubmitButton update = new SubmitButton("update");
+		update.setValue("Update");
+		this.addFields(ControlGroup.wrap(bday, genders, unitSystems, height, weekdays, multipliers, update));
 	}
 	
 	public EditAccountForm(HttpServletRequest request, AccountView av) {
@@ -28,53 +52,7 @@ public class EditAccountForm extends HtmlForm {
 		updateValue(GENDER, request);
 		updateValue(UNIT, request);
 		updateValue(HEIGHT, request);
-		updateValue(RECALC, request);
+		updateValue(WEEKDAY, request);
 		updateValue(MULTIPLIER, request);
 	}
-	/**
-	
-	public static final String BIRTHDAY = "birthday", GENDER="gender", UNIT="unit", MULTIPLIER="multiplier",
-								RECALC="recalc", HEIGHT="height";
-	public EditAccountForm(AccountView_Old av) {
-		super(ACTION);
-		Account_Old a = new Account_Old(av);
-		AccountSetting_Old as = new AccountSetting_Old(av);
-
-		DateField birthday = new DateField(BIRTHDAY);
-		birthday.setValue(Util.sqlDateToString(a.getBirthday()));
-		birthday.setCss("span2");
-		Dropdown genders = new Dropdown(GENDER, new GenderChoice().getAll());
-		genders.setValue(a.getGender().getKey());
-		
-		Dropdown units = new Dropdown("unit", new UnitChoice().getAll());
-		units.setValue(a.getUnit().getKey());
-		
-		//String h = as.getHeight();
-		NumberField height = new NumberField(HEIGHT);
-		height.setValue(as.getHeight()+"");
-		height.setCss("span2");
-		
-		Dropdown recalc = new Dropdown(RECALC, new RecalcChoice().getAll());
-		recalc.setLabel("Recalculate Day");
-		recalc.setValue(as.getRecalc().getKey());
-		
-		Dropdown multiplier = new Dropdown(MULTIPLIER, new MultiplierChoice().getAll());
-		multiplier.setLabel("Activity Multiplier");
-		multiplier.setValue(as.getMultiplier().getKey());
-		
-		SubmitButton update = new SubmitButton("update");
-		update.setValue("Update");
-		this.addFields(ControlGroup.wrap(birthday, genders, units, height, recalc, multiplier, update));
-	}
-	public EditAccountForm(HttpServletRequest request, AccountView_Old av) {
-		this(av);
-		updateValue(BIRTHDAY, request);
-		updateValue(GENDER, request);
-		updateValue(UNIT, request);
-		updateValue(HEIGHT, request);
-		updateValue(RECALC, request);
-		updateValue(MULTIPLIER, request);
-	}
-	
-	*/
 }
