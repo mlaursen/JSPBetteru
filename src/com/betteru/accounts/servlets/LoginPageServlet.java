@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.betteru.accounts.Account;
+import com.betteru.accounts.Account_Old;
 import com.betteru.accounts.TempAccount;
 import com.betteru.accounts.forms.CreateAccountForm;
 import com.betteru.accounts.forms.LoginForm;
@@ -46,7 +46,7 @@ public class LoginPageServlet extends HttpServlet {
 		CreateAccountForm createForm = new CreateAccountForm(request);
 		
 		if(loginForm.isFromRequest(request)) {
-			Account a = new Account(loginForm.getFieldValue("username"), loginForm.getFieldValue("password"));
+			Account_Old a = new Account_Old(loginForm.getFieldValue("username"), loginForm.getFieldValue("password"));
 			if(loginForm.isValid() && a.isValidUser()) {
 				HttpSession session = request.getSession(true);
 				session.setAttribute("userid", a.getId());
@@ -60,7 +60,7 @@ public class LoginPageServlet extends HttpServlet {
 		}
 		else if(createForm.isFromRequest(request)) {
 			TempAccount ta = new TempAccount(createForm.getFieldValue("username"), createForm.getFieldValue("password"));
-			if(createForm.isValid() && ta.create() && Account.createFromTemp(ta)) {
+			if(createForm.isValid() && ta.create() && Account_Old.createFromTemp(ta)) {
 				request.setAttribute("success", "You have successfully created your account.  Please log in.");
 			}
 			else {

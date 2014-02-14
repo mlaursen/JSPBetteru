@@ -69,6 +69,20 @@ public class Procedure {
 	public void setParams(String[] params) {
 		this.params = params;
 	}
+	
+	public void addParams(String... params) {
+		int psize = this.params.length;
+		int ssize = params.length;
+		int nsize = psize + ssize;
+		String[] ps = new String[nsize];
+		for(int i = 0; i < psize; i++) {
+			ps[i] = this.params[i];
+		}
+		for(int i = psize; i < nsize; i++) {
+			ps[i] = params[i-psize];
+		}
+		this.params = ps;
+	}
 
 	/**
 	 * @return the name

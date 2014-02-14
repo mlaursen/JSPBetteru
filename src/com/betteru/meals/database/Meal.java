@@ -54,7 +54,7 @@ public class Meal extends DatabaseObject implements DatabaseCreateable {
 
 	@Override
 	public boolean create() {
-		return DatabaseManager.executeUpdateProcedure(CREATE, getName(), getDescription());
+		return DatabaseManager.executeStoredProcedure(CREATE, getName(), getDescription());
 	}
 
 	@Override

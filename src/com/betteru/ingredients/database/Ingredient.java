@@ -123,7 +123,7 @@ public class Ingredient extends DatabaseObject implements DatabaseObjectListable
 									   , getFat()
 									   , getCarbs()
 									   , getProtein() };
-		return DatabaseManager.executeUpdateProcedure(CREATE, params);
+		return DatabaseManager.executeStoredProcedure(CREATE, params);
 	}
 	
 

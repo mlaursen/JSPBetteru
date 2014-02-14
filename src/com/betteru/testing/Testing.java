@@ -1,7 +1,9 @@
 package com.betteru.testing;
 
 import com.betteru.accounts.Account;
+import com.betteru.accounts.AccountTemplate;
 import com.betteru.accounts.Multiplier;
+import com.betteru.accounts.TempAccount;
 import com.betteru.database.Package;
 import com.betteru.database.Procedure;
 
@@ -22,11 +24,21 @@ public class Testing {
 		System.out.println(m.getPackage());
 		
 		System.out.println(m.getAllProcedureString());
-		System.out.println(m.getPackage().call("getall"));
-		System.out.println(m.getAll(Multiplier.class));
+		System.out.println(m.call("getall"));
+		
+		Account a = new Account();
+		System.out.println(a.getPackage());
+		
+		TempAccount ta = new TempAccount("test", "teset");
+		System.out.println(ta.getPackage());
+		TempAccount ta1 = new TempAccount("0");
+		System.out.println(ta1);
+		//System.out.println(ta.create());
+		//System.out.println(ta.create());
+		//System.out.println(m.getAll(Multiplier.class));
 		/*
-		Account a = new Account("0");
-		Account a2 = new Account("test", "test");
+		Account_Old a = new Account_Old("0");
+		Account_Old a2 = new Account_Old("test", "test");
 		System.out.println(a);
 		System.out.println(a2.isValidUser());
 		
@@ -48,14 +60,14 @@ public class Testing {
 		TempAccount ta = new TempAccount("test", "test");
 		ta.create();
 		ta = new TempAccount("0");
-		Account.createFromTemp(ta);
+		Account_Old.createFromTemp(ta);
 		//ta = new TempAccount("2");
-		//System.out.println(Account.createFromTemp(ta));
+		//System.out.println(Account_Old.createFromTemp(ta));
 		/*
 		System.out.println(ta);
-		Account a = new Account("1");
+		Account_Old a = new Account_Old("1");
 		System.out.println(a);
-		Account a2 = new Account("testing", "test");
+		Account_Old a2 = new Account_Old("testing", "test");
 		System.out.println(a2.isValidUser());
 		//System.out.println(ta.create());
 		/*
@@ -64,18 +76,18 @@ public class Testing {
 		ta = new TempAccount("0");
 		System.out.println(ta);
 		
-		Account a = new Account("0");
+		Account_Old a = new Account_Old("0");
 		System.out.println(a);
-		System.out.println(new Account("test", "test").isValidUser());
-		//System.out.println(Account.createFromTemp(ta));
+		System.out.println(new Account_Old("test", "test").isValidUser());
+		//System.out.println(Account_Old.createFromTemp(ta));
 		//System.out.println(ta.getUsername() + " " + ta.getPassword() + " " + ta.getCode());
 		//boolean worked = ta.create();
 		//TempAccount ta = new TempAccount("0");
 		//System.out.println(ta.getUsername());
-		//Account a = new Account("test", "test");
+		//Account_Old a = new Account_Old("test", "test");
 		//System.out.println(a);
 		//System.out.println(a.isValidUser());
-		//System.out.println(Account.createFromTemp(ta));
+		//System.out.println(Account_Old.createFromTemp(ta));
 		/*
 		List<GenderChoice> gs = new GenderChoice().lookupAll();
 		List<MultiplierChoice> ms = new MultiplierChoice().lookupAll();
@@ -113,13 +125,13 @@ public class Testing {
 		List<MultiplierChoice> choices = c.lookupAll();
 		System.out.println(choices.get(0).getName());
 		/*
-		Account a = new Account("0");
+		Account_Old a = new Account_Old("0");
 		a.getFullAccountDetails();
 		//System.out.println(a);
 		AccountSettings as = new AccountSettings(a);
 		//System.out.println(as);
-		//as.setDayChoices(Account.DayChoices.MONDAY);
-		as.setMultiplierChoices(Account.MultiplierChoices.SEDENTARY);
+		//as.setDayChoices(Account_Old.DayChoices.MONDAY);
+		as.setMultiplierChoices(Account_Old.MultiplierChoices.SEDENTARY);
 		as.setHeight(70);
 		System.out.println(as);
 		boolean success = as.update();
@@ -130,7 +142,7 @@ public class Testing {
 		
 		
 		/*
-		Dropdown d = new Dropdown("choices", new Account(0).getMultiplierChoices());
+		Dropdown d = new Dropdown("choices", new Account_Old(0).getMultiplierChoices());
 		System.out.println(d.toHtml());
 		
 		System.out.println("\ntesting\n");
@@ -152,15 +164,15 @@ public class Testing {
 		System.out.println(f2.isValid());
 	
 		
-		//System.out.println(new Account(1).getFullAccountDetails());
+		//System.out.println(new Account_Old(1).getFullAccountDetails());
 		
-		//Account a = new Account("test2", "test2");
+		//Account_Old a = new Account_Old("test2", "test2");
 		//a.create();
 		
 		//AccountSettings as = new AccountSettings(0);
 		//System.out.println(as);
 		
-		//Account a = new Account("test", "test");
+		//Account_Old a = new Account_Old("test", "test");
 		//a.create();
 		
 		/*
@@ -173,7 +185,7 @@ public class Testing {
 		System.out.println(new HiddenField(middleware).toHtml());
 		System.out.println(new HiddenField(Util.createCode(16)).toHtml());
 		
-		System.out.println("\n\n\nStarting Account");
+		System.out.println("\n\n\nStarting Account_Old");
 		System.out.println(new EditAccountForm().toHtml());
 		
 		System.out.println(new LoginForm().toHtml());
@@ -201,7 +213,7 @@ public class Testing {
 		System.out.println(new CreateAccountForm().asModal());
 		/*
 		System.out.println(Util.createCode().length());
-		Account a = new Account("test", "test");
+		Account_Old a = new Account_Old("test", "test");
 		a.setId();
 		int id = a.getId();
 		System.out.println(a);
@@ -211,7 +223,7 @@ public class Testing {
 		//ta.create();
 		TempAccount ta = TempAccount.getTempAccount(0);
 		System.out.println(ta);
-		//Account.createFromTemp(ta);
+		//Account_Old.createFromTemp(ta);
 		
 		//ta.delete();
 		/*
@@ -227,7 +239,7 @@ public class Testing {
 			System.out.println(row.get("password"));
 		}
 		
-		//Account a = new Account("test", "test");
+		//Account_Old a = new Account_Old("test", "test");
 		//System.out.println("Is valid? " + a.isValidUser());
 		//System.out.println(a.getPassword());
 		//System.out.println(a.getUsername());
@@ -264,7 +276,7 @@ public class Testing {
 			System.out.println("next");
 		}
 		*/
-		//System.out.println("Account valid? " + a.isValidUser());
+		//System.out.println("Account_Old valid? " + a.isValidUser());
 		
 		/*
 		

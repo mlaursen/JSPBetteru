@@ -86,7 +86,7 @@ public class MealPart extends DatabaseObject implements DatabaseCreateable {
 
 	@Override
 	public boolean create() {
-		return DatabaseManager.executeUpdateProcedure(CREATE, getMealId(), getIngredientId(), getAmount(), getDefaultUnitForDB());
+		return DatabaseManager.executeStoredProcedure(CREATE, getMealId(), getIngredientId(), getAmount(), getDefaultUnitForDB());
 	}
 	
 	public MealPart lookup(String id) {

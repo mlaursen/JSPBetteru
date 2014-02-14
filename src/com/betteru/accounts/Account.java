@@ -1,77 +1,73 @@
+/**
+ * 
+ */
 package com.betteru.accounts;
 
 import java.sql.Date;
 
 import com.betteru.database.DatabaseManager;
-import com.betteru.database.DatabaseObject;
 import com.betteru.database.MyResultRow;
+import com.betteru.database.Procedure;
 import com.betteru.utils.Util;
 
+/**
+ * @author mikkel.laursen
+ *
+ */
 public class Account extends AccountTemplate {
+	{
+		Procedure p = this.getCreateProcedure();
+		p.setName(CREATE);
+		p.setDisplayName(CREATE);
+		p.setParams(new String[] { "tempid" });
+		
+		Procedure updateLogin = new Procedure(UPDATE_LAST_LOGIN, "id");
+		updateLogin.setHasCursor(false);
+		Procedure update = new Procedure(UPDATE, "id", "gender", "unitsystem", "birthday");
+		update.setHasCursor(false);
+		addProcedure(updateLogin);
+		addProcedure(update);
+	}
+	
+	public static final String UPDATE = "updateaccount", UPDATE_LAST_LOGIN = "updatelastlogin", CREATE = "createfromtemp";
+	private Date birthday;
+	private UnitSystem unitSystem;
+	private Gender gender;
+	public Account() {	}
 
-	private static final String LOOKUP = "ACCOUNT_GET_BYID(:ID, :CURSOR)";
-	//private static final String LOOKUP_BYUSERNAME = "ACCOUNT_GET_BYUSER(:USER, :CURSOR)";
-	private static final String CREATE = "ACCOUNT_INSERT(:USER, :PASS)";
-	private static final String GET_IDPASSWORD = "ACCOUNT_GETIDPASS_BYUSER(:USER, :CURSOR)";
-	private static final String UPDATE_LAST_LOGIN = "ACCOUNT_UPDATE_LASTLOGIN(:ID)";
-	private static final String UPDATE = "ACCOUNT_UPDATE_BYID(:ID, :GENDER, :UNIT, :BIRTHDAY)";
-	private GenderChoice gender;
-	private UnitChoice unit;
-	private Date birthday, lastLogin, activeSince;
-	public Account() { }
+	/**
+	 * @param id
+	 */
 	public Account(String id) {
 		super(id);
-		Account a = lookup(id);
-		setUsername(a.getUsername());
-		setPassword(a.getPassword());
-		gender = a.getGender();
-		unit = a.getUnit();
-		birthday = a.getBirthday();
-		lastLogin = a.getLastLogin();
-		activeSince = a.getActiveSince();
+		Account a = get(id);
+		setBirthday(a.getBirthday());
+		setUnitSystem(a.getUnitSystem());
+		setGender(a.getGender());
 	}
 
+	/**
+	 * @param id
+	 * @param u
+	 * @param p
+	 */
 	public Account(String id, String u, String p) {
 		super(id, u, p);
 	}
 	
+	
 	public Account(TempAccount ta) {
 		super(ta.getUsername(), ta.getPassword());
 	}
-	
-	public Account(String u, String p) {
-		super(u, p);
-	}
 
+	/**
+	 * @param r
+	 */
 	public Account(MyResultRow r) {
 		super(r);
-		gender = new GenderChoice().lookup(r.get(Fields.GENDERID.toString()));
-		unit = new UnitChoice().lookup(r.get(Fields.UNITID.toString()));
-		birthday = Util.stringToDate(r.get(Fields.BIRTHDAY.toString()));
-		lastLogin = Util.stringToDate(r.get(Fields.LAST_LOGIN.toString()));
-		activeSince = Util.stringToDate(r.get(Fields.ACTIVE_SINCE.toString()));
-	}
-	
-	public Account(AccountView av) {
-		super(av.getPrimaryKey());
-		setUsername(av.getUsername());
-		setGenderByName(av.getGender());
-		setUnitByName(av.getUnit());
-		setBirthday(av.getBirthday());
-	}
-	
-	/**
-	 * Lookup an account from the database by id
-	 * @param id
-	 * @return
-	 */
-	public Account lookup(String id) {
-		return lookup(id, Account.class);
-	}
-
-	@Override
-	protected <T extends DatabaseObject> T lookup(String id, Class<T> type) {
-		return type.cast(new Account(DatabaseManager.getStoredProcedureFirstRow(LOOKUP, id)));
+		setBirthday(r);
+		setUnitSystem(r);
+		setGender(r);
 	}
 	
 	/**
@@ -80,116 +76,108 @@ public class Account extends AccountTemplate {
 	 * @return
 	 */
 	public boolean isValidUser() {
-		MyResultRow row = DatabaseManager.getStoredProcedureFirstRow(GET_IDPASSWORD, getUsername());
+		MyResultRow row = DatabaseManager.getStoredProcedureFirstRow(call(""), getUsername());
 		boolean valid = false;
 		if(row != null) {
-			String pswd = row.get(Fields.PASSWORD.toString());
+			String pswd = row.get("password");
 			String salt = pswd.substring(0, 64);
 			String hash = Util.repeatedHashing(salt, getPassword());
 			valid = hash.equals(pswd);
 			if(valid)
-				setPrimaryKey(row.get(Fields.ID.toString()));
+				setPrimaryKey(row.get(getPrimaryKeyName()));
 		}
 		return valid;
 	}
 	
+	/**
+	 * Calls a stored procedure to update the last login of the current account
+	 * @return boolean if the update encountered any errors. True = success, false = error
+	 */
 	public boolean updateLastLogin() {
-		return DatabaseManager.executeUpdateProcedure(UPDATE_LAST_LOGIN, getPrimaryKey());
-	}
-	
-	public GenderChoice getGender() {
-		return gender;
-	}
-	
-	public String getGenderId() {
-		return gender.getPrimaryKey();
-	}
-	
-	public void setGender(String id) {
-		setGender(new GenderChoice(id));
-	}
-	
-	public void setGenderByName(String g) {
-		setGender(GenderChoice.getGenderChoice(g));
-	}
-	
-	public void setGender(GenderChoice c) {
-		gender = c;
-	}
-	
-	public UnitChoice getUnit() {
-		return unit;
-	}
-	
-	public String getUnitId() {
-		return unit.getId();
-	}
-	
-	public void setUnit(String id) {
-		setUnit(new UnitChoice(id));
-	}
-	
-	public void setUnitByName(String u) {
-		setUnit(UnitChoice.getUnitChoice(u));
-	}
-	
-	public void setUnit(UnitChoice u) {
-		unit = u;
-	}
-	
-	public Date getBirthday() {
-		return birthday;
-	}
-	
-	public String getBirthdayAsString() {
-		return Util.sqlDateToString(birthday);
-	}
-	public void setBirthday(String b) {
-		setBirthday(Util.stringToDate(b));
-	}
-	
-	public void setBirthday(Date b) {
-		birthday = b;
-	}
-	
-	public Date getLastLogin() {
-		return lastLogin;
-	}
-	
-	public void setLastLogin(Date ll) {
-		lastLogin = ll;
-	}
-	
-	public Date getActiveSince() {
-		return activeSince;
-	}
-	
-	public void setActiveSince(Date as) {
-		activeSince = as;
+		return DatabaseManager.executeStoredProcedure(call(UPDATE_LAST_LOGIN), getPrimaryKey());
 	}
 	
 	public boolean update() {
-		return DatabaseManager.executeUpdateProcedure(UPDATE, getId(), getGenderId(), getUnitId(), getBirthday());
+		return DatabaseManager.executeStoredProcedure(UPDATE, getPrimaryKey(), getGender(), getUnitSystem(), getBirthday());
+	}
+
+	/* (non-Javadoc)
+	 * Do Not use this
+	 * @see com.betteru.accounts.Account#createFromTemp(TempAccount ta)
+	 */
+	@Deprecated
+	@Override
+	public boolean create() {
+		return false;
 	}
 	
-	public static boolean createFromTemp(TempAccount ta) {
-		return DatabaseManager.executeUpdateProcedure(CREATE, ta.getUsername(), ta.getPassword());
+	@Override
+	public String createProcedureString() {
+		return this.call("createfromtemp");
 	}
 	
-	public String toString() {
-		String s = super.toString();
-		s += ", Gender: " + (gender == null ? "" : gender.getValue());
-		s += ", Unit: " + (unit == null ? "" : unit.getValue());
-		s += ", Birthday: " + (birthday == null ? "" : Util.sqlDateToString(birthday));
-		s += ", Active Since: " + (activeSince == null ? "" : Util.sqlDateToString(activeSince));
-		s += ", last login: " + (lastLogin == null ? "" : Util.sqlDateToString(lastLogin));
-		return s;
+	public boolean createFromTemp(TempAccount ta) {
+		return DatabaseManager.executeStoredProcedure(createProcedureString(), ta.getPrimaryKey());
 	}
 	
-	public enum Fields {
-		ID, USERNAME, PASSWORD, GENDERID, UNITID, BIRTHDAY, LAST_LOGIN, ACTIVE_SINCE;
-		public String toString() {
-			return this.name().toLowerCase();
-		}
+	public Account get(String id) {
+		return get(id, Account.class);
 	}
+
+	
+
+	/**
+	 * @return the birthday
+	 */
+	public Date getBirthday() {
+		return birthday;
+	}
+
+	/**
+	 * @param birthday the birthday to set
+	 */
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
+	}
+	
+	public void setBirthday(MyResultRow r) {
+		birthday = Util.stringToDate(r.get("birthday"));
+	}
+
+	/**
+	 * @return the unit
+	 */
+	public UnitSystem getUnitSystem() {
+		return unitSystem;
+	}
+
+	/**
+	 * @param unit the unit to set
+	 */
+	public void setUnitSystem(UnitSystem unit) {
+		this.unitSystem = unit;
+	}
+	
+	public void setUnitSystem(MyResultRow r) {
+		unitSystem = new UnitSystem(r);
+	}
+
+	/**
+	 * @return the gender
+	 */
+	public Gender getGender() {
+		return gender;
+	}
+	
+	public void setGender(MyResultRow r) {
+		gender = new Gender(r);
+	}
+
+	/**
+	 * @param gender the gender to set
+	 */
+	public void setGender(Gender gender) {
+		this.gender = gender;
+	}
+
 }

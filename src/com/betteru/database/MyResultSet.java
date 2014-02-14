@@ -30,6 +30,7 @@ public class MyResultSet implements Iterable<MyResultRow> {
 		return this.getRow(0);
 	}
 
+
 	public MyResultRow getRow(int rowNum) {
 		if (size == 0 || rowNum > size)
 			return null;
@@ -43,7 +44,8 @@ public class MyResultSet implements Iterable<MyResultRow> {
 		List<String> colNames = new ArrayList<String>();
 		for (int i = 1; i <= cols; i++)
 			colNames.add(rsmd.getColumnName(i).toLowerCase());
-
+		
+		
 		List<MyResultRow> rows = new ArrayList<MyResultRow>();
 		while (rs.next()) {
 			MyResultRow columns = new MyResultRow();
@@ -84,5 +86,14 @@ public class MyResultSet implements Iterable<MyResultRow> {
 			e.printStackTrace();
 		}
 		return list;
+	}
+	
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "MyResultSet [rs=" + rs + ", colNames=" + colNames + ", size=" + size + "]";
 	}
 }

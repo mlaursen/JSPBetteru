@@ -123,7 +123,7 @@ public class AccountSetting extends DatabaseObject {
 	}
 	
 	public boolean update() {
-		return DatabaseManager.executeUpdateProcedure(UPDATE, getAccountId(), getRecalcId(), getMultiplierId(), ""+getHeight());
+		return DatabaseManager.executeStoredProcedure(UPDATE, getAccountId(), getRecalcId(), getMultiplierId(), ""+getHeight());
 	}
 
 }

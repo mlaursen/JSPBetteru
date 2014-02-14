@@ -4,8 +4,7 @@
 package com.betteru.database;
 
 import java.util.Arrays;
-
-import com.betteru.database.Util;
+import java.util.List;
 
 /**
  * @author mikkel.laursen
@@ -31,9 +30,7 @@ public class Package {
 	 * @param procedures
 	 */
 	public Package(Class<?> c, Procedure... procedures) {
-		String n = c.getSimpleName();
-		String[] upps = n.split("(?=\\p{Upper})");
-		setName(Util.combineWith(upps));
+		setName(Util.combineWith(Util.splitOnUpper(c.getSimpleName())));
 		this.procedures = procedures;
 	}
 	
@@ -53,6 +50,11 @@ public class Package {
 		}
 		procs[l] = p;
 		this.procedures = procs;
+	}
+	
+	public void addParametersToProcedure(String procName, String... params) {
+		Procedure p = getProcedure(procName);
+		p.addParams(params);
 	}
 	/**
 	 * @return the procedures
@@ -83,10 +85,21 @@ public class Package {
 	 * @return
 	 */
 	public String callProcedure(String n) {
-		for(Procedure p : procedures)
-			if(p.getDisplayName().equalsIgnoreCase(n))
-				return p.toString();
-		return "";
+		Procedure p = getProcedure(n);
+		return p == null ? "" : p.toString();
+	}
+	
+	/**
+	 * Returns a Procedure by procedure name
+	 * @param pName
+	 * @return
+	 */
+	public Procedure getProcedure(String pName) {
+		for(Procedure p : procedures) {
+			if(p.getDisplayName().equalsIgnoreCase(pName))
+				return p;
+		}
+		return null;
 	}
 	
 	/**
@@ -105,7 +118,7 @@ public class Package {
 	 */
 	@Override
 	public String toString() {
-		return "Package [name=" + name + ", procedures=" + Arrays.toString(procedures) + "]";
+		return "Package [name=" + name.toUpperCase() + ", procedures=" + Arrays.toString(procedures) + "]";
 	}
 
 }

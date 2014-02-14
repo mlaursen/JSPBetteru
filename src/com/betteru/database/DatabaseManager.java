@@ -34,7 +34,7 @@ public class DatabaseManager {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public static boolean executeUpdateProcedure(String pname, Object... params) {
+	public static boolean executeStoredProcedure(String pname, Object... params) {
 		boolean success = false;
 		Connection conn = null;
 		CallableStatement cs = null;
@@ -43,10 +43,9 @@ public class DatabaseManager {
 			cs = conn.prepareCall("{call " + pname + "}");
 			for(int i = 1; i <= params.length; i++) {
 				Object p = params[i-1];
-				if(p instanceof String) {
-					cs.setString(i, (String) p);
-				}
-				else if(p instanceof Date) {
+				applyDatatype(p, i, conn, cs);
+				/*
+				if(p instanceof Date) {
 					cs.setDate(i, (Date) p);
 				}
 				else if(p instanceof Number) {
@@ -57,7 +56,12 @@ public class DatabaseManager {
 					c.setString(1, ((MyClob) p).getValue());
 					cs.setClob(i, c);
 				}
+				else {
+					cs.setString(i, p.toString());
+				}
 				//cs.setString(i, params[i-1]);
+				 * */
+				 */
 			}
 			success = cs.executeUpdate() > 0;
 		}
@@ -148,5 +152,22 @@ public class DatabaseManager {
 			}
 		}
 		return results;
+	}
+	
+	private static void applyDatatype(Object p, int i, Connection conn, CallableStatement cs) throws SQLException {
+		if(p instanceof Date) {
+			cs.setDate(i, (Date) p);
+		}
+		else if(p instanceof Number) {
+			cs.setDouble(i, (Double) p);
+		}
+		else if(p instanceof MyClob) {
+			Clob c = conn.createClob();
+			c.setString(1, ((MyClob) p).getValue());
+			cs.setClob(i, c);
+		}
+		else {
+			cs.setString(i, p.toString());
+		}
 	}
 }

@@ -66,6 +66,9 @@ public abstract class DatabaseObject {
 	 */
 	protected <T extends DatabaseObject> T get(String primaryKey, String procName, Class<T> type) {
 		try {
+			System.out.println(procName + ", " + primaryKey);
+			MyResultSet s = DatabaseManager.getStoredProcedureCursor(procName, primaryKey);
+			System.out.println(s);
 			return DatabaseManager.getStoredProcedureFirstRow(procName, primaryKey).construct(type);
 		}
 		catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException

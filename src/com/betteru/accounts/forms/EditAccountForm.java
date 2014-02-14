@@ -2,7 +2,7 @@ package com.betteru.accounts.forms;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.betteru.accounts.Account;
+import com.betteru.accounts.Account_Old;
 import com.betteru.accounts.AccountSetting;
 import com.betteru.accounts.AccountView;
 import com.betteru.accounts.GenderChoice;
@@ -24,7 +24,7 @@ public class EditAccountForm extends HtmlForm {
 								RECALC="recalc", HEIGHT="height";
 	public EditAccountForm(AccountView av) {
 		super(ACTION);
-		Account a = new Account(av);
+		Account_Old a = new Account_Old(av);
 		AccountSetting as = new AccountSetting(av);
 
 		DateField birthday = new DateField(BIRTHDAY);

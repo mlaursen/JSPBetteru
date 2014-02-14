@@ -1,19 +1,17 @@
 package com.betteru.accounts;
 
-import java.sql.Date;
-
 import com.betteru.database.DatabaseCreateable;
 import com.betteru.database.DatabaseManager;
-import com.betteru.database.DatabaseObject;
 import com.betteru.database.MyResultRow;
+import com.betteru.database.Procedure;
 import com.betteru.utils.Util;
 
 public class TempAccount extends AccountTemplate implements DatabaseCreateable {
-
-	private static final String LOOKUP = "TEMP_ACCOUNT_GET_BYID(:ID, :CUROSR)";
-	private static final String INSERT = "TEMP_ACCOUNT_INSERT(:USERNAME, :PASSWORD, :CODE)";
+	{
+		Procedure pNew = getCreateProcedure();
+		pNew.addParams("code");
+	}
 	private String code;
-	private Date created;
 	public TempAccount() { }
 
 	/**
@@ -23,7 +21,7 @@ public class TempAccount extends AccountTemplate implements DatabaseCreateable {
 	 */
 	public TempAccount(String id) {
 		super(id);
-		TempAccount ta = lookup(id);
+		TempAccount ta = get(id);
 		setUsername(ta.getUsername());
 		setPassword(ta.getPassword());
 		setCode(ta.getCode());
@@ -42,33 +40,23 @@ public class TempAccount extends AccountTemplate implements DatabaseCreateable {
 	
 	public TempAccount(MyResultRow r) {
 		super(r);
-		code = r.get("code");
-		created = Util.stringToDate(r.get("created"));
+		setCode(r);//code = r.get("code");
 	}
 	
 	public String getCode() {
 		return code;
 	}
 	
+	public void setCode(MyResultRow r) {
+		code = r.get("code");
+	}
+	
 	public void setCode(String c) {
 		code = c;
 	}
 	
-	public Date getCreated() {
-		return created;
-	}
-	
-	public void setCreated(Date c) {
-		created = c;
-	}
-	
-	public TempAccount lookup(String id) {
-		return lookup(id, TempAccount.class);
-	}
-
-	@Override
-	protected <T extends DatabaseObject> T lookup(String id, Class<T> type) {
-		return type.cast(new TempAccount(DatabaseManager.getStoredProcedureFirstRow(LOOKUP, id)));
+	public TempAccount get(String id) {
+		return get(id, TempAccount.class);
 	}
 	
 	@Override
@@ -78,7 +66,7 @@ public class TempAccount extends AccountTemplate implements DatabaseCreateable {
 		else {
 			String hashed = Util.createHash(getUsername(), getPassword());
 			setPassword(hashed);
-			return DatabaseManager.executeUpdateProcedure(INSERT, getUsername(), hashed, code);
+			return DatabaseManager.executeStoredProcedure(call("new"), getUsername(), hashed, code);
 		}
 	}
 	

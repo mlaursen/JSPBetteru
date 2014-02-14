@@ -103,6 +103,6 @@ public class Brand extends DatabaseObject implements SidebarItemable, DropdownCh
 	}
 	@Override
 	public boolean create() {
-		return DatabaseManager.executeUpdateProcedure(CREATE, getName());
+		return DatabaseManager.executeStoredProcedure(CREATE, getName());
 	}
 }
