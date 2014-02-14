@@ -44,23 +44,6 @@ public class DatabaseManager {
 			for(int i = 1; i <= params.length; i++) {
 				Object p = params[i-1];
 				applyDatatype(p, i, conn, cs);
-				/*
-				if(p instanceof Date) {
-					cs.setDate(i, (Date) p);
-				}
-				else if(p instanceof Number) {
-					cs.setDouble(i, (Double) p);
-				}
-				else if(p instanceof MyClob) {
-					Clob c = conn.createClob();
-					c.setString(1, ((MyClob) p).getValue());
-					cs.setClob(i, c);
-				}
-				else {
-					cs.setString(i, p.toString());
-				}
-				//cs.setString(i, params[i-1]);
-				 */
 			}
 			success = cs.executeUpdate() > 0;
 		}
@@ -169,6 +152,9 @@ public class DatabaseManager {
 			Clob c = conn.createClob();
 			c.setString(1, ((MyClob) p).getValue());
 			cs.setClob(i, c);
+		}
+		else if(p instanceof DatabaseObject) {
+			cs.setString(i, ((DatabaseObject) p).getPrimaryKey());
 		}
 		else {
 			cs.setString(i, p.toString());

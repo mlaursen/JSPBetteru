@@ -1,156 +1,123 @@
+/**
+ * 
+ */
 package com.betteru.accounts;
-
-import java.sql.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.betteru.database.DatabaseManager;
 import com.betteru.database.DatabaseObject;
+import com.betteru.database.DatabaseUpdateable;
 import com.betteru.database.MyResultRow;
-import com.betteru.utils.Util;
+import com.betteru.database.Package;
+import com.betteru.database.Procedure;
 
-public class AccountView extends DatabaseObject {
-	
-	private static final String LOOKUP = "ACCOUNT_VIEW_GET_BYID(:ID, :CURSOR)";
-	//private static final String UPDATE = "ACCOUNT_VIEW_UPDATE(:ACTID, :USER, :GEND, :UNIT";
-	private String username, gender, unit, recalc, multiplier;
-	private Date birthday, activeSince;
-	private double height, multiplierAmount;
-	public AccountView() { }
-	public AccountView(String id) {
-		super(id);
-		AccountView a = lookup(id);
-		setUsername(a.getUsername());
-		setGender(a.getGender());
-		setUnit(a.getUnit());
-		setRecalc(a.getRecalc());
-		setMultiplier(a.getMultiplier());
-		setMultiplierAmount(a.getMultiplierAmount());
-		setBirthday(a.getBirthday());
-		setActiveSince(a.getActiveSince());
-		setHeight(a.getHeight());
-		/*
-		username = a.getUsername();
-		gender = a.getGender();
-		unit = a.getUnit();
-		recalc = a.getRecalc();
-		birthday = a.getBirthday();
-		activeSince = a.getActiveSince();
-		multiplier = a.getMultiplier();
-		height = a.getHeight();
-		*/
+/**
+ * @author mikkel.laursen
+ *
+ */
+public class AccountView extends DatabaseObject implements DatabaseUpdateable {
+	{
+		Package pkg = getPackage();
+		pkg.setName("account");
+		Procedure get = pkg.getProcedure("get");
+		get.setName("getfromview");
 	}
-	
-	public AccountView(MyResultRow r) {
-		super(r.get(Fields.ID.toString()));
-		username = r.get(Fields.USERNAME.toString());
-		gender   = r.get(Fields.GENDER.toString());
-		unit     = r.get(Fields.UNIT_SYSTEM.toString());
-		recalc   = r.get(Fields.RECALC.toString());
-		birthday = Util.stringToDate(r.get(Fields.BIRTHDAY.toString()));
-		activeSince = Util.stringToDate(r.get(Fields.ACTIVE_SINCE.toString()));
-		multiplier = r.get(Fields.MULTIPLIER.toString());
-		height     = Double.parseDouble(r.get(Fields.HEIGHT.toString()));
+	private Account a;
+	private AccountSetting as;
+	public AccountView() { }
+
+	/**
+	 * @param primaryKey
+	 */
+	public AccountView(String accountId) {
+		super(accountId);
+		AccountView av = get(accountId);
+		setAccount(av.getAccount());
+		setAccountSetting(av.getAccountSetting());
 	}
 	
 	public AccountView(HttpServletRequest request) {
 		this((String) request.getSession().getAttribute("userid"));
 	}
-	
-	public AccountView lookup(String id) {
-		return lookup(id, AccountView.class);
+
+
+	/**
+	 * @param r
+	 */
+	public AccountView(MyResultRow r) {
+		super(r);
+		setAccount(r);
+		setAccountSetting(r);
+	}
+
+	/**
+	 * @return the a
+	 */
+	public Account getAccount() {
+		return a;
+	}
+
+	/**
+	 * @param a the a to set
+	 */
+	public void setAccount(Account a) {
+		this.a = a;
+	}
+
+	/**
+	 * @return the as
+	 */
+	public AccountSetting getAccountSetting() {
+		return as;
+	}
+
+	/**
+	 * @param as the as to set
+	 */
+	public void setAccountSetting(AccountSetting as) {
+		this.as = as;
 	}
 	
-	public String getUsername() {
-		return username;
+	/**
+	 * Sets an account with only:
+	 * 	ID, username, birthday, gender, and unit fields
+	 * @param r
+	 */
+	public void setAccount(MyResultRow r) {
+		a = new Account();
+		a.setPrimaryKey(r);
+		a.setUsername(r);
+		a.setGender(r);
+		a.setUnitSystem(r);
 	}
 	
-	public void setUsername(String u) {
-		username = u;
-	}
-	
-	public String getGender() {
-		return gender;
-	}
-	
-	public void setGender(String name) {
-		gender = name;
-	}
-	
-	public String getUnit() {
-		return unit;
-	}
-	
-	public void setUnit(String name) {
-		unit = name;
-	}
-	
-	public Date getBirthday() {
-		return birthday;
-	}
-	
-	public void setBirthday(Date b) {
-		birthday = b;
-	}
-	
-	public Date getActiveSince() {
-		return activeSince;
-	}
-	
-	public void setActiveSince(Date a) {
-		activeSince = a;
-	}
-	
-	public double getHeight() {
-		return height;
-	}
-	
-	public void setHeight(double h) {
-		height = h;
-	}
-	
-	public String getMultiplier() {
-		return multiplier;
-	}
-	
-	public double getMultiplierAmount() {
-		return multiplierAmount;
-	}
-	
-	public void setMultiplier(String m) {
-		multiplier = m;
-	}
-	
-	public void setMultiplierAmount(String m) {
-		setMultiplierAmount(Double.parseDouble(m));
-	}
-	
-	public void setMultiplierAmount(double m) {
-		multiplierAmount = m;
-	}
-	
-	public String getRecalc() {
-		return recalc;
-	}
-	
-	public void setRecalc(String name) {
-		recalc = name;
+	/**
+	 * Sets an account setting with only:
+	 * 	accountid, height, multiplier, weekday fields
+	 * @param r
+	 */
+	public void setAccountSetting(MyResultRow r) {
+		as = new AccountSetting();
+		as.setAccountId(r.get("id"));
+		as.setHeight(r);
+		as.setMultiplier(r);
+		as.setWeekday(r);
 	}
 
 	@Override
-	protected <T extends DatabaseObject> T lookup(String id, Class<T> type) {
-		return type.cast(new AccountView(DatabaseManager.getStoredProcedureFirstRow(LOOKUP, id)));
+	public boolean update() {
+		return a.update() && as.update();
 	}
 
-	private enum Fields {
-		ID, USERNAME, BIRTHDAY, UNIT_SYSTEM, GENDER, ACTIVE_SINCE, HEIGHT, MULTIPLIER, RECALC;
-		public String toString() {
-			return name().toLowerCase();
-		}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "AccountView [a=" + a + ", as=" + as + "]";
 	}
 	
-	public String toString() {
-		String s = "" + getId();
-		return s;
+	public AccountView get(String accountId) {
+		return get(accountId, AccountView.class);
 	}
 }

@@ -18,8 +18,13 @@ public class Multiplier extends AccountChoice {
 	public Multiplier() { }
 	public Multiplier(String primaryKey) {
 		super(primaryKey);
-		Multiplier m = get(primaryKey);
-		setAmount(m.getAmount());
+		if(primaryKey == null) {
+			setPrimaryKey(defaultChoice());
+		}
+		else {
+			Multiplier m = get(primaryKey);
+			setAmount(m.getAmount());
+		}
 	}
 
 	/**

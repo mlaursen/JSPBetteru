@@ -2,13 +2,7 @@ package com.betteru.accounts.forms;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.betteru.accounts.Account_Old;
-import com.betteru.accounts.AccountSetting_Old;
 import com.betteru.accounts.AccountView;
-import com.betteru.accounts.GenderChoice;
-import com.betteru.accounts.MultiplierChoice;
-import com.betteru.accounts.RecalcChoice;
-import com.betteru.accounts.UnitChoice;
 import com.betteru.utils.Util;
 import com.github.mlaursen.bootstrap.forms.HtmlForm;
 import com.github.mlaursen.bootstrap.forms.fields.ControlGroup;
@@ -19,10 +13,27 @@ import com.github.mlaursen.bootstrap.forms.fields.input.NumberField;
 
 public class EditAccountForm extends HtmlForm {
 	public static final String ACTION = "index.jsp";
+	public static final String BIRTHDAY = "birthday", GENDER="gender", UNIT="unit", MULTIPLIER="multiplier",
+			RECALC="recalc", HEIGHT="height";
+	
+	public EditAccountForm(AccountView av) {
+		super(ACTION);
+	}
+	
+	public EditAccountForm(HttpServletRequest request, AccountView av) {
+		this(av);
+		updateValue(BIRTHDAY, request);
+		updateValue(GENDER, request);
+		updateValue(UNIT, request);
+		updateValue(HEIGHT, request);
+		updateValue(RECALC, request);
+		updateValue(MULTIPLIER, request);
+	}
+	/**
 	
 	public static final String BIRTHDAY = "birthday", GENDER="gender", UNIT="unit", MULTIPLIER="multiplier",
 								RECALC="recalc", HEIGHT="height";
-	public EditAccountForm(AccountView av) {
+	public EditAccountForm(AccountView_Old av) {
 		super(ACTION);
 		Account_Old a = new Account_Old(av);
 		AccountSetting_Old as = new AccountSetting_Old(av);
@@ -53,8 +64,7 @@ public class EditAccountForm extends HtmlForm {
 		update.setValue("Update");
 		this.addFields(ControlGroup.wrap(birthday, genders, units, height, recalc, multiplier, update));
 	}
-	
-	public EditAccountForm(HttpServletRequest request, AccountView av) {
+	public EditAccountForm(HttpServletRequest request, AccountView_Old av) {
 		this(av);
 		updateValue(BIRTHDAY, request);
 		updateValue(GENDER, request);
@@ -63,4 +73,6 @@ public class EditAccountForm extends HtmlForm {
 		updateValue(RECALC, request);
 		updateValue(MULTIPLIER, request);
 	}
+	
+	*/
 }

@@ -11,9 +11,13 @@ import com.betteru.database.Procedure;
 public class Testing {
 
 	public static void main(String[] args) throws Exception {
-
-		System.out.println(new Account("0"));
-		
+		Account a = new Account("0");
+		AccountSetting as = new AccountSetting("0");
+		System.out.println(a);
+		System.out.println(as);
+		AccountView av = new AccountView("0");
+		System.out.println(av);
+		//System.out.println(new AccountView("0"));
 		/*
 		Gender g = new Gender();
 		System.out.println(g.getAll());

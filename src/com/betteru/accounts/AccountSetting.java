@@ -6,7 +6,9 @@ package com.betteru.accounts;
 import java.sql.Date;
 
 import com.betteru.database.DatabaseCreateable;
+import com.betteru.database.DatabaseManager;
 import com.betteru.database.DatabaseObject;
+import com.betteru.database.DatabaseUpdateable;
 import com.betteru.database.MyResultRow;
 import com.betteru.database.Procedure;
 import com.betteru.utils.Util;
@@ -15,7 +17,7 @@ import com.betteru.utils.Util;
  * @author mikkel.laursen
  *
  */
-public class AccountSetting extends DatabaseObject implements DatabaseCreateable {
+public class AccountSetting extends DatabaseObject implements DatabaseCreateable, DatabaseUpdateable {
 	{
 		Procedure pNew = new Procedure("new", "accountid", "weekday", "multiplier", "height");
 		pNew.setHasCursor(false);
@@ -31,8 +33,14 @@ public class AccountSetting extends DatabaseObject implements DatabaseCreateable
 	/**
 	 * @param primaryKey
 	 */
-	public AccountSetting(String primaryKey) {
-		super(primaryKey);
+	public AccountSetting(String accountId) {
+		super();
+		AccountSetting as = get(accountId);
+		setAccountId(as.getAccountId());
+		setMultiplier(as.getMultiplier());
+		setWeekday(as.getWeekday());
+		setHeight(as.getHeight());
+		setDateChanged(as.getDateChanged());
 	}
 	
 	public AccountSetting(MyResultRow r) {
@@ -43,27 +51,13 @@ public class AccountSetting extends DatabaseObject implements DatabaseCreateable
 		setHeight(r);
 		setDateChanged(r);
 	}
-	
-	public AccountSetting get(String id) {
-		return get(id, AccountSetting.class);
-	}
 
 	/* (non-Javadoc)
 	 * @see com.betteru.database.DatabaseCreateable#create()
 	 */
 	@Override
 	public boolean create() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/* (non-Javadoc)
-	 * @see com.betteru.database.DatabaseCreateable#createProcedureString()
-	 */
-	@Override
-	public String createProcedureString() {
-		// TODO Auto-generated method stub
-		return null;
+		return DatabaseManager.executeStoredProcedure("new", getAccountId(), getWeekday(), getMultiplier(), getHeight());
 	}
 
 	/**
@@ -160,5 +154,31 @@ public class AccountSetting extends DatabaseObject implements DatabaseCreateable
 	public void setDateChanged(MyResultRow r) {
 		String d = r.get("date_changed");
 		dateChanged = d == null ? null : Util.stringToDate(d);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.betteru.database.DatabaseUpdateable#update()
+	 */
+	@Override
+	public boolean update() {
+		return create();
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "AccountSetting [accountId=" + accountId + ", multiplier=" + multiplier + ", weekday=" + weekday + ", height=" + height
+				+ ", dateChanged=" + dateChanged + "]";
+	}
+	
+	public AccountSetting get(String accountId) {
+		return get(accountId, AccountSetting.class);
+	}
+	
+	@Override
+	protected <T extends DatabaseObject> T get(String accountId, Class<T> type) {
+		return type.cast(new AccountSetting(DatabaseManager.getStoredProcedureFirstRow(call("get"), accountId)));
 	}
 }

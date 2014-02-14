@@ -41,6 +41,10 @@ public abstract class AccountTemplate extends DatabaseObject implements Database
 		username = u;
 	}
 	
+	public void setUsername(MyResultRow r) {
+		username = r.get("username");
+	}
+	
 	public String getPassword() {
 		return password;
 	}
@@ -49,16 +53,15 @@ public abstract class AccountTemplate extends DatabaseObject implements Database
 		password = p;
 	}
 	
+	public void setPassword(MyResultRow r) {
+		password = r.get("password");
+	}
+	
 	public String toString() {
 		return "ID: " + getPrimaryKey() + ", Username: " + username + ", Password: " + password;
 	}
 	
 	protected Procedure getCreateProcedure() {
 		return super.getPackage().getProcedure("new");
-	}
-	
-	@Override
-	public String createProcedureString() {
-		return this.call("new");
 	}
 }

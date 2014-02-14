@@ -6,6 +6,7 @@ package com.betteru.accounts;
 import java.sql.Date;
 
 import com.betteru.database.DatabaseManager;
+import com.betteru.database.DatabaseUpdateable;
 import com.betteru.database.MyResultRow;
 import com.betteru.database.Procedure;
 import com.betteru.utils.Util;
@@ -14,7 +15,7 @@ import com.betteru.utils.Util;
  * @author mikkel.laursen
  *
  */
-public class Account extends AccountTemplate {
+public class Account extends AccountTemplate implements DatabaseUpdateable {
 	{
 		Procedure p = this.getCreateProcedure();
 		p.setName(CREATE);
@@ -99,12 +100,13 @@ public class Account extends AccountTemplate {
 		return DatabaseManager.executeStoredProcedure(call(UPDATE_LAST_LOGIN), getPrimaryKey());
 	}
 	
+	@Override
 	public boolean update() {
-		return DatabaseManager.executeStoredProcedure(UPDATE, getPrimaryKey(), getGender(), getUnitSystem(), getBirthday());
+		return DatabaseManager.executeStoredProcedure(call(UPDATE), getPrimaryKey(), getGender(), getUnitSystem(), getBirthday());
 	}
 
 	/* (non-Javadoc)
-	 * Do Not use this
+	 * Do Not use this. It does not store a hashed password
 	 * @see com.betteru.accounts.Account#createFromTemp(TempAccount ta)
 	 */
 	@Deprecated
@@ -113,13 +115,8 @@ public class Account extends AccountTemplate {
 		return false;
 	}
 	
-	@Override
-	public String createProcedureString() {
-		return this.call("createfromtemp");
-	}
-	
 	public boolean createFromTemp(TempAccount ta) {
-		return DatabaseManager.executeStoredProcedure(createProcedureString(), ta.getPrimaryKey());
+		return DatabaseManager.executeStoredProcedure(call(CREATE), ta.getPrimaryKey());
 	}
 	
 	public Account get(String id) {

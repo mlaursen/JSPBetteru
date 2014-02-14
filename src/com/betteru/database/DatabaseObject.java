@@ -24,6 +24,10 @@ public abstract class DatabaseObject {
 		this.primaryKey = id;
 	}
 	
+	public void setPrimaryKey(MyResultRow r) {
+		primaryKey = r.get(getPrimaryKeyName());
+	}
+	
 	public String getPrimaryKey() {
 		return primaryKey;
 	}

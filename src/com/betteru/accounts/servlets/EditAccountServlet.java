@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.betteru.accounts.Account_Old;
 import com.betteru.accounts.AccountSetting_Old;
-import com.betteru.accounts.AccountView;
+import com.betteru.accounts.AccountView_Old;
 import com.betteru.accounts.forms.EditAccountForm;
 
 /**
@@ -31,7 +31,7 @@ public class EditAccountServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		AccountView a = new AccountView(request);
+		AccountView_Old a = new AccountView_Old(request);
 		RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/accounts/settings.jsp");
 		request.setAttribute("form", new EditAccountForm(a).toHtml());
 		rd.forward(request, response);
@@ -42,7 +42,7 @@ public class EditAccountServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userid = (String) request.getSession().getAttribute("userid");
-		AccountView av = new AccountView(userid);
+		AccountView_Old av = new AccountView_Old(userid);
 		EditAccountForm form = new EditAccountForm(request, av);
 		if(form.isValid()) {
 			String b = form.getFieldValue(EditAccountForm.BIRTHDAY);
