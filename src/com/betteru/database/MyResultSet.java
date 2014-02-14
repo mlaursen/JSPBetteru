@@ -73,17 +73,16 @@ public class MyResultSet implements Iterable<MyResultRow> {
 	 * @param type	The class to cast the list to
 	 * @return	List of Class type
 	 */
-	public <T> List<T> toListOf(Class<T> type) {
+	public <T extends DatabaseObject> List<T> toListOf(Class<T> type) {
 		List<T> list = new ArrayList<>();
 		try {
 			for (MyResultRow r : rs) {
-				list.add(type.cast(type.getConstructor(MyResultRow.class).newInstance(r)));
+				list.add(r.construct(type));
 			}
 		}
 		catch (InstantiationException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
 		return list;
-
 	}
 }

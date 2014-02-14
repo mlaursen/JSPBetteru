@@ -13,7 +13,7 @@ import com.betteru.database.MyResultRow;
  * @author mikkel.laursen
  *
  */
-public class Multiplier extends DatabaseObject implements DatabaseObjectListable {
+public class Multiplier extends AccountChoice {
 	
 	private double amount;
 	public Multiplier() { }
@@ -31,12 +31,36 @@ public class Multiplier extends DatabaseObject implements DatabaseObjectListable
 	 */
 	public Multiplier(MyResultRow r) {
 		super(r);
-		// TODO Auto-generated constructor stub
+		setAmount(r);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.betteru.database.DatabaseObjectListable#lookupAll(java.lang.Class)
+	/**
+	 * @return the amount
 	 */
+	public double getAmount() {
+		return amount;
+	}
+
+	/**
+	 * @param amount the amount to set
+	 */
+	public void setAmount(double amount) {
+		this.amount = amount;
+	}
 	
+	public void setAmount(MyResultRow r) {
+		amount = Double.parseDouble(r.get("amount"));
+	}
+
+	
+	
+	public List<Multiplier> getAll() {
+		return getAll(Multiplier.class);
+	}
+
+	
+	public Multiplier get(String primaryKey) {
+		return get(primaryKey, Multiplier.class);
+	}
 
 }

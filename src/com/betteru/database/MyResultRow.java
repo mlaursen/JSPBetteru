@@ -1,5 +1,6 @@
 package com.betteru.database;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,5 +21,21 @@ public class MyResultRow {
 
 	public String toString() {
 		return this.row.toString();
+	}
+	
+	/**
+	 * Calls the constructor for a Database Object using the constructor with a MyResultRow parameter.
+	 * 
+	 * @param type Class to cast the generic to
+	 * @return	A type that has been created for the class type
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 * @throws IllegalArgumentException
+	 * @throws InvocationTargetException
+	 * @throws NoSuchMethodException
+	 * @throws SecurityException
+	 */
+	public <T extends DatabaseObject> T construct(Class<T> type) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+		return type.cast(type.getConstructor(MyResultRow.class).newInstance(this));
 	}
 }

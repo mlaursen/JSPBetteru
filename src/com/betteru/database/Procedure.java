@@ -18,7 +18,6 @@ public class Procedure {
 		hasCursor = true;
 		this.params = params;
 	}
-	
 
 	
 	public Procedure(String n, String displayName, boolean hasCursor, String... params) {
@@ -47,7 +46,7 @@ public class Procedure {
 	 * Turns everything to uppercase
 	 */
 	public String toString() {
-		String s = displayName.toUpperCase() + "(";
+		String s = name.toUpperCase() + "(";
 		for(int i = 0; i < params.length; i++) {
 			String p = params[i].toUpperCase();
 			s += ":" + p + (i+1 < params.length ? ", " : "");
@@ -98,5 +97,6 @@ public class Procedure {
 	public void setHasCursor(boolean hasCursor) {
 		this.hasCursor = hasCursor;
 	}
-
+	
+	
 }

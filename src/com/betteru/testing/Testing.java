@@ -1,7 +1,9 @@
 package com.betteru.testing;
 
-import com.betteru.database.Procedure;
+import com.betteru.accounts.Account;
+import com.betteru.accounts.Multiplier;
 import com.betteru.database.Package;
+import com.betteru.database.Procedure;
 
 public class Testing {
 
@@ -11,7 +13,17 @@ public class Testing {
 		p2.setDisplayName("GET");
 		Package gets = new Package("GETS", p, p2);
 		System.out.println(gets.call("GETALL"));
+		System.out.println(gets.call("GET"));
 		
+		Package ex = new Package(Account.class, p, p2);
+		System.out.println(ex.call("get"));
+		
+		Multiplier m = new Multiplier();
+		System.out.println(m.getPackage());
+		
+		System.out.println(m.getAllProcedureString());
+		System.out.println(m.getPackage().call("getall"));
+		System.out.println(m.getAll(Multiplier.class));
 		/*
 		Account a = new Account("0");
 		Account a2 = new Account("test", "test");
