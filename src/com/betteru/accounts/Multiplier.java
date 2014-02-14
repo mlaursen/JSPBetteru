@@ -14,7 +14,6 @@ import com.betteru.database.MyResultRow;
  *
  */
 public class Multiplier extends AccountChoice {
-	
 	private double amount;
 	public Multiplier() { }
 
@@ -62,5 +61,15 @@ public class Multiplier extends AccountChoice {
 	public Multiplier get(String primaryKey) {
 		return get(primaryKey, Multiplier.class);
 	}
+
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Multiplier [" + super.toString() + ", amount=" + amount + "]";
+	}
+
 
 }

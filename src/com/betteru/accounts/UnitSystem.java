@@ -3,6 +3,8 @@
  */
 package com.betteru.accounts;
 
+import java.util.List;
+
 import com.betteru.database.MyResultRow;
 
 /**
@@ -29,4 +31,11 @@ public class UnitSystem extends AccountChoice {
 		// TODO Auto-generated constructor stub
 	}
 
+	public UnitSystem get(String name) {
+		return get(name, UnitSystem.class);
+	}
+	
+	public List<UnitSystem> getAll() {
+		return getAll(UnitSystem.class);
+	}
 }

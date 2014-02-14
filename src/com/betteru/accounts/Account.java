@@ -41,6 +41,8 @@ public class Account extends AccountTemplate {
 	public Account(String id) {
 		super(id);
 		Account a = get(id);
+		setUsername(a.getUsername());
+		setPassword(a.getPassword());
 		setBirthday(a.getBirthday());
 		setUnitSystem(a.getUnitSystem());
 		setGender(a.getGender());
@@ -141,7 +143,8 @@ public class Account extends AccountTemplate {
 	}
 	
 	public void setBirthday(MyResultRow r) {
-		birthday = Util.stringToDate(r.get("birthday"));
+		String bday = r.get("birthday");
+		birthday = bday == null ? null : Util.stringToDate(bday);
 	}
 
 	/**
@@ -160,6 +163,14 @@ public class Account extends AccountTemplate {
 	
 	public void setUnitSystem(MyResultRow r) {
 		unitSystem = new UnitSystem(r);
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Account [" + super.toString() + ", birthday=" + birthday + ", unitSystem=" + unitSystem + ", gender=" + gender + "]";
 	}
 
 	/**

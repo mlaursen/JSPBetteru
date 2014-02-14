@@ -7,7 +7,7 @@ import com.betteru.database.MyResultRow;
 import com.github.mlaursen.bootstrap.forms.fields.DropdownChoice;
 
 public abstract class AccountChoice extends DatabaseObjectListable implements DropdownChoice {
-	{ setPrimaryKey("name"); }
+	{ setPrimaryKeyName("name"); }
 	
 	
 	public AccountChoice() { }
@@ -16,7 +16,8 @@ public abstract class AccountChoice extends DatabaseObjectListable implements Dr
 	}
 	
 	public AccountChoice(MyResultRow r) {
-		super(r);
+		super();
+		setPrimaryKey(r.get(getPrimaryKeyName()));
 	}
 	
 	@Override
@@ -35,4 +36,13 @@ public abstract class AccountChoice extends DatabaseObjectListable implements Dr
 	public List<DropdownChoice> getAllChoices() {
 		return (List<DropdownChoice>) this.getAll(this.getClass());
 	}
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "AccountChoice [name=" + this.getPrimaryKey() + "]";
+	}
+
 }

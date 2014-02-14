@@ -1,5 +1,6 @@
 package com.betteru.testing;
 
+import com.betteru.accounts.*;
 import com.betteru.accounts.Account;
 import com.betteru.accounts.AccountTemplate;
 import com.betteru.accounts.Multiplier;
@@ -10,6 +11,18 @@ import com.betteru.database.Procedure;
 public class Testing {
 
 	public static void main(String[] args) throws Exception {
+
+		System.out.println(new Account("0"));
+		
+		/*
+		Gender g = new Gender();
+		System.out.println(g.getAll());
+		System.out.println(new Weekday().getAll());
+		System.out.println(new Multiplier().getAll());
+		System.out.println(new UnitSystem().getAll());
+		//System.out.println(g.get("male"));
+		
+		/*
 		Procedure p = new Procedure("GET", "ID");
 		Procedure p2 = new Procedure("GETALL");
 		p2.setDisplayName("GET");
@@ -31,8 +44,15 @@ public class Testing {
 		
 		TempAccount ta = new TempAccount("test", "teset");
 		System.out.println(ta.getPackage());
-		TempAccount ta1 = new TempAccount("0");
-		System.out.println(ta1);
+		//TempAccount ta1 = new TempAccount("0");
+		//System.out.println(ta1);
+		
+		Account a1 = new Account("0");
+		System.out.println("A! Call: " + a.call("get"));
+		System.out.println(a1);
+		
+		//System.out.println(a1);
+		//System.out.println(a1.createFromTemp(ta1));
 		//System.out.println(ta.create());
 		//System.out.println(ta.create());
 		//System.out.println(m.getAll(Multiplier.class));

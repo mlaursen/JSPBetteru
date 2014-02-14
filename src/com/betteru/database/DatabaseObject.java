@@ -7,17 +7,13 @@ public abstract class DatabaseObject {
 
 	private String primaryKey;
 	private String primaryKeyName = "id";
-	private Package pkg = new Package(this.getClass(), new Procedure("get", "id"));
+	private Package pkg = new Package(this.getClass(), new Procedure("get", primaryKeyName));
 	public DatabaseObject() {
 		primaryKey = null;
 	}
 	
 	public DatabaseObject(String primaryKey) {
 		this.primaryKey = primaryKey;
-	}
-	
-	public DatabaseObject(MyResultRow r) {
-		this.primaryKey = r.get(getPrimaryKeyName());
 	}
 	
 	public void setPrimaryKey(String id) {
@@ -66,9 +62,6 @@ public abstract class DatabaseObject {
 	 */
 	protected <T extends DatabaseObject> T get(String primaryKey, String procName, Class<T> type) {
 		try {
-			System.out.println(procName + ", " + primaryKey);
-			MyResultSet s = DatabaseManager.getStoredProcedureCursor(procName, primaryKey);
-			System.out.println(s);
 			return DatabaseManager.getStoredProcedureFirstRow(procName, primaryKey).construct(type);
 		}
 		catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException

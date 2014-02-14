@@ -60,7 +60,6 @@ public class DatabaseManager {
 					cs.setString(i, p.toString());
 				}
 				//cs.setString(i, params[i-1]);
-				 * */
 				 */
 			}
 			success = cs.executeUpdate() > 0;
@@ -89,7 +88,7 @@ public class DatabaseManager {
 		return success;
 	}
 
-	public static MyResultRow getStoredProcedureFirstRow(String pname, String... params) {
+	public static MyResultRow getStoredProcedureFirstRow(String pname, Object... params) {
 		return getStoredProcedureCursor(pname, params).getRow();
 	}
 
@@ -103,7 +102,7 @@ public class DatabaseManager {
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
 	 */
-	public static MyResultSet getStoredProcedureCursor(String pname, String... params) {
+	public static MyResultSet getStoredProcedureCursor(String pname, Object... params) {
 		int cursorPos = params.length+1;
 		Connection conn = null;
 		CallableStatement cs = null;
@@ -113,7 +112,9 @@ public class DatabaseManager {
 			conn = getConnection();
 			cs = conn.prepareCall("{call " + pname + "}");
 			for(int i = 1; i <= params.length; i++) {
-				cs.setString(i, params[i-1]);
+				//cs.setString(i, (String) params[i-1]);
+				Object p = params[i-1];
+				applyDatatype(p, i, conn, cs);
 			}
 			cs.registerOutParameter(cursorPos, OracleTypes.CURSOR);
 			cs.execute();
@@ -158,7 +159,10 @@ public class DatabaseManager {
 		if(p instanceof Date) {
 			cs.setDate(i, (Date) p);
 		}
-		else if(p instanceof Number) {
+		else if(p instanceof Integer || canParseInt(p)) {
+			cs.setInt(i, Integer.parseInt((String) p));
+		}
+		else if(p instanceof Double) {
 			cs.setDouble(i, (Double) p);
 		}
 		else if(p instanceof MyClob) {
@@ -168,6 +172,16 @@ public class DatabaseManager {
 		}
 		else {
 			cs.setString(i, p.toString());
+		}
+	}
+	
+	private static boolean canParseInt(Object i) {
+		try {
+			Integer.parseInt((String)i);
+			return true;
+		}
+		catch(NumberFormatException e) {
+			return false;
 		}
 	}
 }
