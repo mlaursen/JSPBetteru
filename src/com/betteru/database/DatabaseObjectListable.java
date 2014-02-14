@@ -15,6 +15,10 @@ public abstract class DatabaseObjectListable extends DatabaseObject {
 		super(primaryKey);
 	}
 	
+	public DatabaseObjectListable(MyResultRow r) {
+		super(r);
+	}
+	
 	public String getAllProcedureString() {
 		return call("getall");
 	}

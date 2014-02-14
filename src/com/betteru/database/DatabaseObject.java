@@ -16,6 +16,10 @@ public abstract class DatabaseObject {
 		this.primaryKey = primaryKey;
 	}
 	
+	public DatabaseObject(MyResultRow r) {
+		this.primaryKey = r.get(primaryKey);
+	}
+	
 	public void setPrimaryKey(String id) {
 		this.primaryKey = id;
 	}
@@ -26,6 +30,7 @@ public abstract class DatabaseObject {
 	
 	public void setPrimaryKeyName(String name) {
 		primaryKeyName = name;
+		pkg.getProcedure("get").setParams(new String[] { primaryKeyName });
 	}
 	
 	public String getPrimaryKeyName() {
