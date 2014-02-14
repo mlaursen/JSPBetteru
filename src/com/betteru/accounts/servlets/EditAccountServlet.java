@@ -49,8 +49,12 @@ public class EditAccountServlet extends HttpServlet {
 			String g = form.getFieldValue(EditAccountForm.GENDER);
 			String u = form.getFieldValue(EditAccountForm.UNIT);
 			String h = form.getFieldValue(EditAccountForm.HEIGHT);
-			String w = form.getFieldValue(EditAccountForm.RECALC);
+			String w = form.getFieldValue(EditAccountForm.WEEKDAY);
 			String m = form.getFieldValue(EditAccountForm.MULTIPLIER);
+			System.out.println("gender: "+ g);
+			System.out.println("unit: "+ u);
+			System.out.println("week: "+ w);
+			System.out.println("mult: " + m);
 			/*
 			Account a = new Account(av);
 			AccountSetting as = new AccountSetting(av);

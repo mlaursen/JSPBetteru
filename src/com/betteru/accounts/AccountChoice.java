@@ -12,11 +12,17 @@ public class AccountChoice extends DatabaseObjectListable implements DropdownCho
 	{ 
 		setPrimaryKeyName("name"); 
 	}
+	private int id;
 	public AccountChoice() { }
 	public AccountChoice(String n) {
 		super(n);
 		if(n == null)
 			setPrimaryKey(defaultChoice());
+	}
+	
+	public AccountChoice(String n, int id) {
+		this(n);
+		this.id = id;
 	}
 	
 	public AccountChoice(MyResultRow r) {
@@ -32,12 +38,23 @@ public class AccountChoice extends DatabaseObjectListable implements DropdownCho
 	
 	@Override
 	public String getDropdownKey() {
-		return getPrimaryKey();
+		return id+"";
 	}
 	
 	@Override
 	public String getDropdownValue() {
-		return this.getPrimaryKey();
+		String pk = getPrimaryKey();
+		return pk.contains("your") ? pk : com.github.mlaursen.bootstrap.utils.Util.capitalizeFirst(pk);
+	}
+	
+	@Override
+	public void setDropdownKey(int i) {
+		id = i;
+	}
+	
+	@Override
+	public void setDropdownValue(String v) {
+		// do nothing
 	}
 	
 	public String defaultChoice() {
@@ -49,8 +66,11 @@ public class AccountChoice extends DatabaseObjectListable implements DropdownCho
 	 */
 	public List<DropdownChoice> getAllChoices() {
 		List<DropdownChoice> choices = new ArrayList<DropdownChoice>();
-		choices.add(new AccountChoice(defaultChoice()));
+		choices.add(new AccountChoice(defaultChoice(), 0));
 		choices.addAll((List<DropdownChoice>) this.getAll(this.getClass()));
+		for(int i = 0; i < choices.size(); i++) {
+			choices.get(i).setDropdownKey(i);
+		}
 		return choices;
 	}
 	
