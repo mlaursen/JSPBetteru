@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.betteru.meals.database.MealView;
+import com.betteru.meals.database.MealView_Old;
 
 /**
  * Servlet implementation class ViewMeals
@@ -21,7 +21,7 @@ import com.betteru.meals.database.MealView;
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/meals/all_meals.jsp");
-		List<MealView> meals = new MealView().lookupAll();
+		List<MealView_Old> meals = new MealView_Old().lookupAll();
 		request.setAttribute("meals", meals);
 		rd.forward(request, response);
 	}

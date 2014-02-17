@@ -6,7 +6,7 @@ import com.betteru.database.DatabaseObject;
 import com.betteru.database.MyResultRow;
 import com.betteru.ingredients.database.Ingredient_Old;
 
-public class MealPart extends DatabaseObject implements DatabaseCreateable {
+public class MealPart_old extends DatabaseObject implements DatabaseCreateable {
 
 	private static final String LOOKUP = "MEALPART_GET_BYID(:ID, :CUROSR)";
 	private static final String CREATE = "MEALPART_INSERT(:MEALID, :INGID, :AMT, :UNIT)";
@@ -14,17 +14,17 @@ public class MealPart extends DatabaseObject implements DatabaseCreateable {
 	private String mealId;
 	private Ingredient_Old i;
 	private double amount;
-	public MealPart() {	}
-	public MealPart(String id) {
+	public MealPart_old() {	}
+	public MealPart_old(String id) {
 		super(id);
-		MealPart mp = lookup(id);
+		MealPart_old mp = lookup(id);
 		setMealId(mp.getMealId());
 		setAmount(mp.getAmount());
 		setDefaultUnit(mp.getDefaultUnit());
 		setIngredient(mp.getIngredient());
 	}
 
-	public MealPart(MyResultRow r) {
+	public MealPart_old(MyResultRow r) {
 		super(r);
 		setMealId(r.get("mealid"));
 		setAmount(r.get("amount"));
@@ -89,13 +89,13 @@ public class MealPart extends DatabaseObject implements DatabaseCreateable {
 		return DatabaseManager.executeStoredProcedure(CREATE, getMealId(), getIngredientId(), getAmount(), getDefaultUnitForDB());
 	}
 	
-	public MealPart lookup(String id) {
-		return lookup(id, MealPart.class);
+	public MealPart_old lookup(String id) {
+		return lookup(id, MealPart_old.class);
 	}
 
 	@Override
 	protected <T extends DatabaseObject> T lookup(String id, Class<T> type) {
-		return type.cast(new MealPart(DatabaseManager.getStoredProcedureFirstRow(LOOKUP, id)));
+		return type.cast(new MealPart_old(DatabaseManager.getStoredProcedureFirstRow(LOOKUP, id)));
 	}
 
 }

@@ -1,66 +1,100 @@
+/**
+ * 
+ */
 package com.betteru.meals.database;
 
 import com.betteru.database.DatabaseCreateable;
 import com.betteru.database.DatabaseManager;
 import com.betteru.database.DatabaseObject;
+import com.betteru.database.DatabaseUpdateable;
 import com.betteru.database.MyClob;
 import com.betteru.database.MyResultRow;
+import com.betteru.database.Procedure;
 
-public class Meal extends DatabaseObject implements DatabaseCreateable {
-
-	private static final String CREATE = "MEAL_INSERT(:NAME, :DESC)";
+/**
+ * @author mikkel.laursen
+ *
+ */
+public class Meal extends DatabaseObject implements DatabaseCreateable, DatabaseUpdateable {
+	{
+		Procedure pNew = new Procedure("new", "name", "description");
+		Procedure pUpdate = new Procedure("update", "id", "name", "description");
+		addProcedure(pNew);
+		addProcedure(pUpdate);
+	}
 	private String name;
 	private MyClob description;
 	public Meal() {	}
-	public Meal(String id, String name) {
-		super(id);
-		this.name = name;
+
+	/**
+	 * @param primaryKey
+	 */
+	public Meal(String primaryKey) {
+		super(primaryKey);
 	}
-	
-	public Meal(String id, String name, String desc) {
-		this(id, name);
-		description = new MyClob(desc);
-	}
-	
+
+	/**
+	 * @param r
+	 */
 	public Meal(MyResultRow r) {
 		super(r);
-		name = r.get("name");
-		description = new MyClob(r.get("description"));
+		setName(r);
+		setDescription(r);
 	}
-	
-	public void setDescription(String d) {
-		setDescription(new MyClob(d));
+
+	/* (non-Javadoc)
+	 * @see com.betteru.database.DatabaseUpdateable#update()
+	 */
+	@Override
+	public boolean update() {
+		return DatabaseManager.executeStoredProcedure(call("update"), getPrimaryKey(), getName(), getDescription());
 	}
-	
-	public void setDescription(MyClob c) {
-		description = c;
+
+	/* (non-Javadoc)
+	 * @see com.betteru.database.DatabaseCreateable#create()
+	 */
+	@Override
+	public boolean create() {
+		return DatabaseManager.executeStoredProcedure(call("new"), getName(), getDescription());
 	}
-	
-	public void setName(String n) {
-		name = n;
-	}
-	
+
+	/**
+	 * @return the name
+	 */
 	public String getName() {
 		return name;
 	}
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
 	
+	public void setName(MyResultRow r) {
+		name = r.get("name");
+	}
+
+	/**
+	 * @return the description
+	 */
 	public MyClob getDescription() {
 		return description;
 	}
+
+	/**
+	 * @param description the description to set
+	 */
+	public void setDescription(MyClob description) {
+		this.description = description;
+	}
 	
-	public String getDescriptionValue() {
-		return description.getValue();
+	public void setDescription(String desc) {
+		description = new MyClob(desc);
 	}
-
-	@Override
-	public boolean create() {
-		return DatabaseManager.executeStoredProcedure(CREATE, getName(), getDescription());
+	
+	public void setDescription(MyResultRow r) {
+		description = new MyClob(r.get("description"));
 	}
-
-	@Override
-	protected <T extends DatabaseObject> T lookup(String id, Class<T> type) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

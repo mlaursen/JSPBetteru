@@ -14,20 +14,20 @@ import com.betteru.database.MyResultRow;
  * @author mikkel.laursen
  *
  */
-public class MealPartView extends DatabaseObject implements DatabaseObjectListable {
+public class MealPartView_old extends DatabaseObject implements DatabaseObjectListable {
 
 	private static final String LOOKUP = "MEALPART_VIEW_GET_BYID(:ID, :CURSOR)";
 	private static final String LOOKUP_ALL = "MEALPART_VIEW_GETALL(:CURSOR)";
 	private static final String LOOKUP_ALL_ID = "MEALPART_VIEW_GETALL_ID(:ID, :CURSOR)";
 	private String ingredientName, ingredientAmount, ingredientUnit;
-	public MealPartView() { }
+	public MealPartView_old() { }
 
 	/**
 	 * @param id
 	 */
-	public MealPartView(String id) {
+	public MealPartView_old(String id) {
 		super(id);
-		MealPartView mpv = lookup(id);
+		MealPartView_old mpv = lookup(id);
 		setIngredientName(mpv.getIngredientName());
 		setIngredientAmount(mpv.getIngredientAmount());
 		setIngredientUnit(mpv.getIngredientUnit());
@@ -36,7 +36,7 @@ public class MealPartView extends DatabaseObject implements DatabaseObjectListab
 	/**
 	 * @param r
 	 */
-	public MealPartView(MyResultRow r) {
+	public MealPartView_old(MyResultRow r) {
 		super(r);
 		setIngredientName(r.get("ingredient_name"));
 		setIngredientAmount(r.get("amount"));
@@ -55,7 +55,7 @@ public class MealPartView extends DatabaseObject implements DatabaseObjectListab
 	 */
 	@Override
 	public String toString() {
-		return "MealPartView [getId()=" + getId() + ", ingredientName=" + ingredientName + ", ingredientAmount=" + ingredientAmount
+		return "MealPartView_old [getId()=" + getId() + ", ingredientName=" + ingredientName + ", ingredientAmount=" + ingredientAmount
 				+ ", ingredientUnit=" + ingredientUnit + "]";
 	}
 
@@ -94,8 +94,8 @@ public class MealPartView extends DatabaseObject implements DatabaseObjectListab
 		this.ingredientUnit = ingredientUnit;
 	}
 	
-	public List<MealPartView> lookupAll() {
-		return lookupAll(MealPartView.class);
+	public List<MealPartView_old> lookupAll() {
+		return lookupAll(MealPartView_old.class);
 	}
 
 	/* (non-Javadoc)
@@ -106,16 +106,16 @@ public class MealPartView extends DatabaseObject implements DatabaseObjectListab
 		return DatabaseManager.getStoredProcedureCursor(LOOKUP_ALL).toListOf(type);
 	}
 	
-	public List<MealPartView> lookupAll(String mealid) {
-		return lookupAll(mealid, MealPartView.class);
+	public List<MealPartView_old> lookupAll(String mealid) {
+		return lookupAll(mealid, MealPartView_old.class);
 	}
 	
 	private <T extends DatabaseObject> List<T> lookupAll(String mealid, Class<T> type) {
 		return DatabaseManager.getStoredProcedureCursor(LOOKUP_ALL_ID, mealid).toListOf(type);
 	}
 	
-	public MealPartView lookup(String id) {
-		return lookup(id, MealPartView.class);
+	public MealPartView_old lookup(String id) {
+		return lookup(id, MealPartView_old.class);
 	}
 
 	/* (non-Javadoc)
@@ -123,7 +123,7 @@ public class MealPartView extends DatabaseObject implements DatabaseObjectListab
 	 */
 	@Override
 	protected <T extends DatabaseObject> T lookup(String id, Class<T> type) {
-		return type.cast(new MealPartView(DatabaseManager.getStoredProcedureFirstRow(LOOKUP, id)));
+		return type.cast(new MealPartView_old(DatabaseManager.getStoredProcedureFirstRow(LOOKUP, id)));
 	}
 
 }
