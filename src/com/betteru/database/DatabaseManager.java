@@ -166,7 +166,7 @@ public class DatabaseManager {
 			Integer.parseInt((String)i);
 			return true;
 		}
-		catch(NumberFormatException e) {
+		catch(NumberFormatException | ClassCastException e) {
 			return false;
 		}
 	}
