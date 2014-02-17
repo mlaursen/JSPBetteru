@@ -26,7 +26,7 @@ public class LoginForm extends HtmlForm {
 		create.setDataToggle();
 		create.setHref("#create_account");
 		create.setCss("btn btn-primary");
-		create.setValue("Create Account_Old");
+		create.setValue("Create Account");
 		
 		this.addFields(ControlGroup.wrap(username, password));
 		this.addField(new ControlFieldGroup(submit, create));
