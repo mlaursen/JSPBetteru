@@ -12,6 +12,15 @@ public class Serving {
 		size = s;
 		foodUnit = u;
 	}
+	public Serving(String s, String u) {
+		try {
+			size = Double.parseDouble(s);
+		}
+		catch(NumberFormatException e) {
+			size = 0;
+		}
+		foodUnit = new FoodUnit(u);
+	}
 	
 	public void setSize(double s) {
 		size = s;

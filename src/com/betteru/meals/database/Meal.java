@@ -5,7 +5,7 @@ package com.betteru.meals.database;
 
 import com.betteru.database.DatabaseCreateable;
 import com.betteru.database.DatabaseManager;
-import com.betteru.database.DatabaseObject;
+import com.betteru.database.DatabaseObjectListable;
 import com.betteru.database.DatabaseUpdateable;
 import com.betteru.database.MyClob;
 import com.betteru.database.MyResultRow;
@@ -15,7 +15,7 @@ import com.betteru.database.Procedure;
  * @author mikkel.laursen
  *
  */
-public class Meal extends DatabaseObject implements DatabaseCreateable, DatabaseUpdateable {
+public class Meal extends DatabaseObjectListable implements DatabaseCreateable, DatabaseUpdateable {
 	{
 		Procedure pNew = new Procedure("new", "name", "description");
 		Procedure pUpdate = new Procedure("update", "id", "name", "description");

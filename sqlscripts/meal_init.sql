@@ -91,3 +91,9 @@ CREATE OR REPLACE PACKAGE BODY MEAL_PKG AS
   
 END MEAL_PKG;
 /
+
+-----------------------------------------------------
+-- initial
+-----
+EXEC MEAL_PKG.NEW('300g Chicken Breast', '300g Chicken breast with random veggies');
+EXEC MEAL_PKG.NEW('Isopure Protein shake', '1 scoop isopure protein, 227g greek yogurt, 8oz milk mixed together in a blender with 10 ice cubes.');

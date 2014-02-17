@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<c:forEach items="${meals}" var="meal"><div class="box" id="meal_${meal.id}">
+<c:forEach items="${meals}" var="meal"><div class="box" id="meal_${meal.primaryKey}">
   <div class="contents">
     <div class="name">
       ${meal.name}

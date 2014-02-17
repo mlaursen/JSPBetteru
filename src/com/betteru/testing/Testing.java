@@ -1,14 +1,11 @@
 package com.betteru.testing;
 
-import java.util.List;
-
-import com.betteru.ingredients.database.FoodUnit;
-import com.github.mlaursen.bootstrap.forms.fields.Dropdown;
-import com.github.mlaursen.bootstrap.forms.fields.DropdownChoice;
+import com.betteru.meals.database.MealPartView;
 
 public class Testing {
 
 	public static void main(String[] args) throws Exception {
+		System.out.println(new MealPartView().getAll("1"));
 		/*
 		List<DropdownChoice> foodUnits = new FoodUnit().getAllChoices();
 		List<FoodUnit> units = new FoodUnit().getAll(FoodUnit.class);

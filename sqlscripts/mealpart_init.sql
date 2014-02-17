@@ -43,7 +43,7 @@ CREATE OR REPLACE PACKAGE MEAL_PART_PKG AS
                , PDEFAULT_UNIT IN MEAL_PART.DEFAULT_UNIT%TYPE
                , PID IN MEAL_PART.ID%TYPE DEFAULT SEQ_MEAL_PART_ID.NEXTVAL
                );
-  
+               
   -- Returns all meal parts
   PROCEDURE GET( PCURSOR OUT SYS_REFCURSOR );
   
@@ -91,3 +91,12 @@ CREATE OR REPLACE PACKAGE BODY MEAL_PART_PKG AS
   
 END MEAL_PART_PKG;
 /
+
+------------------------------------------------------
+-- initial
+-----------------
+EXEC MEAL_PART_PKG.NEW(0, 8, 300, 1);
+
+EXEC MEAL_PART_PKG.NEW(1, 10, 1, 0);
+EXEC MEAL_PART_PKG.NEW(1, 11, 8, 0);
+EXEC MEAL_PART_PKG.NEW(1, 13, 227, 0);

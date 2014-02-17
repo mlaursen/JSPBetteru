@@ -134,3 +134,6 @@ END INGREDIENT_PKG;
 ---
 EXEC INGREDIENT_PKG.NEW('Chicken Breast', 'Food City', 'Proteins', 4, 'oz', 112, 'g', 140, 4, 0, 25);
 EXEC INGREDIENT_PKG.NEW('Brown Rice', 'Mahatma', 'Carbs', 43, 'g', 0.5, 'c', 150, 1, 32, 3);
+EXEC INGREDIENT_PKG.NEW('Zero Carb Isolate', 'Isopure', 'Proteins', 2, 'scoop', 54, 'g', 210, 1, 0, 50);
+EXEC INGREDIENT_PKG.NEW('Skim Milk', 'Food City', 'Dairy', 8, 'oz', 1, 'unit', 90, 0, 13, 8);
+EXEC INGREDIENT_PKG.NEW('0% Greek Yogurt', 'Fage', 'Dairy', 227, 'g', 1, 'c', 140, 0, 9, 23);

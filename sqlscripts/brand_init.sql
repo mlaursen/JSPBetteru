@@ -45,3 +45,4 @@ EXEC BRAND_PKG.NEW('Healthy Harvest');
 EXEC BRAND_PKG.NEW('Nature''s Own');
 EXEC BRAND_PKG.NEW('Chobani');
 EXEC BRAND_PKG.NEW('Quaker Oats');
+EXEC BRAND_PKG.NEW('Fage');

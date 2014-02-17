@@ -14,5 +14,10 @@ public class MyClob {
 	public void setValue(String v) {
 		this.v = v;
 	}
+	
+	@Override
+	public String toString() {
+		return v;
+	}
 
 }
