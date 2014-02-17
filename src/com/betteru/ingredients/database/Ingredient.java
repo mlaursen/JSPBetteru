@@ -22,8 +22,8 @@ public class Ingredient extends DatabaseObject implements DatabaseObjectListable
 	private static final String LOOKUP_ALL = "INGREDIENT_GETALL(:CURSOR)";
 	
 	private String name;
-	private Brand b;
-	private Category c;
+	private Brand_Old b;
+	private Category_Old c;
 	private Serving def, alt;
 	private Macro fat, carbs, protein;
 	private Calorie cals;
@@ -50,7 +50,7 @@ public class Ingredient extends DatabaseObject implements DatabaseObjectListable
 		if(BasicValidation.isNumber(brand))
 			setBrand(brand);
 		else
-			setBrand(Brand.lookupByName(brand));
+			setBrand(Brand_Old.lookupByName(brand));
 		setCategory(f.getFieldValue(CreateIngredientForm.CATEGORIES));
 		//setServingSize(f.getFieldValue(CreateIngredientForm.SERVING_SIZE));
 		//setServingUnit(f.getFieldValue(CreateIngredientForm.SERVING_UNIT));
@@ -67,27 +67,27 @@ public class Ingredient extends DatabaseObject implements DatabaseObjectListable
 		
 	}
 	
-	public Brand getBrand() {
+	public Brand_Old getBrand() {
 		return this.b;
 	}
 	
 	public void setBrand(String brandId) {
-		setBrand(new Brand(brandId));
+		setBrand(new Brand_Old(brandId));
 	}
 	
-	public void setBrand(Brand b) {
+	public void setBrand(Brand_Old b) {
 		this.b = b;
 	}
 	
-	public Category getCategory() {
+	public Category_Old getCategory() {
 		return this.c;
 	}
 	
 	public void setCategory(String categoryId) {
-		setCategory(new Category(categoryId));
+		setCategory(new Category_Old(categoryId));
 	}
 	
-	public void setCategory(Category c) {
+	public void setCategory(Category_Old c) {
 		this.c = c;
 	}
 	

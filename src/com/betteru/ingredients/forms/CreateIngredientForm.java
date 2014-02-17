@@ -4,8 +4,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.betteru.ingredients.database.Brand;
-import com.betteru.ingredients.database.Category;
+import com.betteru.ingredients.database.Brand_Old;
+import com.betteru.ingredients.database.Category_Old;
 import com.betteru.ingredients.database.Unit;
 import com.github.mlaursen.bootstrap.forms.HtmlForm;
 import com.github.mlaursen.bootstrap.forms.fields.ControlFieldGroup;
@@ -30,10 +30,10 @@ public class CreateIngredientForm extends HtmlForm {
 		name.setLabel("Ingredient Name:");
 		name.setPlaceholder("Ingredient Name");
 		
-		TextAction brands = new TextAction(BRANDS, new Brand().getForForm());
+		TextAction brands = new TextAction(BRANDS, new Brand_Old().getForForm());
 		brands.setCss("span7");
 		
-		Dropdown categories = new Dropdown(CATEGORIES, new Category().getAll());
+		Dropdown categories = new Dropdown(CATEGORIES, new Category_Old().getAll());
 		categories.setCanBe0(true);
 		
 		NumberField defSize = new NumberField(SERVING_SIZE);

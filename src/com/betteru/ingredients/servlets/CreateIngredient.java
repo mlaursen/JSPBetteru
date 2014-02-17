@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.betteru.ingredients.database.Brand;
+import com.betteru.ingredients.database.Brand_Old;
 import com.betteru.ingredients.database.Ingredient;
 import com.betteru.ingredients.forms.CreateIngredientForm;
 import com.github.mlaursen.bootstrap.forms.fields.TextAction;
@@ -47,7 +47,7 @@ public class CreateIngredient extends HttpServlet {
 			TextAction brands = (TextAction) f.getField(CreateIngredientForm.BRANDS);
 			boolean success = true;
 			if(brands.getChosen() == 0)
-				success = new Brand("", brands.getValue()).create();
+				success = new Brand_Old("", brands.getValue()).create();
 			if(success) {
 				Ingredient i = new Ingredient(f);
 				success = i.create();

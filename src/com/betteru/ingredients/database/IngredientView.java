@@ -91,8 +91,8 @@ public class IngredientView extends DatabaseObject implements DatabaseObjectList
 	
 	public String toString() {
 		String s = "Ingredient View(";
-		s += "Name: " + this.name + ", Brand: " + brand;
-		s += ", Category: " + category + ", ServingUnit:" + servingUnit;
+		s += "Name: " + this.name + ", Brand_Old: " + brand;
+		s += ", Category_Old: " + category + ", ServingUnit:" + servingUnit;
 		s += "{" + servingUnitShort + "}, servingSIze:" + servingSize;
 		s += ", Alt: " + altServingUnit + "{" + altServingUnitShort + "}, Size: " + altServingSize;
 		s += ", Cal:" + calories + ", fat: " + fat + ", carbs: " + carbs + ", prot: " + protein;
@@ -104,8 +104,8 @@ public class IngredientView extends DatabaseObject implements DatabaseObjectList
 		h += "      <table class=\"table table-striped table-bordered table-hover table-condensed\">\n";
 		h += "        <tr>\n";
 		h += "          <th>Name</th>\n";
-		h += "          <th>Brand</th>\n";
-		h += "          <th>Category</th>\n";
+		h += "          <th>Brand_Old</th>\n";
+		h += "          <th>Category_Old</th>\n";
 		h += "          <th>Serving Size (default)</th>\n";
 		h += "          <th>Serving Size (alternate)</th>\n";
 		h += "          <th>Calories (kCal)</th>\n";
