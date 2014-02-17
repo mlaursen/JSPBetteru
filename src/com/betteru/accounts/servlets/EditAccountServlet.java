@@ -44,6 +44,7 @@ public class EditAccountServlet extends HttpServlet {
 		String userid = (String) request.getSession().getAttribute("userid");
 		AccountView av = new AccountView(userid);
 		EditAccountForm form = new EditAccountForm(request, av);
+		//System.out.println(form);
 		if(form.isValid()) {
 			String b = form.getFieldValue(EditAccountForm.BIRTHDAY);
 			String g = form.getFieldValue(EditAccountForm.GENDER);
