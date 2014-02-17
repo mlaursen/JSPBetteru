@@ -4,15 +4,18 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.betteru.ingredients.Calorie;
+import com.betteru.ingredients.Carbohydrate;
+import com.betteru.ingredients.Fat;
+import com.betteru.ingredients.Protein;
+import com.betteru.ingredients.Serving;
 import com.betteru.ingredients.database.Brand;
 import com.betteru.ingredients.database.Category;
-import com.betteru.ingredients.database.Unit;
+import com.betteru.ingredients.database.FoodUnit;
 import com.github.mlaursen.bootstrap.forms.HtmlForm;
-import com.github.mlaursen.bootstrap.forms.fields.ControlFieldGroup;
 import com.github.mlaursen.bootstrap.forms.fields.ControlGroup;
 import com.github.mlaursen.bootstrap.forms.fields.Dropdown;
 import com.github.mlaursen.bootstrap.forms.fields.DropdownChoice;
-import com.github.mlaursen.bootstrap.forms.fields.HtmlFieldable;
 import com.github.mlaursen.bootstrap.forms.fields.TextAction;
 import com.github.mlaursen.bootstrap.forms.fields.button.Button;
 import com.github.mlaursen.bootstrap.forms.fields.button.SubmitButton;
@@ -25,7 +28,8 @@ public class CreateIngredientForm extends HtmlForm {
 			ALT_SERVING_SIZE="alt_serving_size", ALT_SERVING_UNIT="alt_serving_unit", CALORIES="calories", FAT="fat", CARBS="carbs", PROTEIN="protein";
 	private static final String ACTION = "create.jsp";
 	private static final List<DropdownChoice> BRAND_LIST = new Brand().getAllChoices(),
-											  CATEGORY_LIST = new Category().getAllChoices();
+											  CATEGORY_LIST = new Category().getAllChoices(),
+											  FOOD_UNIT_LIST = new FoodUnit().getAllChoices();
 	public CreateIngredientForm() {
 		super(ACTION, "createmiddlewaretoken");
 		TextField name = new TextField(NAME);
@@ -40,13 +44,13 @@ public class CreateIngredientForm extends HtmlForm {
 		
 		NumberField defSize = new NumberField(SERVING_SIZE);
 		defSize.setCss("span3");
-		List<DropdownChoice> units = new Unit().getAll();
-		Dropdown defUnit = new Dropdown(SERVING_UNIT, units);
+		
+		Dropdown defUnit = new Dropdown(SERVING_UNIT, FOOD_UNIT_LIST);
 		defUnit.setCanBe0(true);
 		
 		NumberField altSize = new NumberField(ALT_SERVING_SIZE);
 		altSize.setCss("span3");
-		Dropdown altUnit = new Dropdown(ALT_SERVING_UNIT, units);
+		Dropdown altUnit = new Dropdown(ALT_SERVING_UNIT, FOOD_UNIT_LIST);
 		altUnit.setChosen(3);
 		altUnit.setCanBe0(true);
 		NumberField cals = new NumberField(CALORIES);
@@ -59,7 +63,7 @@ public class CreateIngredientForm extends HtmlForm {
 		protein.setCss("span2");
 		
 		Button submit = new SubmitButton();
-		submit.setValue("Create Ingredient");
+		submit.setValue("Create Ingredient_Old");
 		addFields(ControlGroup.wrap(name, brands, categories, defSize, defUnit, altSize, altUnit, cals, fat, carbs, protein, submit));
 	}
 
@@ -77,5 +81,44 @@ public class CreateIngredientForm extends HtmlForm {
 		updateValue(CARBS, request);
 		updateValue(PROTEIN, request);
 	}
-
+	
+	public String getName() {
+		return this.getFieldValue(NAME);
+	}
+	
+	public Brand getBrand() {
+		return new Brand(this.getFieldValue(BRANDS));
+	}
+	
+	public Category getCategory() {
+		return new Category(this.getFieldValue(CATEGORIES));
+	}
+	
+	public Serving getDefaultServing() {
+		double amt = Double.parseDouble(this.getFieldValue(SERVING_SIZE));
+		FoodUnit fu = new FoodUnit(this.getFieldValue(SERVING_UNIT));
+		return new Serving(amt, fu);
+	}
+	
+	public Serving getAlternateServing() {
+		double amt = Double.parseDouble(this.getFieldValue(ALT_SERVING_SIZE));
+		FoodUnit fu = new FoodUnit(this.getFieldValue(ALT_SERVING_UNIT));
+		return new Serving(amt, fu);
+	}
+	
+	public Calorie getCalories() {
+		return new Calorie(Double.parseDouble(this.getFieldValue(CALORIES)));
+	}
+	
+	public Fat getFat() {
+		return new Fat(Double.parseDouble(this.getFieldValue(FAT)));
+	}
+	
+	public Carbohydrate getCarbs() {
+		return new Carbohydrate(Double.parseDouble(this.getFieldValue(CARBS)));
+	}
+	
+	public Protein getProtein() {
+		return new Protein(Double.parseDouble(this.getFieldValue(PROTEIN)));
+	}
 }

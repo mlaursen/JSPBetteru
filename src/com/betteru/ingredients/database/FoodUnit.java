@@ -11,27 +11,25 @@ import com.betteru.database.DatabaseObjectListable;
 import com.betteru.database.MyResultRow;
 import com.betteru.database.Util;
 import com.github.mlaursen.bootstrap.forms.fields.DropdownChoice;
-import com.github.mlaursen.bootstrap.sidebar.SidebarItemList;
-import com.github.mlaursen.bootstrap.sidebar.SidebarItemable;
 
 /**
  * @author mikkel.laursen
  *
  */
-public abstract class BrandCategoryOutline extends DatabaseObjectListable implements DropdownChoice, SidebarItemable {
-	{ setPrimaryKeyName("name"); }
-	
+public class FoodUnit extends DatabaseObjectListable implements DropdownChoice {
+
+	private String longName;
 	private int id;
-	public BrandCategoryOutline() { }
+	public FoodUnit() {	}
 
 	/**
 	 * @param primaryKey
 	 */
-	public BrandCategoryOutline(String primaryKey) {
+	public FoodUnit(String primaryKey) {
 		super(primaryKey);
 	}
 	
-	public BrandCategoryOutline(String primaryKey, int id) {
+	public FoodUnit(String primaryKey, int id) {
 		this(primaryKey);
 		this.id = id;
 	}
@@ -39,17 +37,10 @@ public abstract class BrandCategoryOutline extends DatabaseObjectListable implem
 	/**
 	 * @param r
 	 */
-	public BrandCategoryOutline(MyResultRow r) {
+	public FoodUnit(MyResultRow r) {
 		super();
 		setPrimaryKey(r.get(getPrimaryKeyName()));
-	}
-
-	/* (non-Javadoc)
-	 * @see com.github.mlaursen.bootstrap.sidebar.SidebarItemable#getName()
-	 */
-	@Override
-	public String getName() {
-		return getPrimaryKey();
+		setLongName(r);
 	}
 
 	/* (non-Javadoc)
@@ -73,8 +64,7 @@ public abstract class BrandCategoryOutline extends DatabaseObjectListable implem
 	 */
 	@Override
 	public void setDropdownKey(int k) {
-		// TODO Auto-generated method stub
-		this.id = k;
+		id = k;
 	}
 
 	/* (non-Javadoc)
@@ -83,13 +73,13 @@ public abstract class BrandCategoryOutline extends DatabaseObjectListable implem
 	@Override
 	public void setDropdownValue(String v) {
 		// TODO Auto-generated method stub
-		// do nothing
-	}
 
+	}
+	
 	public String defaultChoice() {
 		return "Select your " + Util.formatClassName(getClass(), null, " ");
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see com.github.mlaursen.bootstrap.forms.fields.DropdownChoice#getAllChoices()
 	 */
@@ -103,11 +93,23 @@ public abstract class BrandCategoryOutline extends DatabaseObjectListable implem
 		}
 		return choices;
 	}
-	
-	public List<SidebarItemList> getSidebarList() {
-		List<SidebarItemList> items = new ArrayList<SidebarItemList>();
-		List<BrandCategoryOutline> all = this.getAll(BrandCategoryOutline.class);
-		for(BrandCategoryOutline bco : all)
-		return items;
+
+	public String getLongName() {
+		return longName;
 	}
+	
+	public void setLongName(MyResultRow r) {
+		longName = r.get("long_name");
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "FoodUnit [" + (getPrimaryKey() != null ? "primaryKey=" + getPrimaryKey() + ", " : "")
+				+ (longName != null ? "longName=" + longName + ", " : "") + "id=" + id + "]";
+	}
+	
+	
 }

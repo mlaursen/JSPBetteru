@@ -4,7 +4,7 @@ import com.betteru.database.DatabaseCreateable;
 import com.betteru.database.DatabaseManager;
 import com.betteru.database.DatabaseObject;
 import com.betteru.database.MyResultRow;
-import com.betteru.ingredients.database.Ingredient;
+import com.betteru.ingredients.database.Ingredient_Old;
 
 public class MealPart extends DatabaseObject implements DatabaseCreateable {
 
@@ -12,7 +12,7 @@ public class MealPart extends DatabaseObject implements DatabaseCreateable {
 	private static final String CREATE = "MEALPART_INSERT(:MEALID, :INGID, :AMT, :UNIT)";
 	private boolean defUnit;
 	private String mealId;
-	private Ingredient i;
+	private Ingredient_Old i;
 	private double amount;
 	public MealPart() {	}
 	public MealPart(String id) {
@@ -37,10 +37,10 @@ public class MealPart extends DatabaseObject implements DatabaseCreateable {
 	}
 	
 	public void setIngredient(String id) {
-		setIngredient(new Ingredient(id));
+		setIngredient(new Ingredient_Old(id));
 	}
 	
-	public void setIngredient(Ingredient i) {
+	public void setIngredient(Ingredient_Old i) {
 		this.i = i;
 	}
 	
@@ -76,7 +76,7 @@ public class MealPart extends DatabaseObject implements DatabaseCreateable {
 		return defUnit ? 0 : 1;
 	}
 	
-	public Ingredient getIngredient() {
+	public Ingredient_Old getIngredient() {
 		return i;
 	}
 	

@@ -37,4 +37,13 @@ public class Category extends BrandCategoryOutline {
 		super(r);
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Category [name=" + getName() + "]";
+	}
+
+	
 }

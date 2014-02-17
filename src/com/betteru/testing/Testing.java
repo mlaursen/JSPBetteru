@@ -1,16 +1,14 @@
 package com.betteru.testing;
 
-import com.betteru.accounts.*;
-import com.betteru.accounts.Account;
-import com.betteru.accounts.AccountTemplate;
-import com.betteru.accounts.Multiplier;
-import com.betteru.accounts.TempAccount;
-import com.betteru.database.Package;
-import com.betteru.database.Procedure;
+import com.betteru.ingredients.database.Ingredient;
 
 public class Testing {
 
 	public static void main(String[] args) throws Exception {
+		Ingredient i = new Ingredient("6");
+		System.out.println(i);
+		
+		/*
 		Account a = new Account("0");
 		AccountSetting as = new AccountSetting("0");
 		System.out.println(a);

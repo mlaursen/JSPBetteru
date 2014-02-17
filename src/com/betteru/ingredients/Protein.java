@@ -6,4 +6,13 @@ public class Protein extends Macro {
 		super(a);
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Protein [amount=" + getAmount() + ", toCals=" + getToCals() + "]";
+	}
+
+	
 }

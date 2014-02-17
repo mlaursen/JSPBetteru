@@ -24,5 +24,4 @@ public abstract class Macro {
 	public void setToCals(int c) {
 		toCals = c;
 	}
-
 }

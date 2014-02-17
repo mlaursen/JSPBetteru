@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.betteru.ingredients.database.IngredientView;
+import com.betteru.ingredients.database.Ingredient;
 
 /**
  * Servlet implementation class FilterIngredients
@@ -29,7 +29,7 @@ public class FilterIngredients extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/ingredients/load_table.jsp");
-		request.setAttribute("ingredients", IngredientView.filter(request.getParameter("category"), request.getParameter("brand")));
+		request.setAttribute("ingredients", new Ingredient().filter(request.getParameter("category"), request.getParameter("brand")));
 		rd.forward(request, response);
 	}
 

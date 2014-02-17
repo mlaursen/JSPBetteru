@@ -50,4 +50,13 @@ public class Brand extends BrandCategoryOutline implements DatabaseCreateable {
 		return DatabaseManager.executeStoredProcedure(call("new"), getPrimaryKey());
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Brand [name=" + getName() + "]";
+	}
+	
+	
 }

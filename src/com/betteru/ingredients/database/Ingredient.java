@@ -1,217 +1,167 @@
+/**
+ * 
+ */
 package com.betteru.ingredients.database;
 
 import java.util.List;
 
 import com.betteru.database.DatabaseCreateable;
 import com.betteru.database.DatabaseManager;
-import com.betteru.database.DatabaseObject;
 import com.betteru.database.DatabaseObjectListable;
 import com.betteru.database.MyResultRow;
+import com.betteru.database.Procedure;
 import com.betteru.ingredients.Calorie;
 import com.betteru.ingredients.Carbohydrate;
 import com.betteru.ingredients.Fat;
-import com.betteru.ingredients.Macro;
 import com.betteru.ingredients.Protein;
+import com.betteru.ingredients.Serving;
 import com.betteru.ingredients.forms.CreateIngredientForm;
-import com.github.mlaursen.bootstrap.forms.fields.errors.BasicValidation;
 
-public class Ingredient extends DatabaseObject implements DatabaseObjectListable, DatabaseCreateable {
-
-	private final String LOOKUP = "INGREDIENT_GET_BYID(:ID, :CURSOR)";
-	private final String CREATE = "INGREDIENT_INSERT(:NAME, :BRAND, :CATEGORY, :SERV_SIZE, :SERV_UNIT, :ALT_SERV_SIZE, :ALT_SERV_UNIT, :CALS, :FAT, :CARBS, :PROT)";
-	private static final String LOOKUP_ALL = "INGREDIENT_GETALL(:CURSOR)";
-	
+/**
+ * @author mikkel.laursen
+ *
+ */
+public class Ingredient extends DatabaseObjectListable implements DatabaseCreateable {
+	{
+		Procedure pFilter = new Procedure("filter", "category", "brand");
+		addProcedure(pFilter);
+	}
 	private String name;
-	private Brand_Old b;
-	private Category_Old c;
+	private Brand brand;
+	private Category category;
 	private Serving def, alt;
-	private Macro fat, carbs, protein;
-	private Calorie cals;
+	private Calorie calories;
+	private Carbohydrate carbs;
+	private Fat fat;
+	private Protein protein;
 	public Ingredient() { }
-	public Ingredient(String id) {
-		super(id);
-		Ingredient i = lookup(id);
+	public Ingredient(String primaryKey) {
+		super(primaryKey);
+		Ingredient i = get(primaryKey, Ingredient.class);
+		setName(i.getName());
 		setBrand(i.getBrand());
 		setCategory(i.getCategory());
-		setName(i.getName());
-		//setServingUnit(i.getServingUnit());
-		//setServingSize(i.getServingSize());
-		//setAltServingUnit(i.getAltServingUnit());
-		//setAltServingSize(i.getAltServingSize());
+		setDefaultServing(i.getDefaultServing());
+		setAlternateServing(i.getAlternateServing());
 		setCalories(i.getCalories());
 		setFat(i.getFat());
 		setCarbs(i.getCarbs());
 		setProtein(i.getProtein());
 	}
+
+	/**
+	 * @param r
+	 */
+	public Ingredient(MyResultRow r) {
+		super(r);
+		setName(r);
+		setBrand(r);
+		setCategory(r);
+		setDefaultServing(r);
+		setAlternateServing(r);
+		setCalories(r);
+		setFat(r);
+		setCarbs(r);
+		setProtein(r);
+	}
 	
 	public Ingredient(CreateIngredientForm f) {
-		setName(f.getFieldValue(CreateIngredientForm.NAME));
-		String brand = f.getFieldValue(CreateIngredientForm.BRANDS);
-		if(BasicValidation.isNumber(brand))
-			setBrand(brand);
-		else
-			setBrand(Brand_Old.lookupByName(brand));
-		setCategory(f.getFieldValue(CreateIngredientForm.CATEGORIES));
-		//setServingSize(f.getFieldValue(CreateIngredientForm.SERVING_SIZE));
-		//setServingUnit(f.getFieldValue(CreateIngredientForm.SERVING_UNIT));
-		//setAltServingSize(f.getFieldValue(CreateIngredientForm.ALT_SERVING_SIZE));
-		//setAltServingUnit(f.getFieldValue(CreateIngredientForm.ALT_SERVING_UNIT));
-		setCalories(f.getFieldValue(CreateIngredientForm.CALORIES));
-		setFat(f.getFieldValue(CreateIngredientForm.FAT));
-		setCarbs(f.getFieldValue(CreateIngredientForm.CARBS));
-		setProtein(f.getFieldValue(CreateIngredientForm.PROTEIN));
+		super();
+		setName(f.getName());
+		setBrand(f.getBrand());
+		setCategory(f.getCategory());
+		setDefaultServing(f.getDefaultServing());
+		setAlternateServing(f.getAlternateServing());
+		setCalories(f.getCalories());
+		setFat(f.getFat());
+		setCarbs(f.getCarbs());
+		setProtein(f.getProtein());
 	}
 	
-	public Ingredient(MyResultRow r) {
-		super(r.get("id"));
-		
+	public List<Ingredient> filter(String catg, String brand) {
+		return DatabaseManager.getStoredProcedureCursor(call("filter"), catg, brand).toListOf(Ingredient.class);
 	}
 	
-	public Brand_Old getBrand() {
-		return this.b;
-	}
-	
-	public void setBrand(String brandId) {
-		setBrand(new Brand_Old(brandId));
-	}
-	
-	public void setBrand(Brand_Old b) {
-		this.b = b;
-	}
-	
-	public Category_Old getCategory() {
-		return this.c;
-	}
-	
-	public void setCategory(String categoryId) {
-		setCategory(new Category_Old(categoryId));
-	}
-	
-	public void setCategory(Category_Old c) {
-		this.c = c;
-	}
-	
-	public List<Ingredient> lookupAll() {
-		return lookupAll(Ingredient.class);
-	}
-	
-	@Override
-	public <T extends DatabaseObject> List<T> lookupAll(Class<T> type) {
-		return DatabaseManager.getStoredProcedureCursor(LOOKUP_ALL).toListOf(type);
+	public List<Ingredient> getAll() {
+		return getAll(Ingredient.class);
 	}
 
-	public Ingredient lookup(String id) {
-		return lookup(id, Ingredient.class);
-	}
-	
-	@Override
-	protected <T extends DatabaseObject> T lookup(String id, Class<T> type) {
-		return type.cast(new Ingredient(DatabaseManager.getStoredProcedureFirstRow(LOOKUP, id)));
-	}
-	
-	
+	/* (non-Javadoc)
+	 * @see com.betteru.database.DatabaseCreateable#create()
+	 */
 	@Override
 	public boolean create() {
-		Object[] params = new Object[] { getName()
-									   , getBrand().getId()
-									   , getCategory().getId()
-									   , getDefaultServingSize()
-									   , getDefaultServingUnitId()
-									   , getAlternateServingSize()
-									   , getAlternateServingUnitId()
-									   , getCalories()
-									   , getFat()
-									   , getCarbs()
-									   , getProtein() };
-		return DatabaseManager.executeStoredProcedure(CREATE, params);
-	}
-	
-
-
-	public void setCalories(String calories) {
-		try {
-			setCalories(Double.parseDouble(calories));
-		}
-		catch (NumberFormatException e) {
-
-		}
+		return DatabaseManager.executeStoredProcedure( call("new")
+													 , getName()
+													 , getBrand()
+													 , getCategory()
+													 , getDefaultServingSize()
+													 , getDefaultServingUnit()
+													 , getAlternateServingSize()
+													 , getAlternateServingUnit()
+													 , getCalories()
+													 , getFat()
+													 , getCarbs()
+													 , getProtein());
 	}
 
-	public void setCalories(double amt) {
-		cals = new Calorie(amt);
-	}
-
-	public void setFat(String fat) {
-		try {
-			setFat(Double.parseDouble(fat));
-		}
-		catch (NumberFormatException e) {
-
-		}
-	}
-
-	public void setFat(double amt) {
-		fat = new Fat(amt);
-	}
-
-	public void setCarbs(String carbs) {
-		try {
-			setCarbs(Double.parseDouble(carbs));
-		}
-		catch (NumberFormatException e) {
-
-		}
-	}
-
-	public void setCarbs(double amt) {
-		carbs = new Carbohydrate(amt);
-	}
-
-	public void setProtein(String protein) {
-		try {
-			setProtein(Double.parseDouble(protein));
-		}
-		catch(NumberFormatException e) {
-			
-		}
-	}
-	public void setProtein(double amt) {
-		protein = new Protein(amt);
-	}
-
-	public double getCalories() {
-		return cals.getAmount();
-	}
-
-	public double getCarbs() {
-		return carbs.getAmount();
-	}
-
-	public double getProtein() {
-		return protein.getAmount();
-	}
-
-	public double getFat() {
-		return fat.getAmount();
-	}
-	
+	/**
+	 * @return the name
+	 */
 	public String getName() {
 		return name;
 	}
 
-	public void setName(String n) {
-		name = n;
-	}
-
-	
-	public void setDefaultServing(double size, Unit u) {
-		def = new Serving(size, u);
-	}
-
-	public void setAlternateServing(double size, Unit u) {
-		alt = new Serving(size, u);
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
 	}
 	
+	public void setName(MyResultRow r) {
+		this.name = r.get("name");
+	}
+
+	/**
+	 * @return the brand
+	 */
+	public Brand getBrand() {
+		return brand;
+	}
+
+	/**
+	 * @param brand the brand to set
+	 */
+	public void setBrand(Brand brand) {
+		this.brand = brand;
+	}
+	
+	public void setBrand(MyResultRow r) {
+		this.brand = new Brand(r.get("brand"));
+	}
+
+	/**
+	 * @return the category
+	 */
+	public Category getCategory() {
+		return category;
+	}
+
+	/**
+	 * @param category the category to set
+	 */
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+	
+	public void setCategory(MyResultRow r) {
+		this.category = new Category(r.get("category"));
+	}
+
+	/**
+	 * @return the def
+	 */
 	public Serving getDefaultServing() {
 		return def;
 	}
@@ -219,19 +169,24 @@ public class Ingredient extends DatabaseObject implements DatabaseObjectListable
 	public double getDefaultServingSize() {
 		return def.getSize();
 	}
-	
+	public String getDefaultServingUnit() {
+		return def.getUnitName();
+	}
+
 	/**
-	 * 
-	 * @return
+	 * @param def the def to set
 	 */
-	public Unit getDefaultServingUnit() {
-		return def.getUnit();
+	public void setDefaultServing(Serving def) {
+		this.def = def;
 	}
 	
-	public String getDefaultServingUnitId() {
-		return def.getUnit().getId();
+	public void setDefaultServing(MyResultRow r) {
+		this.def = new Serving(Double.parseDouble(r.get("serving_size")), new FoodUnit(r.get("serving_unit")));
 	}
-	
+
+	/**
+	 * @return the alt
+	 */
 	public Serving getAlternateServing() {
 		return alt;
 	}
@@ -240,12 +195,100 @@ public class Ingredient extends DatabaseObject implements DatabaseObjectListable
 		return alt.getSize();
 	}
 	
-	public Unit getAlternateServingUnit() {
-		return alt.getUnit();
-	}
-	
-	public String getAlternateServingUnitId() {
-		return alt.getUnit().getId();
+	public String getAlternateServingUnit() {
+		return alt.getUnitName();
 	}
 
+	/**
+	 * @param alt the alt to set
+	 */
+	public void setAlternateServing(Serving alt) {
+		this.alt = alt;
+	}
+	
+	public void setAlternateServing(MyResultRow r) {
+		this.alt = new Serving(Double.parseDouble(r.get("alt_serving_size")), new FoodUnit(r.get("alt_serving_unit")));
+	}
+
+	/**
+	 * @return the calories
+	 */
+	public Calorie getCalories() {
+		return calories;
+	}
+
+	/**
+	 * @param calories the calories to set
+	 */
+	public void setCalories(Calorie calories) {
+		this.calories = calories;
+	}
+	
+	public void setCalories(MyResultRow r) {
+		calories = new Calorie(Double.parseDouble(r.get("calories")));
+	}
+
+	/**
+	 * @return the carbs
+	 */
+	public Carbohydrate getCarbs() {
+		return carbs;
+	}
+
+	/**
+	 * @param carbs the carbs to set
+	 */
+	public void setCarbs(Carbohydrate carbs) {
+		this.carbs = carbs;
+	}
+	
+	public void setCarbs(MyResultRow r) {
+		carbs = new Carbohydrate(Double.parseDouble(r.get("carbs")));
+	}
+
+	/**
+	 * @return the fat
+	 */
+	public Fat getFat() {
+		return fat;
+	}
+
+	/**
+	 * @param fat the fat to set
+	 */
+	public void setFat(Fat fat) {
+		this.fat = fat;
+	}
+	
+	public void setFat(MyResultRow r) {
+		fat = new Fat(Double.parseDouble(r.get("fat")));
+	}
+
+	/**
+	 * @return the protein
+	 */
+	public Protein getProtein() {
+		return protein;
+	}
+
+	/**
+	 * @param protein the protein to set
+	 */
+	public void setProtein(Protein protein) {
+		this.protein = protein;
+	}
+	
+	public void setProtein(MyResultRow r) {
+		protein = new Protein(Double.parseDouble(r.get("protein")));
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Ingredient [primaryKey=" + getPrimaryKey() + ", name=" + name + ", brand=" + brand + ", category=" + category
+				+ ", def=" + def + ", alt=" + alt + ", calories=" + calories + ", carbs=" + carbs + ", fat=" + fat + ", protein=" + protein
+				+ "]";
+	}
 }
