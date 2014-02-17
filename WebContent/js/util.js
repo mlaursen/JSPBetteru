@@ -24,9 +24,7 @@ function selectItem(field) {
 function selectItemDropdown(field) {
   var name = field.parentElement.parentElement.id.replace('_choices', '');
   $('#'+name+'_button').html(field.text+' <span class="caret"></span>');
-  $('input[name='+name+']').attr('value', field.value.replace('id_', ''));
-  console.log(field.value);
-  console.log(name);
+  $('input[name='+name+']').attr('value', field.text);
 }
 
 

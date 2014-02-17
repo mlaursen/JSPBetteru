@@ -17,6 +17,8 @@ public class Testing {
 		System.out.println(as);
 		AccountView av = new AccountView("0");
 		System.out.println(av);
+		
+		System.out.println(Multiplier.get("lightly active"));
 		//System.out.println(new AccountView("0"));
 		/*
 		Gender g = new Gender();
