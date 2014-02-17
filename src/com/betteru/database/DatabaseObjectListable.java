@@ -28,7 +28,7 @@ public abstract class DatabaseObjectListable extends DatabaseObject {
 	 * @param type
 	 * @return
 	 */
-	protected <T extends DatabaseObject> List<T> getAll(Class<T> type) {
+	public <T extends DatabaseObject> List<T> getAll(Class<T> type) {
 		return getAll(getAllProcedureString(), type);
 	}
 	

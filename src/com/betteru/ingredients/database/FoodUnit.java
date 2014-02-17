@@ -17,7 +17,7 @@ import com.github.mlaursen.bootstrap.forms.fields.DropdownChoice;
  *
  */
 public class FoodUnit extends DatabaseObjectListable implements DropdownChoice {
-
+	{ setPrimaryKeyName("name"); }
 	private String longName;
 	private int id;
 	public FoodUnit() {	}
@@ -87,10 +87,6 @@ public class FoodUnit extends DatabaseObjectListable implements DropdownChoice {
 			all.get(i).setDropdownKey(i);
 			choices.add(all.get(i));
 		}
-		System.out.println("All: " + all);
-		System.out.println("choices: " + choices);
-		DropdownChoice c = choices.get(0);
-		System.out.println(c.getDropdownKey());
 		return choices;
 	}
 

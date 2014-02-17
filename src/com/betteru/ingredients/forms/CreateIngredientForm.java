@@ -45,30 +45,31 @@ public class CreateIngredientForm extends HtmlForm {
 		NumberField defSize = new NumberField(SERVING_SIZE);
 		defSize.setCss("span3");
 		
-		//Dropdown defUnit = new Dropdown(SERVING_UNIT, FOOD_UNIT_LIST);
-		//System.out.println(FOOD_UNIT_LIST);
-		//System.out.println(defUnit);
-		//System.out.println(defUnit.toHtml());
-		/*
+		Dropdown defUnit = new Dropdown(SERVING_UNIT, FOOD_UNIT_LIST);
+		defUnit.setCanBe0(true);
+		
 		NumberField altSize = new NumberField(ALT_SERVING_SIZE);
 		altSize.setCss("span3");
+		
 		Dropdown altUnit = new Dropdown(ALT_SERVING_UNIT, FOOD_UNIT_LIST);
 		altUnit.setChosen(3);
 		altUnit.setCanBe0(true);
+		
 		NumberField cals = new NumberField(CALORIES);
 		cals.setCss("span2");
+		
 		NumberField fat = new NumberField(FAT);
 		fat.setCss("span2");
+		
 		NumberField carbs = new NumberField(CARBS);
 		carbs.setCss("span2");
+		
 		NumberField protein = new NumberField(PROTEIN);
 		protein.setCss("span2");
 		
 		Button submit = new SubmitButton();
 		submit.setValue("Create Ingredient");
 		addFields(ControlGroup.wrap(name, brands, categories, defSize, defUnit, altSize, altUnit, cals, fat, carbs, protein, submit));
-		*/
-		addFields(ControlGroup.wrap(name, brands, categories, defSize));
 	}
 
 	public CreateIngredientForm(HttpServletRequest request) {

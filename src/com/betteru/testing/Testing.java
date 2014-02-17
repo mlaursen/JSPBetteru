@@ -1,17 +1,26 @@
 package com.betteru.testing;
 
-import org.jvnet.inflector.lang.en.NounPluralizer;
+import java.util.List;
 
-import com.betteru.ingredients.database.Brand;
-import com.betteru.ingredients.database.Ingredient;
+import com.betteru.ingredients.database.FoodUnit;
+import com.github.mlaursen.bootstrap.forms.fields.Dropdown;
+import com.github.mlaursen.bootstrap.forms.fields.DropdownChoice;
 
 public class Testing {
 
 	public static void main(String[] args) throws Exception {
-		Ingredient i = new Ingredient("6");
-		System.out.println(i);
-		System.out.println(new Brand().getSidebarList());
-		System.out.println(new NounPluralizer().pluralize("Category"));
+		/*
+		List<DropdownChoice> foodUnits = new FoodUnit().getAllChoices();
+		List<FoodUnit> units = new FoodUnit().getAll(FoodUnit.class);
+		System.out.println(units);
+		System.out.println(foodUnits);
+		System.out.println(foodUnits);
+		Dropdown d = new Dropdown("test", foodUnits);
+		System.out.println(d);
+		for(DropdownChoice c : d.getChoices()) {
+			System.out.println("choice: " + c.getDropdownKey() + ", " + c.getDropdownValue());
+		}
+		System.out.println(d.toHtml());
 		/*
 		Account a = new Account("0");
 		AccountSetting as = new AccountSetting("0");
