@@ -4,8 +4,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.betteru.ingredients.database.Brand_Old;
-import com.betteru.ingredients.database.Category_Old;
+import com.betteru.ingredients.database.Brand;
+import com.betteru.ingredients.database.Category;
 import com.betteru.ingredients.database.Unit;
 import com.github.mlaursen.bootstrap.forms.HtmlForm;
 import com.github.mlaursen.bootstrap.forms.fields.ControlFieldGroup;
@@ -24,16 +24,18 @@ public class CreateIngredientForm extends HtmlForm {
 	public static final String BRANDS="brands", CATEGORIES="categories", NAME="name", SERVING_SIZE="serving_size", SERVING_UNIT="serving_unit",
 			ALT_SERVING_SIZE="alt_serving_size", ALT_SERVING_UNIT="alt_serving_unit", CALORIES="calories", FAT="fat", CARBS="carbs", PROTEIN="protein";
 	private static final String ACTION = "create.jsp";
+	private static final List<DropdownChoice> BRAND_LIST = new Brand().getAllChoices(),
+											  CATEGORY_LIST = new Category().getAllChoices();
 	public CreateIngredientForm() {
 		super(ACTION, "createmiddlewaretoken");
 		TextField name = new TextField(NAME);
 		name.setLabel("Ingredient Name:");
 		name.setPlaceholder("Ingredient Name");
 		
-		TextAction brands = new TextAction(BRANDS, new Brand_Old().getForForm());
+		TextAction brands = new TextAction(BRANDS, BRAND_LIST);
 		brands.setCss("span7");
 		
-		Dropdown categories = new Dropdown(CATEGORIES, new Category_Old().getAll());
+		Dropdown categories = new Dropdown(CATEGORIES, CATEGORY_LIST);
 		categories.setCanBe0(true);
 		
 		NumberField defSize = new NumberField(SERVING_SIZE);
