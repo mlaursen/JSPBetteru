@@ -85,24 +85,6 @@ public abstract class BrandCategoryOutline extends DatabaseObjectListable implem
 		// TODO Auto-generated method stub
 		// do nothing
 	}
-
-	public String defaultChoice() {
-		return "Select your " + Util.formatClassName(getClass(), null, " ");
-	}
-	
-	/* (non-Javadoc)
-	 * @see com.github.mlaursen.bootstrap.forms.fields.DropdownChoice#getAllChoices()
-	 */
-	@Override
-	public List<DropdownChoice> getAllChoices() {
-		List<DropdownChoice> choices = new ArrayList<DropdownChoice>();
-		choices.add(new AccountChoice(defaultChoice(), 0));
-		choices.addAll((List<DropdownChoice>) this.getAll(this.getClass()));
-		for(int i = 0; i < choices.size(); i++) {
-			choices.get(i).setDropdownKey(i);
-		}
-		return choices;
-	}
 	
 	/**
 	 * Creates a sidebaritemlist for either a brand or category

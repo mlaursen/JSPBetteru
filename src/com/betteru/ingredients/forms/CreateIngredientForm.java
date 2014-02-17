@@ -45,9 +45,11 @@ public class CreateIngredientForm extends HtmlForm {
 		NumberField defSize = new NumberField(SERVING_SIZE);
 		defSize.setCss("span3");
 		
-		Dropdown defUnit = new Dropdown(SERVING_UNIT, FOOD_UNIT_LIST);
-		defUnit.setCanBe0(true);
-		
+		//Dropdown defUnit = new Dropdown(SERVING_UNIT, FOOD_UNIT_LIST);
+		//System.out.println(FOOD_UNIT_LIST);
+		//System.out.println(defUnit);
+		//System.out.println(defUnit.toHtml());
+		/*
 		NumberField altSize = new NumberField(ALT_SERVING_SIZE);
 		altSize.setCss("span3");
 		Dropdown altUnit = new Dropdown(ALT_SERVING_UNIT, FOOD_UNIT_LIST);
@@ -63,8 +65,10 @@ public class CreateIngredientForm extends HtmlForm {
 		protein.setCss("span2");
 		
 		Button submit = new SubmitButton();
-		submit.setValue("Create Ingredient_Old");
+		submit.setValue("Create Ingredient");
 		addFields(ControlGroup.wrap(name, brands, categories, defSize, defUnit, altSize, altUnit, cals, fat, carbs, protein, submit));
+		*/
+		addFields(ControlGroup.wrap(name, brands, categories, defSize));
 	}
 
 	public CreateIngredientForm(HttpServletRequest request) {

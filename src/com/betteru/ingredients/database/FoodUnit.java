@@ -75,10 +75,6 @@ public class FoodUnit extends DatabaseObjectListable implements DropdownChoice {
 		// TODO Auto-generated method stub
 
 	}
-	
-	public String defaultChoice() {
-		return "Select your " + Util.formatClassName(getClass(), null, " ");
-	}
 
 	/* (non-Javadoc)
 	 * @see com.github.mlaursen.bootstrap.forms.fields.DropdownChoice#getAllChoices()
@@ -86,11 +82,15 @@ public class FoodUnit extends DatabaseObjectListable implements DropdownChoice {
 	@Override
 	public List<DropdownChoice> getAllChoices() {
 		List<DropdownChoice> choices = new ArrayList<DropdownChoice>();
-		choices.add(new AccountChoice(defaultChoice(), 0));
-		choices.addAll((List<DropdownChoice>) this.getAll(this.getClass()));
-		for(int i = 0; i < choices.size(); i++) {
-			choices.get(i).setDropdownKey(i);
+		List<FoodUnit> all = getAll(FoodUnit.class);
+		for(int i = 0; i < all.size(); i++) {
+			all.get(i).setDropdownKey(i);
+			choices.add(all.get(i));
 		}
+		System.out.println("All: " + all);
+		System.out.println("choices: " + choices);
+		DropdownChoice c = choices.get(0);
+		System.out.println(c.getDropdownKey());
 		return choices;
 	}
 
