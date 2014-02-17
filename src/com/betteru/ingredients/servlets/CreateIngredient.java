@@ -57,8 +57,9 @@ public class CreateIngredient extends HttpServlet {
 				request.setAttribute("form", f.toHtml());
 				rd.forward(request, response);
 			}
-			else
+			else {
 				response.sendRedirect("index.jsp");
+			}
 		}
 		else {
 			request.setAttribute("form", f.toHtml());

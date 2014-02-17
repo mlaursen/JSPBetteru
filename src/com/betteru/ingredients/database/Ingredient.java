@@ -24,7 +24,19 @@ import com.betteru.ingredients.forms.CreateIngredientForm;
 public class Ingredient extends DatabaseObjectListable implements DatabaseCreateable {
 	{
 		Procedure pFilter = new Procedure("filter", "category", "brand");
+		Procedure pNew = new Procedure( "new"
+									  , "brand"
+									  , "category"
+									  , "servingsize"
+									  , "servingunit"
+									  , "altservingsize"
+									  , "altservingunit"
+									  , "calories"
+									  , "fat"
+									  , "carbs"
+									  , "protein");
 		addProcedure(pFilter);
+		addProcedure(pNew);
 	}
 	private String name;
 	private Brand brand;
@@ -93,16 +105,16 @@ public class Ingredient extends DatabaseObjectListable implements DatabaseCreate
 	public boolean create() {
 		return DatabaseManager.executeStoredProcedure( call("new")
 													 , getName()
-													 , getBrand()
-													 , getCategory()
+													 , getBrand().getPrimaryKey()
+													 , getCategory().getPrimaryKey()
 													 , getDefaultServingSize()
 													 , getDefaultServingUnit()
 													 , getAlternateServingSize()
 													 , getAlternateServingUnit()
-													 , getCalories()
-													 , getFat()
-													 , getCarbs()
-													 , getProtein());
+													 , getCalories().getAmount()
+													 , getFat().getAmount()
+													 , getCarbs().getAmount()
+													 , getProtein().getAmount());
 	}
 
 	/**
