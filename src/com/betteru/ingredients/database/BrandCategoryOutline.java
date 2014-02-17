@@ -110,6 +110,7 @@ public abstract class BrandCategoryOutline extends DatabaseObjectListable implem
 	 */
 	public SidebarItemList<SidebarItemable> getSidebarList() {
 		String n = getClass().getSimpleName();
+		n = n.equals("Brand") ? "Brands" : "Categories";
 		return new SidebarItemList(n.toLowerCase(), n, n.toLowerCase(), getAll(getClass()));
 	}
 }

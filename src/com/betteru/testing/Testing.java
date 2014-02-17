@@ -1,5 +1,7 @@
 package com.betteru.testing;
 
+import org.jvnet.inflector.lang.en.NounPluralizer;
+
 import com.betteru.ingredients.database.Brand;
 import com.betteru.ingredients.database.Ingredient;
 
@@ -9,6 +11,7 @@ public class Testing {
 		Ingredient i = new Ingredient("6");
 		System.out.println(i);
 		System.out.println(new Brand().getSidebarList());
+		System.out.println(new NounPluralizer().pluralize("Category"));
 		/*
 		Account a = new Account("0");
 		AccountSetting as = new AccountSetting("0");
