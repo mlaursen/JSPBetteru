@@ -57,7 +57,7 @@ public class AccountSetting extends DatabaseObject implements DatabaseCreateable
 	 */
 	@Override
 	public boolean create() {
-		return DatabaseManager.executeStoredProcedure("new", getAccountId(), getWeekday(), getMultiplier(), getHeight());
+		return DatabaseManager.executeStoredProcedure(call("new"), getAccountId(), getWeekday(), getMultiplier(), getHeight());
 	}
 
 	/**

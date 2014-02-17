@@ -92,6 +92,7 @@ public class AccountView extends DatabaseObject implements DatabaseUpdateable {
 		a.setUsername(r);
 		a.setGender(r);
 		a.setUnitSystem(r);
+		a.setBirthday(r);
 	}
 	
 	/**
@@ -111,14 +112,7 @@ public class AccountView extends DatabaseObject implements DatabaseUpdateable {
 	public boolean update() {
 		return a.update() && as.update();
 	}
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "AccountView [a=" + a + ", as=" + as + "]";
-	}
+	
 	
 	public AccountView get(String accountId) {
 		return get(accountId, AccountView.class);
@@ -171,4 +165,16 @@ public class AccountView extends DatabaseObject implements DatabaseUpdateable {
 	public Weekday getWeekday() {
 		return as.getWeekday();
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "AccountView [Account [primaryKey=" + a.getPrimaryKey() + ", username=" + a.getUsername() + ", birthday=" + a.getBirthday()
+				+ ", gender=" + a.getGender() + ", unitSystem=" + a.getUnitSystem() + "], AccountSetting[accountId=" 
+				+ as.getAccountId() + ", height=" + as.getHeight() + ", multiplier=" + as.getMultiplier() + ", weekday=" + as.getWeekday() + "]]";
+	}
+	
+	
 }

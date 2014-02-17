@@ -163,15 +163,7 @@ public class Account extends AccountTemplate implements DatabaseUpdateable {
 	}
 	
 	public void setUnitSystem(MyResultRow r) {
-		unitSystem = new UnitSystem(r);
-	}
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "Account [" + super.toString() + ", birthday=" + birthday + ", unitSystem=" + unitSystem + ", gender=" + gender + "]";
+		unitSystem = new UnitSystem(r.get("unit"));
 	}
 
 	/**
@@ -182,7 +174,7 @@ public class Account extends AccountTemplate implements DatabaseUpdateable {
 	}
 	
 	public void setGender(MyResultRow r) {
-		gender = new Gender(r);
+		gender = new Gender(r.get("gender"));
 	}
 
 	/**
@@ -192,4 +184,14 @@ public class Account extends AccountTemplate implements DatabaseUpdateable {
 		this.gender = gender;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Account [birthday=" + birthday + ", unitSystem=" + unitSystem + ", gender=" + gender + ", Username=" + getUsername()
+				+ ", Password=" + getPassword() + ", Primary Key=" + getPrimaryKey() + "]";
+	}
+
+	
 }

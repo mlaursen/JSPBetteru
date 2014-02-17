@@ -31,14 +31,9 @@ public class Gender extends AccountChoice {
 	 */
 	public Gender(MyResultRow r) {
 		super(r);
-		// TODO Auto-generated constructor stub
-	}
-
-	public Gender get(String name) {
-		return get(name, Gender.class);
 	}
 	
-	public java.util.List<Gender> getAll() {
-		return getAll(Gender.class);
+	public static java.util.List<Gender> getAll() {
+		return new Gender().getAll(Gender.class);
 	}
 }

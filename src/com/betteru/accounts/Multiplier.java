@@ -3,17 +3,22 @@
  */
 package com.betteru.accounts;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
-import com.betteru.database.DatabaseObject;
-import com.betteru.database.DatabaseObjectListable;
+import com.betteru.database.DatabaseManager;
 import com.betteru.database.MyResultRow;
+import com.betteru.database.Procedure;
 
 /**
  * @author mikkel.laursen
  *
  */
 public class Multiplier extends AccountChoice {
+	{
+		Procedure p = new Procedure("getamount", "name");
+		this.addProcedure(p);
+	}
 	private double amount;
 	public Multiplier() { }
 	public Multiplier(String primaryKey) {
@@ -24,6 +29,7 @@ public class Multiplier extends AccountChoice {
 		else {
 			Multiplier m = get(primaryKey);
 			setAmount(m.getAmount());
+			setPrimaryKey(m.getPrimaryKey());
 		}
 	}
 
@@ -63,15 +69,14 @@ public class Multiplier extends AccountChoice {
 
 	
 	
-	public List<Multiplier> getAll() {
-		return getAll(Multiplier.class);
+	public static List<Multiplier> getAll() {
+		return new Multiplier().getAll(Multiplier.class);
 	}
 
 	
-	public Multiplier get(String primaryKey) {
-		return get(primaryKey, Multiplier.class);
+	public static Multiplier get(String primaryKey) {
+		return new Multiplier().get(primaryKey, Multiplier.class);
 	}
-
 	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()

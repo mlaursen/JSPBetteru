@@ -8,10 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.betteru.accounts.Account;
-import com.betteru.accounts.AccountSetting;
 import com.betteru.accounts.AccountView;
 import com.betteru.accounts.forms.EditAccountForm;
+import com.github.mlaursen.bootstrap.forms.fields.DropdownChoice;
 
 /**
  * Servlet implementation class EditAccountServlet
@@ -44,35 +43,20 @@ public class EditAccountServlet extends HttpServlet {
 		String userid = (String) request.getSession().getAttribute("userid");
 		AccountView av = new AccountView(userid);
 		EditAccountForm form = new EditAccountForm(request, av);
-		//System.out.println(form);
 		if(form.isValid()) {
-			String b = form.getFieldValue(EditAccountForm.BIRTHDAY);
-			String g = form.getFieldValue(EditAccountForm.GENDER);
-			String u = form.getFieldValue(EditAccountForm.UNIT);
-			String h = form.getFieldValue(EditAccountForm.HEIGHT);
-			String w = form.getFieldValue(EditAccountForm.WEEKDAY);
-			String m = form.getFieldValue(EditAccountForm.MULTIPLIER);
-			System.out.println("gender: "+ g);
-			System.out.println("unit: "+ u);
-			System.out.println("week: "+ w);
-			System.out.println("mult: " + m);
-			/*
-			Account a = new Account(av);
-			AccountSetting as = new AccountSetting(av);
-			a.setBirthday(b);
-			a.setGender(g);
-			a.setUnit(u);
-			as.setHeight(h);
-			as.setRecalcById(r);
-			as.setMultiplierById(m);
-			if( a.update() && as.update() ) {
-			*/
-			av.setBirthday(b);
-			av.setGender(g);
-			av.setUnitSystem(u);
-			av.setHeight(h);
-			av.setWeekday(w);
-			av.setMultiplier(m);
+			String birthday = form.getBirthday();
+			String gender = form.getGender();
+			String unitSystem = form.getUnitSystem();
+			String height = form.getHeight();
+			String weekday = form.getWeekday();
+			String multiplier = form.getMultiplier();
+			av.setBirthday(birthday);
+			av.setGender(gender);
+			av.setUnitSystem(unitSystem);
+			av.setHeight(height);
+			av.setWeekday(weekday);
+			av.setMultiplier(multiplier);
+			System.out.println(av);
 			if(av.update()) {
 				request.setAttribute("success", "Your settings have been successfully updated!");
 			}

@@ -34,11 +34,11 @@ public class Weekday extends AccountChoice {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Weekday get(String n) {
-		return get(n, Weekday.class);
+	public static Weekday get(String n) {
+		return new Weekday().get(n, Weekday.class);
 	}
 	
 	public java.util.List<Weekday> getAll() {
-		return getAll(Weekday.class);
+		return new Weekday().getAll(Weekday.class);
 	}
 }

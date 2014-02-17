@@ -31,11 +31,11 @@ public class UnitSystem extends AccountChoice {
 		// TODO Auto-generated constructor stub
 	}
 
-	public UnitSystem get(String name) {
-		return get(name, UnitSystem.class);
+	public static UnitSystem get(String name) {
+		return new UnitSystem().get(name, UnitSystem.class);
 	}
 	
 	public List<UnitSystem> getAll() {
-		return getAll(UnitSystem.class);
+		return new UnitSystem().getAll(UnitSystem.class);
 	}
 }
