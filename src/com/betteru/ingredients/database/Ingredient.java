@@ -29,7 +29,7 @@ public class Ingredient extends DatabaseObjectListable implements DatabaseCreate
 	private String name;
 	private Brand brand;
 	private Category category;
-	private Serving def, alt;
+	private Serving defaultServing, alternateServing;
 	private Calorie calories;
 	private Carbohydrate carbs;
 	private Fat fat;
@@ -160,54 +160,54 @@ public class Ingredient extends DatabaseObjectListable implements DatabaseCreate
 	}
 
 	/**
-	 * @return the def
+	 * @return the defaultServing
 	 */
 	public Serving getDefaultServing() {
-		return def;
+		return defaultServing;
 	}
 	
 	public double getDefaultServingSize() {
-		return def.getSize();
+		return defaultServing.getSize();
 	}
 	public String getDefaultServingUnit() {
-		return def.getUnitName();
+		return defaultServing.getUnitName();
 	}
 
 	/**
-	 * @param def the def to set
+	 * @param defaultServing the defaultServing to set
 	 */
 	public void setDefaultServing(Serving def) {
-		this.def = def;
+		this.defaultServing = def;
 	}
 	
 	public void setDefaultServing(MyResultRow r) {
-		this.def = new Serving(Double.parseDouble(r.get("serving_size")), new FoodUnit(r.get("serving_unit")));
+		this.defaultServing = new Serving(Double.parseDouble(r.get("serving_size")), new FoodUnit(r.get("serving_unit")));
 	}
 
 	/**
-	 * @return the alt
+	 * @return the alternateServing
 	 */
 	public Serving getAlternateServing() {
-		return alt;
+		return alternateServing;
 	}
 	
 	public double getAlternateServingSize() {
-		return alt.getSize();
+		return alternateServing.getSize();
 	}
 	
 	public String getAlternateServingUnit() {
-		return alt.getUnitName();
+		return alternateServing.getUnitName();
 	}
 
 	/**
-	 * @param alt the alt to set
+	 * @param alternateServing the alternateServing to set
 	 */
 	public void setAlternateServing(Serving alt) {
-		this.alt = alt;
+		this.alternateServing = alt;
 	}
 	
 	public void setAlternateServing(MyResultRow r) {
-		this.alt = new Serving(Double.parseDouble(r.get("alt_serving_size")), new FoodUnit(r.get("alt_serving_unit")));
+		this.alternateServing = new Serving(Double.parseDouble(r.get("alt_serving_size")), new FoodUnit(r.get("alt_serving_unit")));
 	}
 
 	/**
@@ -288,7 +288,7 @@ public class Ingredient extends DatabaseObjectListable implements DatabaseCreate
 	@Override
 	public String toString() {
 		return "Ingredient [primaryKey=" + getPrimaryKey() + ", name=" + name + ", brand=" + brand + ", category=" + category
-				+ ", def=" + def + ", alt=" + alt + ", calories=" + calories + ", carbs=" + carbs + ", fat=" + fat + ", protein=" + protein
+				+ ", defaultServing=" + defaultServing + ", alternateServing=" + alternateServing + ", calories=" + calories + ", carbs=" + carbs + ", fat=" + fat + ", protein=" + protein
 				+ "]";
 	}
 }

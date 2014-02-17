@@ -1,6 +1,5 @@
 package com.betteru.ingredients;
 
-import com.betteru.database.MyResultRow;
 
 public class Calorie {
 
@@ -22,7 +21,7 @@ public class Calorie {
 	 */
 	@Override
 	public String toString() {
-		return "Calorie [amt=" + amt + "]";
+		return String.format("%.2f", amt);
 	}
 	
 	

@@ -3,6 +3,7 @@ package com.betteru.utils;
 public class StringNumberFormat {
 
 	public static final String[] FRACTIONS = new String[]{ "1/2", "1/3", "1/4", "1/8" };
+	public static String formatFractionString(double d) { return formatFractionString(d + ""); }
 	public static String formatFractionString(String number) {
 		if(number.contains("."))
 			number = "0" + number;
@@ -25,6 +26,7 @@ public class StringNumberFormat {
 		return formatDecimalString(number);
 	}
 	
+	public static String formatDecimalString(double d) { return formatDecimalString(d+""); }
 	public static String formatDecimalString(String dec) {
 		return String.format("%4.2f", Double.parseDouble(dec));
 	}

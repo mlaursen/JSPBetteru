@@ -24,4 +24,8 @@ public abstract class Macro {
 	public void setToCals(int c) {
 		toCals = c;
 	}
+	
+	public String toString() {
+		return String.format("%.2f", amt);
+	}
 }

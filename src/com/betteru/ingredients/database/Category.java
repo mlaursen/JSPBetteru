@@ -4,6 +4,7 @@
 package com.betteru.ingredients.database;
 
 import com.betteru.database.MyResultRow;
+import com.github.mlaursen.bootstrap.utils.Util;
 
 /**
  * @author mikkel.laursen
@@ -42,7 +43,7 @@ public class Category extends BrandCategoryOutline {
 	 */
 	@Override
 	public String toString() {
-		return "Category [name=" + getName() + "]";
+		return Util.capitalizeFirst(getPrimaryKey());
 	}
 
 	

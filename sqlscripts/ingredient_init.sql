@@ -135,4 +135,4 @@ END INGREDIENT_PKG;
 
 ---
 EXEC INGREDIENT_PKG.NEW('Chicken Breast', 'Food City', 'Proteins', 4, 'oz', 112, 'g', 140, 4, 0, 25);
-EXEC INGREDIENT_PKG.NEW('Brown Rice', 4, 3, 43, 1, 0.5, 5, 150, 1, 32, 3);
+EXEC INGREDIENT_PKG.NEW('Brown Rice', 'Mahatma', 'Carbs', 43, 'g', 0.5, 'c', 150, 1, 32, 3);

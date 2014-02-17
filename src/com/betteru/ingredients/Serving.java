@@ -2,6 +2,7 @@ package com.betteru.ingredients;
 
 import com.betteru.database.MyResultRow;
 import com.betteru.ingredients.database.FoodUnit;
+import com.betteru.utils.StringNumberFormat;
 
 public class Serving {
 
@@ -37,7 +38,7 @@ public class Serving {
 	 */
 	@Override
 	public String toString() {
-		return "Serving [size=" + size + ", foodUnit=" + foodUnit + "]";
+		return StringNumberFormat.formatFractionString(size) + " (" + getUnitName() + ")";
 	}
 
 	

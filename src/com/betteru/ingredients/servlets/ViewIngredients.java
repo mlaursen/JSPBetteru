@@ -26,7 +26,7 @@ public class ViewIngredients extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/ingredients/table.jsp");
 		List<Ingredient> allIngs = new Ingredient().getAll();
-		SidebarNav nav = new SidebarNav(Category.getSidebarList(), Brand.getSidebarList());
+		SidebarNav nav = new SidebarNav(new Category().getSidebarList(), new Brand().getSidebarList());
 		request.setAttribute("filters", nav.toHtml());
 		request.setAttribute("ingredients", allIngs);
 		rd.forward(request, response);

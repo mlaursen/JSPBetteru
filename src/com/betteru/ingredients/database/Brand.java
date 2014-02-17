@@ -3,9 +3,12 @@
  */
 package com.betteru.ingredients.database;
 
+import java.util.List;
+
 import com.betteru.database.DatabaseCreateable;
 import com.betteru.database.DatabaseManager;
 import com.betteru.database.MyResultRow;
+import com.github.mlaursen.bootstrap.sidebar.SidebarItemList;
 
 /**
  * @author mikkel.laursen
@@ -55,8 +58,7 @@ public class Brand extends BrandCategoryOutline implements DatabaseCreateable {
 	 */
 	@Override
 	public String toString() {
-		return "Brand [name=" + getName() + "]";
+		return getPrimaryKey();
 	}
-	
 	
 }

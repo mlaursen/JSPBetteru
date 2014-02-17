@@ -104,10 +104,12 @@ public abstract class BrandCategoryOutline extends DatabaseObjectListable implem
 		return choices;
 	}
 	
-	public List<SidebarItemList> getSidebarList() {
-		List<SidebarItemList> items = new ArrayList<SidebarItemList>();
-		List<BrandCategoryOutline> all = this.getAll(BrandCategoryOutline.class);
-		for(BrandCategoryOutline bco : all)
-		return items;
+	/**
+	 * Creates a sidebaritemlist for either a brand or category
+	 * @return
+	 */
+	public SidebarItemList<SidebarItemable> getSidebarList() {
+		String n = getClass().getSimpleName();
+		return new SidebarItemList(n.toLowerCase(), n, n.toLowerCase(), getAll(getClass()));
 	}
 }

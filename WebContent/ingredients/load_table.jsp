@@ -17,8 +17,8 @@
           <td>${i.name}</td>
           <td>${i.brand}</td>
           <td>${i.category}</td>
-          <td>${i.servingSize} (${i.servingUnitShort})</td>
-          <td>${i.altServingSize} (${i.altServingUnitShort})</td>
+          <td>${i.defaultServing}</td>
+          <td>${i.alternateServing}</td>
           <td>${i.calories}</td>
           <td>${i.fat}</td>
           <td>${i.carbs}</td>

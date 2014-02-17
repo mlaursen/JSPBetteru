@@ -1,5 +1,6 @@
 package com.betteru.testing;
 
+import com.betteru.ingredients.database.Brand;
 import com.betteru.ingredients.database.Ingredient;
 
 public class Testing {
@@ -7,7 +8,7 @@ public class Testing {
 	public static void main(String[] args) throws Exception {
 		Ingredient i = new Ingredient("6");
 		System.out.println(i);
-		
+		System.out.println(new Brand().getSidebarList());
 		/*
 		Account a = new Account("0");
 		AccountSetting as = new AccountSetting("0");
