@@ -76,15 +76,6 @@ public abstract class BrandCategoryOutline extends DatabaseObjectListable implem
 		// TODO Auto-generated method stub
 		this.id = k;
 	}
-
-	/* (non-Javadoc)
-	 * @see com.github.mlaursen.bootstrap.forms.fields.DropdownChoice#setDropdownValue(java.lang.String)
-	 */
-	@Override
-	public void setDropdownValue(String v) {
-		// TODO Auto-generated method stub
-		// do nothing
-	}
 	
 	/**
 	 * Creates a sidebaritemlist for either a brand or category

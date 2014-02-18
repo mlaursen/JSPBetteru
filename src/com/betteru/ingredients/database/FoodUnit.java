@@ -68,15 +68,6 @@ public class FoodUnit extends DatabaseObjectListable implements DropdownChoice {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.github.mlaursen.bootstrap.forms.fields.DropdownChoice#setDropdownValue(java.lang.String)
-	 */
-	@Override
-	public void setDropdownValue(String v) {
-		// TODO Auto-generated method stub
-
-	}
-
-	/* (non-Javadoc)
 	 * @see com.github.mlaursen.bootstrap.forms.fields.DropdownChoice#getAllChoices()
 	 */
 	@Override

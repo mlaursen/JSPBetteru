@@ -52,11 +52,6 @@ public class AccountChoice extends DatabaseObjectListable implements DropdownCho
 		id = i;
 	}
 	
-	@Override
-	public void setDropdownValue(String v) {
-		// do nothing
-	}
-	
 	public String defaultChoice() {
 		return "Select your " + Util.formatClassName(getClass(), null, " ");
 	}

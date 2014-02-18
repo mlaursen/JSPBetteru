@@ -20,30 +20,20 @@ import com.github.mlaursen.database.objects.DatabaseObject;
  */
 public abstract class AccountChoice extends DatabaseObject implements DatabaseGetable, DatabaseListable, DropdownChoice {
 	{ setPrimaryKeyName("name"); }
+	
 	private int id;
-	public AccountChoice() {
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * @param primaryKey
-	 */
+	public AccountChoice() { }
 	public AccountChoice(String primaryKey) {
 		super(primaryKey);
-		// TODO Auto-generated constructor stub
 	}
 	
 	public AccountChoice(String primaryKey, int id) {
 		super(primaryKey);
 		this.id = id;
 	}
-
-	/**
-	 * @param r
-	 */
+	
 	public AccountChoice(MyResultRow r) {
 		super(r);
-		
 	}
 
 	/* (non-Javadoc)
@@ -68,17 +58,7 @@ public abstract class AccountChoice extends DatabaseObject implements DatabaseGe
 	@Override
 	public void setDropdownKey(int k) {
 		int id = k;
-	}
-
-	/* (non-Javadoc)
-	 * @see com.github.mlaursen.bootstrap.forms.fields.DropdownChoice#setDropdownValue(java.lang.String)
-	 */
-	@Override
-	public void setDropdownValue(String v) {
-		// TODO Auto-generated method stub
-
-	}
-	
+	}	
 
 	/* (non-Javadoc)
 	 * @see com.github.mlaursen.bootstrap.forms.fields.DropdownChoice#getAllChoices()
