@@ -23,6 +23,7 @@ import com.betteru.meals.database.MealView;
 		RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/meals/all_meals.jsp");
 		//List<MealView> meals = new MealView().getAll(MealView.class);
 		List<MealView> meals = new MealView().getAll(MealView.class);
+		System.out.println(meals.get(0));
 		request.setAttribute("meals", meals);
 		rd.forward(request, response);
 	}

@@ -31,10 +31,10 @@ public class MealView extends Meal {
 	 */
 	public MealView(MyResultRow r) {
 		super(r);
-		setTotalCalories(r.get("total_calories"));
-		setTotalFat(r.get("total_fat"));
-		setTotalCarbs(r.get("total_carbs"));
-		setTotalProtein(r.get("total_protein"));
+		setTotalCalories(r);
+		setTotalFat(r);
+		setTotalCarbs(r);
+		setTotalProtein(r);
 		setMealPartViews(new MealPartView().getAll(r.get("id")));
 	}
 
@@ -157,6 +157,18 @@ public class MealView extends Meal {
 	 */
 	public void setMealPartViews(List<MealPartView> mealPartViews) {
 		this.mealPartViews = mealPartViews;
+	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "MealView [primaryKey=" + getPrimaryKey() + ", " 
+				+ (getName() != null ? "name=" + getName() + ", " : "")
+				+ (getDescription() != null ? "dscription=" + getDescription() + ", " : "")
+				+ "totalCalories=" + totalCalories
+				+ ", totalFat=" + totalFat + ", totalCarbs=" + totalCarbs + ", totalProtein=" + totalProtein + ", "
+				+ (mealPartViews != null ? "mealPartViews=" + mealPartViews : "") + "]";
 	}
 	
 	

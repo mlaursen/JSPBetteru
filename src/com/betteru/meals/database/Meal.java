@@ -97,4 +97,15 @@ public class Meal extends DatabaseObjectListable implements DatabaseCreateable, 
 	public void setDescription(MyResultRow r) {
 		description = new MyClob(r.get("description"));
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Meal [" + (getPrimaryKey() != null ? "primaryKey=" + getPrimaryKey() + ", " : "")
+				+ (name != null ? "name=" + name + ", " : "") + (description != null ? "description=" + description : "") + "]";
+	}
+	
+	
 }

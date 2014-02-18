@@ -17,7 +17,7 @@ public abstract class DatabaseObject {
 	}
 	
 	public DatabaseObject(MyResultRow r) {
-		this.primaryKey = r.get(primaryKey);
+		this.primaryKey = r.get(primaryKeyName);
 	}
 	
 	public void setPrimaryKey(String id) {

@@ -139,4 +139,16 @@ public class MealPart extends DatabaseObject implements DatabaseCreateable, Data
 	public void setDefaultUnit(MyResultRow r) {
 		defaultUnit = r.get("default_unit").equals("0");
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "MealPart [" + (getPrimaryKey() != null ? "primaryKey=" + getPrimaryKey() + ", " : "")
+				+ (mealId != null ? "mealId=" + mealId + ", " : "") + (ingredientId != null ? "ingredientId=" + ingredientId + ", " : "")
+				+ "amount=" + amount + ", defaultUnit=" + defaultUnit + "]";
+	}
+	
+	
 }
