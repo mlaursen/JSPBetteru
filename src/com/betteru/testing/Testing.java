@@ -1,6 +1,6 @@
 package com.betteru.testing;
 
-import com.betteru.meals.database.MealPartView;
+import com_old.betteru.meals.database.MealPartView;
 
 public class Testing {
 

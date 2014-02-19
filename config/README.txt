@@ -1,0 +1,1 @@
+You must have a dbconfig.properties file here to use the database manager jar.
