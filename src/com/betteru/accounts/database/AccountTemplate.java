@@ -22,7 +22,7 @@ public abstract class AccountTemplate extends DatabaseObject implements Getable,
 	protected String username;
 	
 	@DatabaseField(values={GET, CREATE, UPDATE})
-	private String password;
+	protected String password;
 	protected AccountTemplate() { }
 
 	/**
