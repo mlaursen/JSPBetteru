@@ -22,7 +22,7 @@ public class AccountChoice extends DatabaseObject implements Getable, GetAllable
 		setPrimaryKeyName("name");
 	}
 	
-	private int dropdownKey;
+	protected int dropdownKey;
 	public AccountChoice() { }
 	public AccountChoice(String primaryKey) {
 		super();
@@ -39,11 +39,13 @@ public class AccountChoice extends DatabaseObject implements Getable, GetAllable
 	 * @param r
 	 */
 	public AccountChoice(MyResultRow r) {
-		super(r);
+		super();
+		primaryKey = r.get(primaryKeyName);
 	}
 	
 	@Override
 	public String getDropdownValue() {
+		System.out.println("Is the value null? " + primaryKey == null);
 		return primaryKey;
 	}
 
@@ -66,7 +68,7 @@ public class AccountChoice extends DatabaseObject implements Getable, GetAllable
 	public List<DropdownChoice> getAllChoices() {
 		List<DropdownChoice> choices = new ArrayList<DropdownChoice>();
 		choices.add(new AccountChoice(defaultChoice()));
-		choices.addAll(this.getAll(AccountChoice.class));
+		choices.addAll(this.getAll(this.getClass()));
 		for(int i = 0; i < choices.size(); i++) {
 			choices.get(i).setDropdownKey(i);
 		}

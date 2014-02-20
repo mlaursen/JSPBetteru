@@ -60,7 +60,7 @@ public class LoginPageServlet extends HttpServlet {
 		}
 		else if(createForm.isFromRequest(request)) {
 			TempAccount ta = new TempAccount(createForm.getFieldValue("username"), createForm.getFieldValue("password"));
-			if(createForm.isValid() && ta.create() && Account.createFromTemp(ta)) {
+			if(createForm.isValid() && ta.create() && ta.createAccount()) {
 				request.setAttribute("success", "You have successfully created your account.  Please log in.");
 			}
 			else {

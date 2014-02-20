@@ -50,7 +50,7 @@ public class Multiplier extends AccountChoice {
 	 */
 	@Override
 	public String toString() {
-		return "Multiplier [" + (primaryKey != null ? "primaryKey=" + primaryKey + ", " : "") + "amount=" + amount + "]";
+		return "Multiplier [" + (primaryKey != null ? "primaryKey=" + primaryKey + ", " : "") + "amount=" + amount + ", dropdownKey=" + dropdownKey + "]";
 	}
 
 }

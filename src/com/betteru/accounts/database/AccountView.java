@@ -67,6 +67,7 @@ public class AccountView extends DatabaseView {
 
 	public void setAccountSetting(MyResultRow r) {
 		this.accountSetting = new AccountSetting();
+		this.accountSetting.setAccountId(r);
 		this.accountSetting.setHeight(r);
 		this.accountSetting.setMultiplier(r);
 		this.accountSetting.setWeekday(r);
@@ -125,7 +126,10 @@ public class AccountView extends DatabaseView {
 	 */
 	@Override
 	public String toString() {
-		return "AccountView [primaryKey=" + primaryKey + ", account=" + account + ", accountSetting=" + accountSetting + "]";
+		return "AccountView [primaryKey=" + primaryKey + ", username=" + account.getUsername() + ", birthday=" 
+				+ account.getBirthday() + ", gender=" + account.getGender() + ", unitsystem=" + account.getUnitSystem()
+				+ ", height=" + accountSetting.getHeight() + ", multiplier=" + accountSetting.getMultiplier()
+				+ ", weekday=" + accountSetting.getWeekday() + ", activeSince=" + account.getActiveSince() + "]";
 	}
 	
 	

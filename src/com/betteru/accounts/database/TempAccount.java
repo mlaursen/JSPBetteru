@@ -2,10 +2,16 @@ package com.betteru.accounts.database;
 
 import com.betteru.utils.Util;
 import com.github.mlaursen.database.objects.MyResultRow;
+import com.github.mlaursen.database.objects.Procedure;
 import com.github.mlaursen.database.objecttypes.Deleteable;
 
 public class TempAccount extends AccountTemplate implements Deleteable {
-
+	{
+		Procedure newAccount = new Procedure("newaccount", "id");
+		newAccount.setHasCursor(false);
+		
+		manager.addCustomProcedure(newAccount);
+	}
 	private String code;
 	public TempAccount() { }
 	public TempAccount(String primaryKey) {
@@ -21,6 +27,10 @@ public class TempAccount extends AccountTemplate implements Deleteable {
 
 	public TempAccount(MyResultRow r) {
 		super(r);
+	}
+	
+	public boolean createAccount() {
+		return manager.executeStoredProcedure("newaccount", primaryKey);
 	}
 	
 	

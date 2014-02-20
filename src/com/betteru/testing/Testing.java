@@ -1,7 +1,13 @@
 package com.betteru.testing;
 
+import java.util.List;
+
 import com.betteru.accounts.database.Account;
+import com.betteru.accounts.database.AccountSetting;
+import com.betteru.accounts.database.AccountView;
 import com.betteru.accounts.database.TempAccount;
+import com.betteru.databasechoices.accounts.Gender;
+import com.github.mlaursen.bootstrap.forms.fields.DropdownChoice;
 
 
 public class Testing {
@@ -12,6 +18,14 @@ public class Testing {
 		Account a = new Account(0);
 		System.out.println(a.getDatabaseManagerToString());
 		System.out.println(a);
+		AccountSetting as = new AccountSetting(0);
+		System.out.println(as);
+		System.out.println(as.getDatabaseManagerToString());
+		AccountView av = new AccountView(0);
+		System.out.println(av);
+		System.out.println(new Gender().getAll());
+		List<DropdownChoice> GENDERS = new Gender().getAllChoices();
+		System.out.println(GENDERS);
 		//System.out.println(new Account());
 		//AccountView av = new AccountView(0);
 		//System.out.println(av);

@@ -72,7 +72,7 @@ public class AccountSetting extends DatabaseObject implements Getable, Createabl
 	}
 	
 	public void setMultiplier(MyResultRow r) {
-		this.multiplier = new Multiplier(r);
+		this.multiplier = new Multiplier(r.get("multiplier"));
 	}
 	/**
 	 * @return the weekday
@@ -88,7 +88,7 @@ public class AccountSetting extends DatabaseObject implements Getable, Createabl
 	}
 	
 	public void setWeekday(MyResultRow r) {
-		this.weekday = new Weekday(r);
+		this.weekday = new Weekday(r.get("weekday"));
 	}
 	/**
 	 * @return the height

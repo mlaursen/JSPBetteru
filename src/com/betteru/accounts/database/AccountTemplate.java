@@ -3,7 +3,7 @@
  */
 package com.betteru.accounts.database;
 
-import static com.github.mlaursen.annotations.DatabaseFieldType.CREATE;
+import static com.github.mlaursen.annotations.DatabaseFieldType.NEW;
 import static com.github.mlaursen.annotations.DatabaseFieldType.GET;
 import static com.github.mlaursen.annotations.DatabaseFieldType.UPDATE;
 
@@ -18,10 +18,10 @@ import com.github.mlaursen.database.objecttypes.Getable;
  *
  */
 public abstract class AccountTemplate extends DatabaseObject implements Getable, Createable {
-	@DatabaseField(values={CREATE})
+	@DatabaseField(values={NEW})
 	protected String username;
 	
-	@DatabaseField(values={CREATE})
+	@DatabaseField(values={NEW})
 	protected String password;
 	protected AccountTemplate() { }
 

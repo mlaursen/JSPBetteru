@@ -11,6 +11,7 @@ import com.betteru.utils.Util;
 import com.github.mlaursen.annotations.DatabaseField;
 import com.github.mlaursen.annotations.DatabaseFieldType;
 import com.github.mlaursen.database.objects.MyResultRow;
+import com.github.mlaursen.database.objects.Procedure;
 import com.github.mlaursen.database.objecttypes.Updateable;
 
 /**
@@ -18,15 +19,22 @@ import com.github.mlaursen.database.objecttypes.Updateable;
  *
  */
 public class Account extends AccountTemplate implements Updateable {
-
+	private static final String UPDATE_LAST_LOGIN = "updatelastlogin";
+	{
+		Procedure updateLogin = new Procedure( UPDATE_LAST_LOGIN, "id");
+		updateLogin.setHasCursor(false);
+		
+		manager.addCustomProcedure(updateLogin);
+	}
 	@DatabaseField(values=DatabaseFieldType.UPDATE)
-	private Date birthday;
+	private Gender gender;
 	
 	@DatabaseField(values=DatabaseFieldType.UPDATE)
 	private UnitSystem unitSystem;
-	
+
 	@DatabaseField(values=DatabaseFieldType.UPDATE)
-	private Gender gender;
+	private Date birthday;
+
 	private Date activeSince;
 	public Account() { }
 
@@ -53,18 +61,21 @@ public class Account extends AccountTemplate implements Updateable {
 	}
 	
 	public boolean isValidUser() {
-		
-		return false;
+		MyResultRow r = manager.getFirstRowFromCursorProcedure("get", username);
+		boolean valid = false;
+		if(r != null) {
+			String pswd = r.get("password");
+			String salt = pswd.substring(0, 64);
+			String hash = Util.repeatedHashing(salt, getPassword());
+			valid = hash.equals(pswd);
+			if(valid)
+				primaryKey = r.get(primaryKeyName);
+		}
+		return valid;
 	}
 	
 	public boolean updateLastLogin() {
-		
-		return false;
-	}
-	
-	public static boolean createFromTemp(TempAccount ta) {
-		
-		return false;
+		return manager.executeStoredProcedure(UPDATE_LAST_LOGIN, primaryKey);
 	}
 	/**		Getters and setters  	 */
 
