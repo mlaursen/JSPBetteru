@@ -14,12 +14,13 @@ import com.betteru.databasechoices.accounts.Weekday;
 import com.betteru.utils.Util;
 import com.github.mlaursen.database.objects.DatabaseView;
 import com.github.mlaursen.database.objects.MyResultRow;
+import com.github.mlaursen.database.objecttypes.Updateable;
 
 /**
  * @author mikkel.laursen
  *
  */
-public class AccountView extends DatabaseView {
+public class AccountView extends DatabaseView implements Updateable {
 	{
 		this.setGetProcedureName("getfromview");
 	}

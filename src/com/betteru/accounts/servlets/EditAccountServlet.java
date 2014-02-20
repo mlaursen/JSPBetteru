@@ -56,7 +56,7 @@ public class EditAccountServlet extends HttpServlet {
 			av.setHeight(height);
 			av.setWeekday(weekday);
 			av.setMultiplier(multiplier);
-			System.out.println(av);
+			System.out.println(av.getDatabaseManagerToString());
 			if(av.update()) {
 				request.setAttribute("success", "Your settings have been successfully updated!");
 			}
