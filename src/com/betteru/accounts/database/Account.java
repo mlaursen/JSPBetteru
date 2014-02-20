@@ -40,10 +40,11 @@ public class Account extends AccountTemplate implements Updateable {
 	public Account(Integer primaryKey) {
 		super(primaryKey);
 	}
-
-	/**
-	 * @param r
-	 */
+	
+	public Account(String username, String password) {
+		super(username, password);
+	}
+	
 	public Account(MyResultRow r) {
 		super(r);
 		setBirthday(r);
@@ -51,7 +52,20 @@ public class Account extends AccountTemplate implements Updateable {
 		setGender(r);
 	}
 	
+	public boolean isValidUser() {
+		
+		return false;
+	}
 	
+	public boolean updateLastLogin() {
+		
+		return false;
+	}
+	
+	public static boolean createFromTemp(TempAccount ta) {
+		
+		return false;
+	}
 	/**		Getters and setters  	 */
 
 

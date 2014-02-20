@@ -35,6 +35,12 @@ public abstract class AccountTemplate extends DatabaseObject implements Getable,
 	public AccountTemplate(Integer primaryKey) {
 		super(primaryKey);
 	}
+	
+	public AccountTemplate(String username, String password) {
+		super();
+		this.username = username;
+		this.password = password;
+	}
 
 	/**
 	 * @param r

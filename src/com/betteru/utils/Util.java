@@ -122,11 +122,14 @@ public class Util {
 	 * @return
 	 */
 	public static double attemptParseDouble(MyResultRow r, String field) {
+		return attemptParseDouble(r.get(field));
+	}
+	public static double attemptParseDouble(String possibleDouble) {
 		try {
-			return Double.parseDouble(r.get(field));
+			return Double.parseDouble(possibleDouble);
 		}
 		catch(NullPointerException | NumberFormatException e) {
-			System.err.println(field + " in the result row was unable to be parsed as a double. The value was '" + r.get(field) + "'");
+			System.err.println(possibleDouble + " was unable to be parsed as a double.");
 			return -1;
 		}
 	}

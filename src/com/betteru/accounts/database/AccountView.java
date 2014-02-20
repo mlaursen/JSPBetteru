@@ -5,10 +5,13 @@ package com.betteru.accounts.database;
 
 import java.sql.Date;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.betteru.databasechoices.accounts.Gender;
 import com.betteru.databasechoices.accounts.Multiplier;
 import com.betteru.databasechoices.accounts.UnitSystem;
 import com.betteru.databasechoices.accounts.Weekday;
+import com.betteru.utils.Util;
 import com.github.mlaursen.database.objects.DatabaseView;
 import com.github.mlaursen.database.objects.MyResultRow;
 
@@ -31,6 +34,11 @@ public class AccountView extends DatabaseView {
 	public AccountView(Integer primaryKey) {
 		this(primaryKey.toString());
 	}
+	
+	public AccountView(HttpServletRequest request) {
+		this((String) request.getSession().getAttribute("userid"));
+	}
+	
 	public AccountView(MyResultRow r) {
 		super(r);
 	}
@@ -87,13 +95,29 @@ public class AccountView extends DatabaseView {
 		return accountSetting.getWeekday();
 	}
 	
+	public void setBirthday(String b) {
+		account.setBirthday(Util.stringToDate(b));
+	}
 	
+	public void setUnitSystem(String u) {
+		account.setUnitSystem(new UnitSystem(u));
+	}
 	
+	public void setHeight(String h) {
+		accountSetting.setHeight(Util.attemptParseDouble(h));
+	}
 	
+	public void setGender(String g) {
+		account.setGender(new Gender(g));
+	}
 	
+	public void setMultiplier(String m) {
+		accountSetting.setMultiplier(new Multiplier(m));
+	}
 	
-	
-	
+	public void setWeekday(String w) {
+		accountSetting.setWeekday(new Weekday(w));
+	}
 	
 	
 	/* (non-Javadoc)
