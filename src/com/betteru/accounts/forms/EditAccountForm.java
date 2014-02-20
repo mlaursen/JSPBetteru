@@ -31,7 +31,7 @@ public class EditAccountForm extends HtmlForm {
 		DateField bday = new DateField(BIRTHDAY);
 		bday.setValue(av.getBirthday());
 		bday.setCss("span2");
-		System.out.println(av);
+		
 		Dropdown genders = new Dropdown(GENDER, GENDERS);
 		genders.setValue(getKey(av.getGender(), GENDERS));
 		
@@ -55,7 +55,6 @@ public class EditAccountForm extends HtmlForm {
 	
 	public EditAccountForm(HttpServletRequest request, AccountView av) {
 		this(av);
-		System.out.println("request gender: " + request.getAttribute(GENDER));
 		updateValue(BIRTHDAY, request);
 		updateValue(GENDER, request);
 		updateValue(UNIT, request);
@@ -90,8 +89,6 @@ public class EditAccountForm extends HtmlForm {
 	
 	private String getKey(AccountChoice ac, List<DropdownChoice> choices) {
 		String v = ac.getDropdownValue();
-		System.out.println(v);
-		System.out.println(choices);
 		for(DropdownChoice c : choices) {
 			if(c.getDropdownValue().equalsIgnoreCase(v))
 				return c.getDropdownKey();

@@ -6,12 +6,12 @@ package com.betteru.databasechoices.accounts;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.github.mlaursen.bootstrap.utils.Util;
 import com.github.mlaursen.bootstrap.forms.fields.DropdownChoice;
 import com.github.mlaursen.database.objects.DatabaseObject;
 import com.github.mlaursen.database.objects.MyResultRow;
 import com.github.mlaursen.database.objecttypes.GetAllable;
 import com.github.mlaursen.database.objecttypes.Getable;
-import com_old.betteru.database.Util;
 
 /**
  * @author mikkel.laursen
@@ -45,8 +45,7 @@ public class AccountChoice extends DatabaseObject implements Getable, GetAllable
 	
 	@Override
 	public String getDropdownValue() {
-		System.out.println("Is the value null? " + primaryKey == null);
-		return primaryKey;
+		return Util.capitalizeFirst(primaryKey, " ");
 	}
 
 	
@@ -61,7 +60,7 @@ public class AccountChoice extends DatabaseObject implements Getable, GetAllable
 	}
 
 	public String defaultChoice() {
-		return "Select your " + Util.formatClassName(getClass(), null, " ");
+		return "Select your " + com.github.mlaursen.database.Util.formatClassName(getClass(), null, " ");
 	}
 	
 	@Override
