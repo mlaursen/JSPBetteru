@@ -3,9 +3,9 @@
  */
 package com.betteru.accounts.database;
 
-import static com.github.mlaursen.annotations.DatabaseAnnotationType.CREATE;
-import static com.github.mlaursen.annotations.DatabaseAnnotationType.GET;
-import static com.github.mlaursen.annotations.DatabaseAnnotationType.UPDATE;
+import static com.github.mlaursen.annotations.DatabaseFieldType.CREATE;
+import static com.github.mlaursen.annotations.DatabaseFieldType.GET;
+import static com.github.mlaursen.annotations.DatabaseFieldType.UPDATE;
 
 import com.github.mlaursen.annotations.DatabaseField;
 import com.github.mlaursen.database.objects.DatabaseObject;
