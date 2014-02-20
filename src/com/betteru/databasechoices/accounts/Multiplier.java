@@ -42,7 +42,15 @@ public class Multiplier extends AccountChoice {
 	}
 	
 	public void setAmount(MyResultRow r) {
-		this.amount = Util.attemptParseDouble(r, "amount");
+		if(r.get("amount") != null)
+			this.amount = Util.attemptParseDouble(r, "amount");
+	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Multiplier [" + (primaryKey != null ? "primaryKey=" + primaryKey + ", " : "") + "amount=" + amount + "]";
 	}
 
 }

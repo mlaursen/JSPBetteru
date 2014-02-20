@@ -5,11 +5,13 @@ package com.betteru.accounts.database;
 
 import java.sql.Date;
 
-import com.github.mlaursen.database.objects.MyResultRow;
-import com.github.mlaursen.database.objecttypes.Updateable;
 import com.betteru.databasechoices.accounts.Gender;
 import com.betteru.databasechoices.accounts.UnitSystem;
 import com.betteru.utils.Util;
+import com.github.mlaursen.annotations.DatabaseField;
+import com.github.mlaursen.annotations.DatabaseFieldType;
+import com.github.mlaursen.database.objects.MyResultRow;
+import com.github.mlaursen.database.objecttypes.Updateable;
 
 /**
  * @author mikkel.laursen
@@ -17,15 +19,25 @@ import com.betteru.utils.Util;
  */
 public class Account extends AccountTemplate implements Updateable {
 
+	@DatabaseField(values=DatabaseFieldType.UPDATE)
 	private Date birthday;
+	
+	@DatabaseField(values=DatabaseFieldType.UPDATE)
 	private UnitSystem unitSystem;
+	
+	@DatabaseField(values=DatabaseFieldType.UPDATE)
 	private Gender gender;
+	private Date activeSince;
 	public Account() { }
 
 	/**
 	 * @param primaryKey
 	 */
 	public Account(String primaryKey) {
+		super(primaryKey);
+	}
+	
+	public Account(Integer primaryKey) {
 		super(primaryKey);
 	}
 
@@ -64,7 +76,7 @@ public class Account extends AccountTemplate implements Updateable {
 	}
 	
 	public void setUnitSystem(MyResultRow r) {
-		unitSystem = new UnitSystem(r);
+		unitSystem = new UnitSystem(r.get("unit"));
 	}
 
 	public Gender getGender() {
@@ -76,10 +88,27 @@ public class Account extends AccountTemplate implements Updateable {
 	}
 	
 	public void setGender(MyResultRow r) {
-		gender = new Gender(r);
+		gender = new Gender(r.get("gender"));
 	}
 	
 	
+	/**
+	 * @return the activeSince
+	 */
+	public Date getActiveSince() {
+		return activeSince;
+	}
+
+	/**
+	 * @param activeSince the activeSince to set
+	 */
+	public void setActiveSince(Date activeSince) {
+		this.activeSince = activeSince;
+	}
+	public void setActiveSince(MyResultRow r) {
+		this.activeSince = Util.stringToDate(r.get("active_since"));
+	}
+
 	/**   	toString **/
 
 	@Override

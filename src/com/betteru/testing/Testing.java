@@ -1,10 +1,23 @@
 package com.betteru.testing;
 
-import com_old.betteru.meals.database.MealPartView;
+import com.betteru.accounts.database.Account;
+import com.betteru.accounts.database.TempAccount;
+
 
 public class Testing {
 
 	public static void main(String[] args) throws Exception {
+		TempAccount ta = new TempAccount("test", "teset");
+		System.out.println(ta);
+		Account a = new Account(0);
+		System.out.println(a.getDatabaseManagerToString());
+		System.out.println(a);
+		//System.out.println(new Account());
+		//AccountView av = new AccountView(0);
+		//System.out.println(av);
+		//System.out.println(new Gender("male"));
+		//System.out.println(new Gender().getAll(Gender.class));
+		/*
 		System.out.println(new MealPartView().getAll("1"));
 		/*
 		List<DropdownChoice> foodUnits = new FoodUnit().getAllChoices();

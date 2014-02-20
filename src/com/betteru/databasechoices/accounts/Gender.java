@@ -42,5 +42,4 @@ public class Gender extends AccountChoice {
 		super(r);
 		// TODO Auto-generated constructor stub
 	}
-
 }

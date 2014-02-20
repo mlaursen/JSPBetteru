@@ -25,11 +25,13 @@ public class AccountChoice extends DatabaseObject implements Getable, GetAllable
 	private int dropdownKey;
 	public AccountChoice() { }
 	public AccountChoice(String primaryKey) {
-		super(primaryKey);
+		super();
+		this.primaryKey = primaryKey;//("name");
+		
 	}
 	
 	public AccountChoice(String primaryKey, int id) {
-		super(primaryKey);
+		this(primaryKey);
 		dropdownKey = id;
 	}
 
@@ -70,5 +72,14 @@ public class AccountChoice extends DatabaseObject implements Getable, GetAllable
 		}
 		return choices;
 	}
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "AccountChoice [" + (primaryKey != null ? "primaryKey=" + primaryKey + ", " : "") + "dropdownKey=" + dropdownKey + "]";
+	}
 
+	
 }

@@ -18,10 +18,10 @@ import com.github.mlaursen.database.objecttypes.Getable;
  *
  */
 public abstract class AccountTemplate extends DatabaseObject implements Getable, Createable {
-	@DatabaseField(values={GET, CREATE, UPDATE})
+	@DatabaseField(values={CREATE})
 	protected String username;
 	
-	@DatabaseField(values={GET, CREATE, UPDATE})
+	@DatabaseField(values={CREATE})
 	protected String password;
 	protected AccountTemplate() { }
 
@@ -29,6 +29,10 @@ public abstract class AccountTemplate extends DatabaseObject implements Getable,
 	 * @param primaryKey
 	 */
 	public AccountTemplate(String primaryKey) {
+		super(primaryKey);
+	}
+	
+	public AccountTemplate(Integer primaryKey) {
 		super(primaryKey);
 	}
 
