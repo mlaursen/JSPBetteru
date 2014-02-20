@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.betteru.accounts.database;
+package com.betteru.databasechoices.accounts;
 
 import com.github.mlaursen.database.objects.MyResultRow;
 
@@ -9,19 +9,19 @@ import com.github.mlaursen.database.objects.MyResultRow;
  * @author mikkel.laursen
  *
  */
-public class Gender extends AccountChoice {
+public class UnitSystem extends AccountChoice {
 
 	/**
 	 * 
 	 */
-	public Gender() {
+	public UnitSystem() {
 		// TODO Auto-generated constructor stub
 	}
 
 	/**
 	 * @param primaryKey
 	 */
-	public Gender(String primaryKey) {
+	public UnitSystem(String primaryKey) {
 		super(primaryKey);
 		// TODO Auto-generated constructor stub
 	}
@@ -30,7 +30,7 @@ public class Gender extends AccountChoice {
 	 * @param primaryKey
 	 * @param id
 	 */
-	public Gender(String primaryKey, int id) {
+	public UnitSystem(String primaryKey, int id) {
 		super(primaryKey, id);
 		// TODO Auto-generated constructor stub
 	}
@@ -38,7 +38,7 @@ public class Gender extends AccountChoice {
 	/**
 	 * @param r
 	 */
-	public Gender(MyResultRow r) {
+	public UnitSystem(MyResultRow r) {
 		super(r);
 		// TODO Auto-generated constructor stub
 	}

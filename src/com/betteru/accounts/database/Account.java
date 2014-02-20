@@ -7,7 +7,8 @@ import java.sql.Date;
 
 import com.github.mlaursen.database.objects.MyResultRow;
 import com.github.mlaursen.database.objecttypes.Updateable;
-import com.betteru.accounts.database.UnitSystem;
+import com.betteru.databasechoices.accounts.Gender;
+import com.betteru.databasechoices.accounts.UnitSystem;
 import com.betteru.utils.Util;
 
 /**

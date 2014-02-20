@@ -5,11 +5,10 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
-import java.util.List;
 import java.util.UUID;
+
+import com.github.mlaursen.database.objects.MyResultRow;
 
 public class Util {
 
@@ -113,5 +112,22 @@ public class Util {
 	 */
 	public static String uuidToHexString(UUID uuid) {
 		return Long.toHexString(uuid.getMostSignificantBits()) + Long.toBinaryString(uuid.getLeastSignificantBits());
+	}
+	
+	/**
+	 * Attempts to parse a double from a ResultRow. Returns -1 if it was unsuccessful and displays
+	 * an error in the System.err
+	 * @param r	The MyResultRow to get the field from
+	 * @param field The field name
+	 * @return
+	 */
+	public static double attemptParseDouble(MyResultRow r, String field) {
+		try {
+			return Double.parseDouble(r.get(field));
+		}
+		catch(NullPointerException | NumberFormatException e) {
+			System.err.println(field + " in the result row was unable to be parsed as a double. The value was '" + r.get(field) + "'");
+			return -1;
+		}
 	}
 }

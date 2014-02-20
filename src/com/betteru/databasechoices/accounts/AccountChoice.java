@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.betteru.accounts.database;
+package com.betteru.databasechoices.accounts;
 
 import java.util.ArrayList;
 import java.util.List;

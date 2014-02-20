@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.betteru.accounts.database;
+package com.betteru.databasechoices.accounts;
 
 import com.github.mlaursen.database.objects.MyResultRow;
 
@@ -9,19 +9,19 @@ import com.github.mlaursen.database.objects.MyResultRow;
  * @author mikkel.laursen
  *
  */
-public class UnitSystem extends AccountChoice {
+public class Weekday extends AccountChoice {
 
 	/**
 	 * 
 	 */
-	public UnitSystem() {
+	public Weekday() {
 		// TODO Auto-generated constructor stub
 	}
 
 	/**
 	 * @param primaryKey
 	 */
-	public UnitSystem(String primaryKey) {
+	public Weekday(String primaryKey) {
 		super(primaryKey);
 		// TODO Auto-generated constructor stub
 	}
@@ -30,7 +30,7 @@ public class UnitSystem extends AccountChoice {
 	 * @param primaryKey
 	 * @param id
 	 */
-	public UnitSystem(String primaryKey, int id) {
+	public Weekday(String primaryKey, int id) {
 		super(primaryKey, id);
 		// TODO Auto-generated constructor stub
 	}
@@ -38,7 +38,7 @@ public class UnitSystem extends AccountChoice {
 	/**
 	 * @param r
 	 */
-	public UnitSystem(MyResultRow r) {
+	public Weekday(MyResultRow r) {
 		super(r);
 		// TODO Auto-generated constructor stub
 	}
