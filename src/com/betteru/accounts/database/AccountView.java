@@ -3,6 +3,12 @@
  */
 package com.betteru.accounts.database;
 
+import java.sql.Date;
+
+import com.betteru.databasechoices.accounts.Gender;
+import com.betteru.databasechoices.accounts.Multiplier;
+import com.betteru.databasechoices.accounts.UnitSystem;
+import com.betteru.databasechoices.accounts.Weekday;
 import com.github.mlaursen.database.objects.DatabaseView;
 import com.github.mlaursen.database.objects.MyResultRow;
 
@@ -57,6 +63,39 @@ public class AccountView extends DatabaseView {
 		this.accountSetting.setMultiplier(r);
 		this.accountSetting.setWeekday(r);
 	}
+	
+	public Date getBirthday() {
+		return account.getBirthday();
+	}
+	
+	public double getHeight() {
+		return accountSetting.getHeight();
+	}
+	
+	public Gender getGender() {
+		return account.getGender();
+	}
+	
+	public UnitSystem getUnitSystem() {
+		return account.getUnitSystem();
+	}
+	public Multiplier getMultiplier() {
+		return accountSetting.getMultiplier();
+	}
+	
+	public Weekday getWeekday() {
+		return accountSetting.getWeekday();
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
