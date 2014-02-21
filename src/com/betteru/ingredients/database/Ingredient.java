@@ -20,6 +20,7 @@ import com.github.mlaursen.database.objects.MyResultRow;
 import com.github.mlaursen.database.objects.Procedure;
 import com.github.mlaursen.database.objecttypes.Createable;
 import com.github.mlaursen.database.objecttypes.Deleteable;
+import com.github.mlaursen.database.objecttypes.Filterable;
 import com.github.mlaursen.database.objecttypes.GetAllable;
 import com.github.mlaursen.database.objecttypes.Getable;
 import com.github.mlaursen.database.objecttypes.Updateable;
@@ -28,7 +29,7 @@ import com.github.mlaursen.database.objecttypes.Updateable;
  * @author mikkel.laursen
  *
  */
-public class Ingredient extends DatabaseObject implements Getable, GetAllable, Createable, Updateable, Deleteable {
+public class Ingredient extends DatabaseObject implements Getable, GetAllable, Createable, Updateable, Deleteable, Filterable {
 	{
 		Procedure pFilter = new Procedure("filter", "category", "brand");
 		this.manager.addCustomProcedure(pFilter);
@@ -36,10 +37,10 @@ public class Ingredient extends DatabaseObject implements Getable, GetAllable, C
 	@DatabaseField(values={DatabaseFieldType.NEW, DatabaseFieldType.UPDATE})
 	private String name;
 	
-	@DatabaseField(values={DatabaseFieldType.NEW, DatabaseFieldType.UPDATE})
+	@DatabaseField(values={DatabaseFieldType.NEW, DatabaseFieldType.UPDATE, DatabaseFieldType.FILTER}, filterPosition=1)
 	private Brand brand;
 	
-	@DatabaseField(values={DatabaseFieldType.NEW, DatabaseFieldType.UPDATE})
+	@DatabaseField(values={DatabaseFieldType.NEW, DatabaseFieldType.UPDATE, DatabaseFieldType.FILTER}, filterPosition=0)
 	private Category category;
 	
 	@MultipleDatabaseField(values={DatabaseFieldType.NEW, DatabaseFieldType.UPDATE}, names = { "servingSize", "servingUnit" })

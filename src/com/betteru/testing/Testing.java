@@ -9,7 +9,7 @@ public class Testing {
 		Ingredient i = new Ingredient("Chicken Breast");
 		System.out.println(i);
 		System.out.println(i.getDatabaseManagerToString());
-		System.out.println(i.getAll());
+		//System.out.println(i.getAll());
 		/*
 		Brand b = new Brand("Food City");
 		//System.out.println(b.getAll());

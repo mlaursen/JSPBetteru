@@ -4,15 +4,15 @@
       <h4>Ingredients</h4>
       <table class="table table-striped table-bordered table-hover table-condensed">
         <tr>
-          <th>Name</th>
-          <th>Brand</th>
-          <th>Category</th>
-          <th>Serving Size (default)</th>
-          <th>Serving Size (alternate)</th>
-          <th>Calories (kCal)</th>
-          <th>Fat (g)</th>
-          <th>Carbohydrates (g)</th>
-          <th>Protein (g)</th>
+          <th class="ingredient-table-name">Name</th>
+          <th class="ingredient-table-brand">Brand</th>
+          <th class="ingredient-table-category">Category</th>
+          <th class="ingredient-table-serving">Serving Size (default)</th>
+          <th class="ingredient-table-serving">Serving Size (alternate)</th>
+          <th class="ingredient-table-macro">Calories (kCal)</th>
+          <th class="ingredient-table-macro">Fat (g)</th>
+          <th class="ingredient-table-macro">Carbs (g)</th>
+          <th class="ingredient-table-macro">Protein (g)</th>
         <c:forEach items="${ingredients}" var="i"><tr>
           <td>${i.name}</td>
           <td>${i.brand}</td>

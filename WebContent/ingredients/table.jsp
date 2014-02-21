@@ -5,6 +5,9 @@
 
 <t:base>
   <jsp:attribute name="title">View Ingredients</jsp:attribute>
+  <jsp:attribute name="additional_css">
+  <link href="${pageContext.request.contextPath}/css/ingredients.css" rel="stylesheet" />
+  </jsp:attribute>
   <jsp:attribute name="container">-fluid</jsp:attribute>
   <jsp:attribute name="content"><div class="row-fluid">
     <t:sidebar contents="${filters}" />
