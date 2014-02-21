@@ -11,7 +11,7 @@ import com.github.mlaursen.database.objecttypes.Createable;
  * @author mikkel.laursen
  *
  */
-public class Brand extends Template implements Createable {
+public class Brand extends SidebarTemplate implements Createable {
 	{
 		Procedure pNew = manager.getPackage().getProcedure("new");
 		pNew.addParams("name");

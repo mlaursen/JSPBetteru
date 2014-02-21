@@ -2,6 +2,7 @@ package com.betteru.testing;
 
 import com.betteru.databasechoices.ingredients.Brand;
 import com.betteru.databasechoices.ingredients.Category;
+import com.betteru.databasechoices.ingredients.FoodUnit;
 
 
 public class Testing {
@@ -15,8 +16,14 @@ public class Testing {
 		System.out.println(b.getAll(Brand.class));
 		
 		Category c = new Category("Carbs");
+		System.out.println(c);
 		System.out.println(c.getDatabaseManagerToString());
 		System.out.println(c.getAll());
+		
+		FoodUnit fu = new FoodUnit("g");
+		System.out.println(fu);
+		System.out.println(fu.getDatabaseManagerToString());
+		System.out.println(fu.getAll());
 		//System.out.println(b.get("Fage"));
 		//Brand fage = new Brand("Fage");
 		//System.out.println(fage);

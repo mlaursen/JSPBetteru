@@ -19,7 +19,7 @@ import com_old.betteru.ingredients.database.Brand;
  * @author mikkel.laursen
  *
  */
-public abstract class Template extends DatabaseObject implements Getable, GetAllable, DropdownChoice, SidebarItemable {
+public abstract class Template extends DatabaseObject implements Getable, GetAllable, DropdownChoice {
 	{ setPrimaryKeyName("name"); }
 	
 	protected int id;
@@ -44,14 +44,6 @@ public abstract class Template extends DatabaseObject implements Getable, GetAll
 	public Template(MyResultRow r) {
 		super();
 		setAll(r);
-	}
-
-	/* (non-Javadoc)
-	 * @see com.github.mlaursen.bootstrap.sidebar.SidebarItemable#getName()
-	 */
-	@Override
-	public String getName() {
-		return primaryKey;
 	}
 
 	/* (non-Javadoc)
@@ -97,14 +89,5 @@ public abstract class Template extends DatabaseObject implements Getable, GetAll
 	@Override
 	public String toString() {
 		return primaryKey;
-	}
-	/**
-	 * 
-	 * @return
-	 */
-	public SidebarItemList<SidebarItemable> getSidebarList() {
-		String n = getClass().getSimpleName();
-		n = n.equals("Brand") ? "Brands" : "Categories";
-		return new SidebarItemList(n.toLowerCase(), n, n.toLowerCase(), getAll(getClass()));
 	}
 }

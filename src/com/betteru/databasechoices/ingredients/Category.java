@@ -10,7 +10,7 @@ import com.github.mlaursen.database.objects.MyResultRow;
  * @author mikkel.laursen
  *
  */
-public class Category extends Template {
+public class Category extends SidebarTemplate {
 
 	/**
 	 * 
