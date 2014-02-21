@@ -58,7 +58,7 @@ public class StringNumberFormat {
 		return attemptParseDouble(r.get(field), 0);
 	}
 	
-	public static double attemptParseDObule(MyResultRow r, String field, double fallback) {
+	public static double attemptParseDouble(MyResultRow r, String field, double fallback) {
 		return attemptParseDouble(r.get(field), fallback);
 	}
 	

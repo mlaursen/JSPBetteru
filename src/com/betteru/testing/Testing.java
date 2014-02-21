@@ -1,13 +1,16 @@
 package com.betteru.testing;
 
-import com.betteru.databasechoices.ingredients.Brand;
-import com.betteru.databasechoices.ingredients.Category;
-import com.betteru.databasechoices.ingredients.FoodUnit;
+import com.betteru.ingredients.Ingredient;
 
 
 public class Testing {
 
 	public static void main(String[] args) throws Exception {
+		Ingredient i = new Ingredient("Chicken Breast");
+		System.out.println(i);
+		System.out.println(i.getDatabaseManagerToString());
+		System.out.println(i.getAll());
+		/*
 		Brand b = new Brand("Food City");
 		//System.out.println(b.getAll());
 		//System.out.println(b.getAllChoices());
