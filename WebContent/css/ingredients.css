@@ -1,21 +1,23 @@
 @CHARSET "ISO-8859-1";
 
 
-th.ingredient-table-macro {
-  width: 10px;
-}
 
 th.ingredient-table-name {
   width: 200px;
 }
 
-th.ingredient-table-category {
-  width: 100px;
-}
 th.ingredient-table-brand {
   width: 150px;
 }
 
+th.ingredient-table-category {
+  width: 100px;
+}
+
 th.ingredient-table-serving {
   width: 90px;
+}
+
+th.ingredient-table-macro {
+  width: 30px;
 }

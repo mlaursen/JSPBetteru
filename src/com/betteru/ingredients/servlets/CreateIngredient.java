@@ -49,6 +49,7 @@ public class CreateIngredient extends HttpServlet {
 				success = new Brand(brands.getValue()).create();
 			if(success) {
 				Ingredient i = new Ingredient(f);
+				System.out.println(i);
 				success = i.create();
 			}
 			

@@ -1,14 +1,38 @@
 package com.betteru.testing;
 
+import com.betteru.databasechoices.ingredients.Brand;
+import com.betteru.databasechoices.ingredients.Category;
+import com.betteru.databasechoices.ingredients.FoodUnit;
+import com.betteru.ingredients.AltServing;
+import com.betteru.ingredients.Calorie;
+import com.betteru.ingredients.Carbohydrate;
+import com.betteru.ingredients.Fat;
+import com.betteru.ingredients.Protein;
+import com.betteru.ingredients.Serving;
 import com.betteru.ingredients.database.Ingredient;
 
 
 public class Testing {
 
 	public static void main(String[] args) throws Exception {
-		Ingredient i = new Ingredient("Chicken Breast");
-		System.out.println(i);
+		//Ingredient i = new Ingredient("Chicken Breast");
+		Ingredient i = new Ingredient();
 		System.out.println(i.getDatabaseManagerToString());
+		i.setName("0% Greek Yogurt");
+		i.setBrand(new Brand("Chobani"));
+		i.setCategory(new Category("Dairy"));
+		i.setDefaultServing(new Serving(227, new FoodUnit("g")));
+		i.setAlternateServing(new AltServing(1, new FoodUnit("c")));
+		i.setCalories(new Calorie(140));
+		i.setFat(new Fat(0));
+		i.setCarbs(new Carbohydrate(9));
+		i.setProtein(new Protein(23));
+		System.out.println(i);
+		System.out.println(i.create());
+		//.out.println(i);
+		System.out.println(i.getDatabaseManagerToString());
+		String n = "getAltServingSize";
+		System.out.println(n.matches("(?i)getaltservingsize.*"));
 		//System.out.println(i.getAll());
 		/*
 		Brand b = new Brand("Food City");

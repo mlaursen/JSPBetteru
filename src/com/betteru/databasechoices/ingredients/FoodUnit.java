@@ -54,8 +54,7 @@ public class FoodUnit extends Template {
 	 */
 	@Override
 	public String toString() {
-		return "FoodUnit [" + (primaryKey != null ? "primaryKey=" + primaryKey + ", " : "")
-				+ (longName != null ? "longName=" + longName : "") + "id=" + id + ", " + "]";
+		return primaryKey;
 	}
 	
 	
