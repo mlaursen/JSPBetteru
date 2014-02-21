@@ -1,10 +1,17 @@
 /**
  * 
  */
-package com.betteru.ingredients;
+package com.betteru.ingredients.database;
 
 import com.betteru.databasechoices.ingredients.Brand;
 import com.betteru.databasechoices.ingredients.Category;
+import com.betteru.ingredients.AltServing;
+import com.betteru.ingredients.Calorie;
+import com.betteru.ingredients.Carbohydrate;
+import com.betteru.ingredients.Fat;
+import com.betteru.ingredients.Protein;
+import com.betteru.ingredients.Serving;
+import com.betteru.ingredients.forms.CreateIngredientForm;
 import com.github.mlaursen.annotations.DatabaseField;
 import com.github.mlaursen.annotations.DatabaseFieldType;
 import com.github.mlaursen.annotations.MultipleDatabaseField;
@@ -72,6 +79,19 @@ public class Ingredient extends DatabaseObject implements Getable, GetAllable, C
 	public Ingredient(MyResultRow r) {
 		super(r);
 		// TODO Auto-generated constructor stub
+	}
+	
+	public Ingredient(CreateIngredientForm f) {
+		super();
+		this.name = f.getIngredientName();
+		this.brand = f.getBrand();
+		this.category = f.getCategory();
+		this.defaultServing = f.getDefaultServing();
+		this.alternateServing = f.getAlternateServing();
+		this.calories = f.getCalories();
+		this.fat = f.getFat();
+		this.carbs = f.getCarbs();
+		this.protein = f.getProtein();
 	}
 	/**
 	 * @return the name
@@ -185,6 +205,10 @@ public class Ingredient extends DatabaseObject implements Getable, GetAllable, C
 	public void setProtein(MyResultRow r) {
 		this.protein = new Protein(r);
 	}
+	
+	public Serving getDefaultServing() {
+		return defaultServing;
+	}
 	/**
 	 * @param defaultServing the defaultServing to set
 	 */
@@ -194,6 +218,10 @@ public class Ingredient extends DatabaseObject implements Getable, GetAllable, C
 	
 	public void setDefaultServing(MyResultRow r) {
 		this.defaultServing = new Serving(r);
+	}
+	
+	public Serving getAlternateServing() {
+		return this.alternateServing;
 	}
 	/**
 	 * @param alternateServing the alternateServing to set

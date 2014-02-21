@@ -1,6 +1,6 @@
 package com.betteru.testing;
 
-import com.betteru.ingredients.Ingredient;
+import com.betteru.ingredients.database.Ingredient;
 
 
 public class Testing {
