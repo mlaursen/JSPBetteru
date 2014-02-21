@@ -94,7 +94,6 @@ public class Ingredient extends DatabaseObject implements Getable, GetAllable, C
 		this.fat = f.getFat();
 		this.carbs = f.getCarbs();
 		this.protein = f.getProtein();
-		System.out.println("Printed after created from form: " + this);
 	}
 	/**
 	 * @return the name
