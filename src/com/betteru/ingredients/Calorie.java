@@ -23,6 +23,10 @@ public class Calorie {
 		return amt;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		return o instanceof Calorie && ((Calorie) o).amt == amt;
+	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */

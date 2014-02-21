@@ -3,6 +3,7 @@
  */
 package com.betteru.ingredients.database;
 
+
 import com.betteru.databasechoices.ingredients.Brand;
 import com.betteru.databasechoices.ingredients.Category;
 import com.betteru.ingredients.AltServing;
@@ -47,7 +48,7 @@ public class Ingredient extends DatabaseObject implements Getable, GetAllable, C
 	private Serving defaultServing;
 	
 	@MultipleDatabaseField(values={DatabaseFieldType.NEW, DatabaseFieldType.UPDATE}, names = { "altservingSize", "altservingUnit" })
-	private Serving alternateServing;
+	private AltServing alternateServing;
 	
 	@DatabaseField(values={DatabaseFieldType.NEW, DatabaseFieldType.UPDATE})
 	private Calorie calories;
@@ -83,7 +84,7 @@ public class Ingredient extends DatabaseObject implements Getable, GetAllable, C
 	}
 	
 	public Ingredient(CreateIngredientForm f) {
-		super();
+		this();
 		this.name = f.getIngredientName();
 		this.brand = f.getBrand();
 		this.category = f.getCategory();
@@ -222,13 +223,13 @@ public class Ingredient extends DatabaseObject implements Getable, GetAllable, C
 		this.defaultServing = new Serving(r);
 	}
 	
-	public Serving getAlternateServing() {
+	public AltServing getAlternateServing() {
 		return this.alternateServing;
 	}
 	/**
 	 * @param alternateServing the alternateServing to set
 	 */
-	public void setAlternateServing(Serving alternateServing) {
+	public void setAlternateServing(AltServing alternateServing) {
 		this.alternateServing = alternateServing;
 	}
 	
@@ -256,5 +257,17 @@ public class Ingredient extends DatabaseObject implements Getable, GetAllable, C
 				+ (fat != null ? "fat=" + fat + ", " : "") + (protein != null ? "protein=" + protein : "") + "]";
 	}
 	
+	@Override
+	public boolean equals(Object o) {
+		if(o instanceof Ingredient) {
+			Ingredient i = (Ingredient) o;
+			return name.equals(i.getName()) && brand.equals(i.getBrand())
+					&& category.equals(i.getCategory()) && defaultServing.equals(i.getDefaultServing())
+					&& alternateServing.equals(getAlternateServing()) && calories.equals(i.getCalories())
+					&& fat.equals(i.getFat()) && carbs.equals(i.getCarbs()) && protein.equals(i.getProtein());
+		}
+		else
+			return false;
+	}
 	
 }

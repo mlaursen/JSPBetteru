@@ -9,6 +9,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.betteru.databasechoices.ingredients.Brand;
+import com.betteru.databasechoices.ingredients.Category;
+import com.betteru.databasechoices.ingredients.FoodUnit;
+import com.betteru.ingredients.AltServing;
+import com.betteru.ingredients.Calorie;
+import com.betteru.ingredients.Carbohydrate;
+import com.betteru.ingredients.Fat;
+import com.betteru.ingredients.Protein;
+import com.betteru.ingredients.Serving;
 import com.betteru.ingredients.database.Ingredient;
 import com.betteru.ingredients.forms.CreateIngredientForm;
 import com.github.mlaursen.bootstrap.forms.fields.TextAction;
@@ -49,7 +57,6 @@ public class CreateIngredient extends HttpServlet {
 				success = new Brand(brands.getValue()).create();
 			if(success) {
 				Ingredient i = new Ingredient(f);
-				System.out.println(i);
 				success = i.create();
 			}
 			

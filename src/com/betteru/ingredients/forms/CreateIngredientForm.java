@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.betteru.databasechoices.ingredients.Brand;
 import com.betteru.databasechoices.ingredients.Category;
 import com.betteru.databasechoices.ingredients.FoodUnit;
+import com.betteru.ingredients.AltServing;
 import com.betteru.ingredients.Calorie;
 import com.betteru.ingredients.Carbohydrate;
 import com.betteru.ingredients.Fat;
@@ -105,10 +106,10 @@ public class CreateIngredientForm extends HtmlForm {
 		return new Serving(amt, fu);
 	}
 	
-	public Serving getAlternateServing() {
+	public AltServing getAlternateServing() {
 		double amt = Double.parseDouble(this.getFieldValue(ALT_SERVING_SIZE));
 		FoodUnit fu = new FoodUnit(this.getFieldValue(ALT_SERVING_UNIT));
-		return new Serving(amt, fu);
+		return new AltServing(amt, fu);
 	}
 	
 	public Calorie getCalories() {

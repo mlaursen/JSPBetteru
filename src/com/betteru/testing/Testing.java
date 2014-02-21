@@ -1,20 +1,15 @@
 package com.betteru.testing;
 
-import com.betteru.databasechoices.ingredients.Brand;
-import com.betteru.databasechoices.ingredients.Category;
-import com.betteru.databasechoices.ingredients.FoodUnit;
-import com.betteru.ingredients.AltServing;
-import com.betteru.ingredients.Calorie;
-import com.betteru.ingredients.Carbohydrate;
-import com.betteru.ingredients.Fat;
-import com.betteru.ingredients.Protein;
-import com.betteru.ingredients.Serving;
 import com.betteru.ingredients.database.Ingredient;
+import com.betteru.ingredients.forms.CreateIngredientForm;
 
 
 public class Testing {
 
 	public static void main(String[] args) throws Exception {
+		
+		Ingredient i = new Ingredient();
+		/*
 		//Ingredient i = new Ingredient("Chicken Breast");
 		Ingredient i = new Ingredient();
 		System.out.println(i.getDatabaseManagerToString());
