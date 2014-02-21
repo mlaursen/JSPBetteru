@@ -14,6 +14,7 @@
   <t:errorfield errors="${errors}" />
   <div class="row-fluid">
     <div class="span8 offset2">
+    <span class="betteru-banner"></span>
       <div class="hero-unit">
       ${form}
       </div>
