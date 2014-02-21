@@ -113,24 +113,4 @@ public class Util {
 	public static String uuidToHexString(UUID uuid) {
 		return Long.toHexString(uuid.getMostSignificantBits()) + Long.toBinaryString(uuid.getLeastSignificantBits());
 	}
-	
-	/**
-	 * Attempts to parse a double from a ResultRow. Returns -1 if it was unsuccessful and displays
-	 * an error in the System.err
-	 * @param r	The MyResultRow to get the field from
-	 * @param field The field name
-	 * @return
-	 */
-	public static double attemptParseDouble(MyResultRow r, String field) {
-		return attemptParseDouble(r.get(field));
-	}
-	public static double attemptParseDouble(String possibleDouble) {
-		try {
-			return Double.parseDouble(possibleDouble);
-		}
-		catch(NullPointerException | NumberFormatException e) {
-			System.err.println(possibleDouble + " was unable to be parsed as a double.");
-			return -1;
-		}
-	}
 }

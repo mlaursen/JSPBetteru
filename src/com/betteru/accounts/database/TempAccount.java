@@ -1,6 +1,8 @@
 package com.betteru.accounts.database;
 
 import com.betteru.utils.Util;
+import com.github.mlaursen.annotations.DatabaseField;
+import com.github.mlaursen.annotations.DatabaseFieldType;
 import com.github.mlaursen.database.objects.MyResultRow;
 import com.github.mlaursen.database.objects.Procedure;
 import com.github.mlaursen.database.objecttypes.Deleteable;
@@ -12,6 +14,7 @@ public class TempAccount extends AccountTemplate implements Deleteable {
 		
 		manager.addCustomProcedure(newAccount);
 	}
+	@DatabaseField(values = { DatabaseFieldType.NEW })
 	private String code;
 	public TempAccount() { }
 	public TempAccount(String primaryKey) {
@@ -23,6 +26,10 @@ public class TempAccount extends AccountTemplate implements Deleteable {
 		this.username = username;
 		this.password = password;
 		code = Util.createCode();
+	}
+	
+	public TempAccount(Integer primaryKey) {
+		this(primaryKey.toString());
 	}
 
 	public TempAccount(MyResultRow r) {
@@ -53,6 +60,17 @@ public class TempAccount extends AccountTemplate implements Deleteable {
 	 */
 	public void setCode(MyResultRow r) {
 		this.code = r.get("code");
+	}
+	
+	@Override
+	public boolean create() {
+		if(username == null || password == null || code == null)
+			return false;
+		else {
+			String hashed = Util.createHash(username, password);
+			password = hashed;
+			return super.create();//manager.executeStoredProcedure("new", username, password, code);
+		}
 	}
 	
 	@Override

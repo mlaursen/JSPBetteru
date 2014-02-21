@@ -26,8 +26,7 @@ public class AccountChoice extends DatabaseObject implements Getable, GetAllable
 	public AccountChoice() { }
 	public AccountChoice(String primaryKey) {
 		super();
-		this.primaryKey = primaryKey;//("name");
-		
+		this.primaryKey = primaryKey == null ? this.defaultChoice() : primaryKey;
 	}
 	
 	public AccountChoice(String primaryKey, int id) {
@@ -60,7 +59,7 @@ public class AccountChoice extends DatabaseObject implements Getable, GetAllable
 	}
 
 	public String defaultChoice() {
-		return "Select your " + com.github.mlaursen.database.Util.formatClassName(getClass(), null, " ");
+		return "Select your " + (com.github.mlaursen.database.Util.formatClassName(getClass(), null, " ").trim());
 	}
 	
 	@Override

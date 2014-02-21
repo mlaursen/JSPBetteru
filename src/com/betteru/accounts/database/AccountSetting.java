@@ -5,13 +5,16 @@ package com.betteru.accounts.database;
 
 import java.sql.Date;
 
+import com.betteru.databasechoices.accounts.Multiplier;
+import com.betteru.databasechoices.accounts.Weekday;
+import com.betteru.utils.StringNumberFormat;
+import com.betteru.utils.Util;
+import com.github.mlaursen.annotations.DatabaseField;
+import com.github.mlaursen.annotations.DatabaseFieldType;
 import com.github.mlaursen.database.objects.DatabaseObject;
 import com.github.mlaursen.database.objects.MyResultRow;
 import com.github.mlaursen.database.objecttypes.Createable;
 import com.github.mlaursen.database.objecttypes.Getable;
-import com.betteru.databasechoices.accounts.Multiplier;
-import com.betteru.databasechoices.accounts.Weekday;
-import com.betteru.utils.Util;
 
 /**
  * @author mikkel.laursen
@@ -19,9 +22,14 @@ import com.betteru.utils.Util;
  */
 public class AccountSetting extends DatabaseObject implements Getable, Createable {
 
+	@DatabaseField(values={DatabaseFieldType.NEW})
 	private String accountId;
-	private Multiplier multiplier;
+
+	@DatabaseField(values={DatabaseFieldType.NEW})
 	private Weekday weekday;
+	@DatabaseField(values={DatabaseFieldType.NEW})
+	private Multiplier multiplier;
+	@DatabaseField(values={DatabaseFieldType.NEW})
 	private double height;
 	private Date dateChanged;
 	public AccountSetting() {}
@@ -45,6 +53,11 @@ public class AccountSetting extends DatabaseObject implements Getable, Createabl
 	 */
 	public void setAccountId(String accountId) {
 		this.accountId = accountId;
+	}
+	
+	@Override
+	public boolean update() {
+		return create();
 	}
 	
 	/**
@@ -104,7 +117,7 @@ public class AccountSetting extends DatabaseObject implements Getable, Createabl
 	}
 	
 	public void setHeight(MyResultRow r) {
-		this.height = Util.attemptParseDouble(r, "height");
+		this.height = StringNumberFormat.attemptParseDouble(r, "height");
 	}
 	/**
 	 * @return the dateChanged

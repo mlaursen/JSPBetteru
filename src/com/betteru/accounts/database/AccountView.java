@@ -11,16 +11,16 @@ import com.betteru.databasechoices.accounts.Gender;
 import com.betteru.databasechoices.accounts.Multiplier;
 import com.betteru.databasechoices.accounts.UnitSystem;
 import com.betteru.databasechoices.accounts.Weekday;
+import com.betteru.utils.StringNumberFormat;
 import com.betteru.utils.Util;
 import com.github.mlaursen.database.objects.DatabaseView;
 import com.github.mlaursen.database.objects.MyResultRow;
-import com.github.mlaursen.database.objecttypes.Updateable;
 
 /**
  * @author mikkel.laursen
  *
  */
-public class AccountView extends DatabaseView implements Updateable {
+public class AccountView extends DatabaseView {
 	{
 		this.setGetProcedureName("getfromview");
 	}
@@ -52,6 +52,7 @@ public class AccountView extends DatabaseView implements Updateable {
 	
 	public void setAccount(MyResultRow r) {
 		this.account = new Account();
+		this.account.setPrimaryKey(r);
 		this.account.setUsername(r);
 		this.account.setBirthday(r);
 		this.account.setGender(r);
@@ -106,7 +107,7 @@ public class AccountView extends DatabaseView implements Updateable {
 	}
 	
 	public void setHeight(String h) {
-		accountSetting.setHeight(Util.attemptParseDouble(h));
+		accountSetting.setHeight(StringNumberFormat.attemptParseDouble(h));
 	}
 	
 	public void setGender(String g) {
@@ -121,6 +122,13 @@ public class AccountView extends DatabaseView implements Updateable {
 		accountSetting.setWeekday(new Weekday(w));
 	}
 	
+	@Override
+	public boolean update() {
+		return account.update() && accountSetting.update();
+	}
+	
+	public Account getAccount() { return this.account; }
+	public AccountSetting getAccountSetting() { return this.accountSetting; }
 	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()

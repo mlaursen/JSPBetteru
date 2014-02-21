@@ -1,18 +1,28 @@
 package com.betteru.testing;
 
-import java.util.List;
-
 import com.betteru.accounts.database.Account;
-import com.betteru.accounts.database.AccountSetting;
-import com.betteru.accounts.database.AccountView;
-import com.betteru.accounts.database.TempAccount;
 import com.betteru.databasechoices.accounts.Gender;
-import com.github.mlaursen.bootstrap.forms.fields.DropdownChoice;
+import com.betteru.databasechoices.accounts.UnitSystem;
+import com.betteru.utils.Util;
 
 
 public class Testing {
 
 	public static void main(String[] args) throws Exception {
+			
+		Account a = new Account(20);
+		System.out.println(a);
+		a.setBirthday(Util.stringToDate("01/21/1950"));
+		a.setUnitSystem(new UnitSystem("IMPERIAL"));
+		a.setGender(new Gender("MALE"));
+		System.out.println(a);
+		//System.out.println(a.update());
+		//a.setGender(new Gender("FEMALE"));
+		//System.out.println(a.update());
+		//AccountSetting as = new AccountSetting(0);
+		//System.out.println(as.getDatabaseManagerToString());
+		//System.out.println(as.update());
+		/*
 		TempAccount ta = new TempAccount("test", "teset");
 		System.out.println(ta);
 		Account a = new Account(0);

@@ -56,11 +56,13 @@ public class EditAccountServlet extends HttpServlet {
 			av.setHeight(height);
 			av.setWeekday(weekday);
 			av.setMultiplier(multiplier);
-			System.out.println(av.getDatabaseManagerToString());
+			//System.out.println(av.getAccount().update());
+			//System.out.println(av.getAccountSetting().update());
 			if(av.update()) {
 				request.setAttribute("success", "Your settings have been successfully updated!");
 			}
 			else {
+			
 				request.setAttribute("nonFieldError", "There was an error updating your account settings.  Please try again.");
 			}
 		}

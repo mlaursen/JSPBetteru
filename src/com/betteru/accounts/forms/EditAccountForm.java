@@ -88,7 +88,7 @@ public class EditAccountForm extends HtmlForm {
 	}
 	
 	private String getKey(AccountChoice ac, List<DropdownChoice> choices) {
-		String v = ac.getDropdownValue();
+		String v = ac == null ? "0" : ac.getDropdownValue();
 		for(DropdownChoice c : choices) {
 			if(c.getDropdownValue().equalsIgnoreCase(v))
 				return c.getDropdownKey();

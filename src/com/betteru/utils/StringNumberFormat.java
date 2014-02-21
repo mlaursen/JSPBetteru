@@ -1,5 +1,7 @@
 package com.betteru.utils;
 
+import com.github.mlaursen.database.objects.MyResultRow;
+
 public class StringNumberFormat {
 
 	public static final String[] FRACTIONS = new String[]{ "1/2", "1/3", "1/4", "1/8" };
@@ -40,5 +42,34 @@ public class StringNumberFormat {
 		}
 		else
 			return 0;
+	}
+	
+	
+
+	
+	/**
+	 * Attempts to parse a double from a ResultRow. Returns -1 if it was unsuccessful and displays
+	 * an error in the System.err
+	 * @param r	The MyResultRow to get the field from
+	 * @param field The field name
+	 * @return
+	 */
+	public static double attemptParseDouble(MyResultRow r, String field) {
+		return attemptParseDouble(r.get(field), 0);
+	}
+	
+	public static double attemptParseDObule(MyResultRow r, String field, double fallback) {
+		return attemptParseDouble(r.get(field), fallback);
+	}
+	
+	public static double attemptParseDouble(String possibleDouble) { return attemptParseDouble(possibleDouble, 0); }
+	public static double attemptParseDouble(String possibleDouble, double fallback) {
+		try {
+			return Double.parseDouble(possibleDouble);
+		}
+		catch(NullPointerException | NumberFormatException e) {
+			System.err.println(possibleDouble + " was unable to be parsed as a double.");
+			return fallback;
+		}
 	}
 }
