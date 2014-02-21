@@ -12,7 +12,10 @@ public class TempAccount extends AccountTemplate implements Deleteable {
 		Procedure newAccount = new Procedure("newaccount", "id");
 		newAccount.setHasCursor(false);
 		
+		Procedure getId = new Procedure("getid", "username");
+		
 		manager.addCustomProcedure(newAccount);
+		manager.addCustomProcedure(getId);
 	}
 	@DatabaseField(values = { DatabaseFieldType.NEW })
 	private String code;
@@ -64,13 +67,18 @@ public class TempAccount extends AccountTemplate implements Deleteable {
 	
 	@Override
 	public boolean create() {
+		boolean valid;
 		if(username == null || password == null || code == null)
-			return false;
+			valid = false;
 		else {
 			String hashed = Util.createHash(username, password);
 			password = hashed;
-			return super.create();//manager.executeStoredProcedure("new", username, password, code);
+			valid = super.create();//manager.executeStoredProcedure("new", username, password, code);
 		}
+		if(valid) {
+			this.primaryKey = manager.getFirstRowFromCursorProcedure("getid", username).construct(TempAccount.class).primaryKey;
+		}
+		return valid;
 	}
 	
 	@Override
