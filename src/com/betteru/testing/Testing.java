@@ -1,15 +1,26 @@
 package com.betteru.testing;
 
-import com.betteru.accounts.database.Account;
-import com.betteru.databasechoices.accounts.Gender;
-import com.betteru.databasechoices.accounts.UnitSystem;
-import com.betteru.utils.Util;
+import com.betteru.databasechoices.ingredients.Brand;
+import com.betteru.databasechoices.ingredients.Category;
 
 
 public class Testing {
 
 	public static void main(String[] args) throws Exception {
-			
+		Brand b = new Brand("Food City");
+		//System.out.println(b.getAll());
+		//System.out.println(b.getAllChoices());
+		System.out.println(b);
+		System.out.println(b.getDatabaseManagerToString());
+		System.out.println(b.getAll(Brand.class));
+		
+		Category c = new Category("Carbs");
+		System.out.println(c.getDatabaseManagerToString());
+		System.out.println(c.getAll());
+		//System.out.println(b.get("Fage"));
+		//Brand fage = new Brand("Fage");
+		//System.out.println(fage);
+		/*
 		Account a = new Account(20);
 		System.out.println(a);
 		a.setBirthday(Util.stringToDate("01/21/1950"));
