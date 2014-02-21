@@ -48,7 +48,7 @@ public class Ingredient extends DatabaseObject implements Getable, GetAllable, C
 	private Serving defaultServing;
 	
 	@MultipleDatabaseField(values={DatabaseFieldType.NEW, DatabaseFieldType.UPDATE}, names = { "altservingSize", "altservingUnit" })
-	private AltServing alternateServing;
+	private Serving alternateServing;
 	
 	@DatabaseField(values={DatabaseFieldType.NEW, DatabaseFieldType.UPDATE})
 	private Calorie calories;
@@ -223,7 +223,7 @@ public class Ingredient extends DatabaseObject implements Getable, GetAllable, C
 		this.defaultServing = new Serving(r);
 	}
 	
-	public AltServing getAlternateServing() {
+	public Serving getAlternateServing() {
 		return this.alternateServing;
 	}
 	/**

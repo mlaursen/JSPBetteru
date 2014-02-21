@@ -106,7 +106,7 @@ public class CreateIngredientForm extends HtmlForm {
 		return new Serving(amt, fu);
 	}
 	
-	public AltServing getAlternateServing() {
+	public Serving getAlternateServing() {
 		double amt = Double.parseDouble(this.getFieldValue(ALT_SERVING_SIZE));
 		FoodUnit fu = new FoodUnit(this.getFieldValue(ALT_SERVING_UNIT));
 		return new AltServing(amt, fu);
