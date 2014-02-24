@@ -7,13 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.github.mlaursen.bootstrap.forms.fields.DropdownChoice;
-import com.github.mlaursen.bootstrap.sidebar.SidebarItemList;
-import com.github.mlaursen.bootstrap.sidebar.SidebarItemable;
 import com.github.mlaursen.database.objects.DatabaseObject;
 import com.github.mlaursen.database.objects.MyResultRow;
 import com.github.mlaursen.database.objecttypes.GetAllable;
 import com.github.mlaursen.database.objecttypes.Getable;
-import com_old.betteru.ingredients.database.Brand;
 
 /**
  * @author mikkel.laursen

@@ -10,11 +10,11 @@ import com.betteru.ingredients.Carbohydrate;
 import com.betteru.ingredients.Fat;
 import com.betteru.ingredients.Macro;
 import com.betteru.ingredients.Protein;
+import com.betteru.ingredients.Serving;
 import com.betteru.utils.StringNumberFormat;
 import com.github.mlaursen.database.objects.DatabaseView;
 import com.github.mlaursen.database.objects.MyResultRow;
 import com.github.mlaursen.database.objecttypes.GetAllable;
-import com_old.betteru.ingredients.Serving;
 
 /**
  * @author mikkel.laursen
