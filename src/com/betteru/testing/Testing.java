@@ -1,13 +1,25 @@
 package com.betteru.testing;
 
 import com.betteru.ingredients.database.Ingredient;
-import com.betteru.ingredients.forms.CreateIngredientForm;
+import com.betteru.meals.database.MealPartView;
+import com.betteru.meals.database.MealView;
 
 
 public class Testing {
 
 	public static void main(String[] args) throws Exception {
+		MealPartView mpv = new MealPartView();
+		System.out.println(mpv.getAll());
+		System.out.println(mpv.getAll(0));		
+		System.out.println(mpv.getDatabaseManagerToString());
 		
+		MealView mv = new MealView();
+		mv = mv.get("0", MealView.class);
+		MealView mv0 = new MealView(0);
+		System.out.println(mv0);
+		System.out.println(mv);
+		System.out.println(mv.getDatabaseManagerToString());
+		System.out.println(mv.getIngredientList());
 		Ingredient i = new Ingredient();
 		/*
 		//Ingredient i = new Ingredient("Chicken Breast");

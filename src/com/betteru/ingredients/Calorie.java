@@ -15,6 +15,10 @@ public class Calorie {
 		this.amt = StringNumberFormat.attemptParseDouble(r.get("calories"));
 	}
 	
+	public Calorie(String amt) {
+		this.amt = StringNumberFormat.attemptParseDouble(amt);
+	}
+	
 	public void setAmount(double a) {
 		amt = a;
 	}

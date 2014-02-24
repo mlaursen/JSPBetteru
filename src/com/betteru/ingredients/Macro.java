@@ -16,6 +16,9 @@ public abstract class Macro {
 		amt = StringNumberFormat.attemptParseDouble(r, this.getClass().getSimpleName());
 	}
 	
+	public Macro(String amt) {
+		this.amt = StringNumberFormat.attemptParseDouble(amt);
+	}
 	public double getAmount() {
 		return amt;
 	}
