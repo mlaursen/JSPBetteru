@@ -3,7 +3,6 @@
  */
 package com.betteru.meals.database;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.betteru.ingredients.Calorie;
@@ -12,6 +11,7 @@ import com.betteru.ingredients.Fat;
 import com.betteru.ingredients.Macro;
 import com.betteru.ingredients.Protein;
 import com.github.mlaursen.database.objects.DatabaseView;
+import com.github.mlaursen.database.objects.MyClob;
 import com.github.mlaursen.database.objects.MyResultRow;
 import com.github.mlaursen.database.objecttypes.GetAllable;
 import com.github.mlaursen.database.objecttypes.Getable;
@@ -22,6 +22,8 @@ import com.github.mlaursen.database.objecttypes.Getable;
  */
 public class MealView extends DatabaseView implements Getable, GetAllable {
 
+	private String name;
+	private MyClob description;
 	private Calorie totalCalories;
 	private Macro totalFat, totalCarbs, totalProtein;
 	private List<MealPartView> mealParts;// = new ArrayList<MealPartView>();
@@ -56,6 +58,30 @@ public class MealView extends DatabaseView implements Getable, GetAllable {
 	
 	
 	
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+	/**
+	 * @return the description
+	 */
+	public MyClob getDescription() {
+		return description;
+	}
+	/**
+	 * @param description the description to set
+	 */
+	public void setDescription(MyClob description) {
+		this.description = description;
+	}
 	/**
 	 * @return the totalCalories
 	 */
@@ -117,6 +143,14 @@ public class MealView extends DatabaseView implements Getable, GetAllable {
 		this.mealParts = mealParts;
 	}
 	
+	public void setName(MyResultRow r) {
+		this.name = r.get("name");
+	}
+	
+	public void setDescription(MyResultRow r) {
+		this.description = new MyClob(r.get("description"));
+	}
+	
 	public void setTotalCalories(MyResultRow r) {
 		this.totalCalories = new Calorie(r.get("total_calories"));
 	}
@@ -134,17 +168,15 @@ public class MealView extends DatabaseView implements Getable, GetAllable {
 	}
 
 	public void setMealParts(MyResultRow r) {
-		System.out.println("Getting all meal parts");
-		System.out.println(new MealPartView().getAll(r.get("id")));
 		this.mealParts = new MealPartView().getAll(r.get("id"));
 	}
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
+
+	
 	@Override
 	public String toString() {
-		return "MealView [primaryKey=" + primaryKey + ", totalCalories=" + totalCalories + ", totalFat=" + totalFat + ", totalCarbs="
-				+ totalCarbs + ", totalProtein=" + totalProtein + ", mealParts=" + mealParts + "]";
+		return "MealView [primaryKey=" + primaryKey + ", name=" + name + ", description=" + description + ", totalCalories="
+				+ totalCalories + ", totalFat=" + totalFat + ", totalCarbs=" + totalCarbs + ", totalProtein=" + totalProtein
+				+ ", mealParts=" + mealParts + "]";
 	}
 	
 	

@@ -1,5 +1,7 @@
 package com.betteru.testing;
 
+import java.util.List;
+
 import com.betteru.ingredients.database.Ingredient;
 import com.betteru.meals.database.MealPartView;
 import com.betteru.meals.database.MealView;
@@ -20,6 +22,9 @@ public class Testing {
 		System.out.println(mv);
 		System.out.println(mv.getDatabaseManagerToString());
 		System.out.println(mv.getIngredientList());
+		System.out.println(mv.getAll());
+		List<MealView> mvs = new MealView().getAll(MealView.class);
+		System.out.println(mvs);
 		Ingredient i = new Ingredient();
 		/*
 		//Ingredient i = new Ingredient("Chicken Breast");
