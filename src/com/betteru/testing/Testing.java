@@ -1,15 +1,13 @@
 package com.betteru.testing;
 
-import java.util.List;
-
-import com.betteru.ingredients.database.Ingredient;
-import com.betteru.meals.database.MealPartView;
-import com.betteru.meals.database.MealView;
+import com.betteru.ingredients.database.IngredientChoice;
 
 
 public class Testing {
 
 	public static void main(String[] args) throws Exception {
+		System.out.println(new IngredientChoice().getAllChoices());
+		/*
 		MealPartView mpv = new MealPartView();
 		System.out.println(mpv.getAll());
 		System.out.println(mpv.getAll(0));		
