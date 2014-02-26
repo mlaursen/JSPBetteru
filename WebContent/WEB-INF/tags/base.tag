@@ -1,4 +1,5 @@
 <%@ tag description="Overall Page template" pageEncoding="UTF-8"%>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ attribute name="title" fragment="true" %>
 <%@ attribute name="refresh" fragment="true" %>
@@ -11,11 +12,10 @@
 <!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
-    <title><jsp:invoke fragment="title" /></title>
-    <jsp:invoke fragment="refresh" />
-    <link href="${pageContext.request.contextPath}/css/main.css" rel="stylesheet" />
-    <link href="${pageContext.request.contextPath}/css/bootstrap/bootstrap.min.css" rel="stylesheet" />
-    <link href="${pageContext.request.contextPath}/css/bootstrap/bootstrap-responsive.css" rel="stylesheet" />
+    <title><jsp:invoke fragment="title" /></title><jsp:invoke fragment="refresh" />
+    <t:csslink css="main.css" />
+    <t:csslink css="bootstrap/bootstrap.min.css" />
+    <t:csslink css="bootstrap/bootstrap-responsive.css" />
     <jsp:invoke fragment="additional_css" />
   </head>
   <body<c:if test="${not empty bodyclass}"> class="${bodyclass}"</c:if>>
@@ -23,16 +23,16 @@
       <div class="navbar-inner">
         <a class="brand" href="${pageContext.request.contextPath}/info.jsp">INFO</a>
         <ul class="nav">
-          <li><a href="${pageContext.request.contextPath}/stats/index.jsp">Stats</a></li>
-          <li><a href="${pageContext.request.contextPath}/intake/index.jsp">Goals</a></li>
-          <li><a href="${pageContext.request.contextPath}/accounts/index.jsp">Settings</a></li>
-          <li><a href="${pageContext.request.contextPath}/ingredients/index.jsp">Ingredients</a></li>
-          <li><a href="${pageContext.request.contextPath}/meals/index.jsp">Meals</a></li>
+          <li><t:href link="stats/index.jsp" linktext="Statistics" /></li>
+          <li><t:href link="intake/index.jsp" linktext="Daily Intake" /></li>
+          <li><t:href link="accounts/index.jsp" linktext="Account Settings" /></li>
+          <li><t:href link="ingredients/index.jsp" linktext="View Ingredients" /></li>
+          <li><t:href link="meals/index.jsp" linktext="View Meals" /></li>
         </ul>
         <ul class="nav pull-right">
-          <li><a data-toggle="modal" href="${pageContext.request.contextPath}/ingredients/create.jsp">Add Ingredient</a></li>
-          <li><a data-toggle="modal" href="${pageContext.request.contextPath}/meals/create.jsp">Add Meal</a></li>
-          <li><a href="${pageContext.request.contextPath}<% if(session.getAttribute("userid") == null) { %>/index.jsp">Login<% } else { %>/accounts/logout.jsp">Logout<% } %></a></li>
+          <li><t:href link="ingredients/create.jsp" linktext="Add an Ingredient" /></li>
+          <li><t:href link="meals/create.jsp" linktext="Add a Meal" /></li>
+          <li><% if(session.getAttribute("userid") == null) { %><t:href link="index.jsp" linktext="Login" /><%} else {%><t:href link="accounts/logout.jsp" linktext="Logout" /><% } %></li>
         </ul>
       </div>
     </div>
@@ -53,10 +53,9 @@
         </table>
       </div>
     </div>
-    <script src="${pageContext.request.contextPath}/js/jquery/jquery-2.0.3.js"></script>
-    <script src="${pageContext.request.contextPath}/js/util.js"></script>
-    <script src="${pageContext.request.contextPath}/js/form_validation.js"></script>
-    <script src="${pageContext.request.contextPath}/js/bootstrap/bootstrap.js"></script>
-    <jsp:invoke fragment="additional_js"></jsp:invoke>
+    <t:jslink js="jquery/jquery-2.0.3.js" />
+    <t:jslink js="util.js" />
+    <t:jslink js="bootstrap/bootstrap.js" />
+    <jsp:invoke fragment="additional_js" />
   </body>
 </html>
