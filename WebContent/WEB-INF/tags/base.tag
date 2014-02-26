@@ -24,7 +24,7 @@
         <a class="brand" href="${pageContext.request.contextPath}/info.jsp">INFO</a>
         <ul class="nav">
           <li><a href="${pageContext.request.contextPath}/stats/index.jsp">Stats</a></li>
-          <li><a href="${pageContext.request.contextPath}/goals/index.jsp">Goals</a></li>
+          <li><a href="${pageContext.request.contextPath}/intake/index.jsp">Goals</a></li>
           <li><a href="${pageContext.request.contextPath}/accounts/index.jsp">Settings</a></li>
           <li><a href="${pageContext.request.contextPath}/ingredients/index.jsp">Ingredients</a></li>
           <li><a href="${pageContext.request.contextPath}/meals/index.jsp">Meals</a></li>
