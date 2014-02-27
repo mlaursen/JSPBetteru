@@ -7,7 +7,6 @@ import static org.junit.Assert.*;
 
 import java.sql.Date;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 import static com.betteru.utils.DateUtil.*;
@@ -69,6 +68,8 @@ public class UtilsTest {
 		assertEquals(formatFractionString("000000.5000000"), "1/2");
 		assertEquals(formatFractionString(.125), "1/8");
 		assertEquals(formatFractionString("000000.12500000000"), "1/8");
+		assertEquals(formatFractionString("            .125"), "1/8");
+		assertEquals(formatFractionString(".125      "), "1/8");
 	}
 	
 	@Test
@@ -84,6 +85,7 @@ public class UtilsTest {
 		assertEquals(calculateStringFraction("1"), 1, 1);
 		assertEquals(calculateStringFraction("1/2"), .5, 1);
 		assertEquals(calculateStringFraction("1/32"), 1/32, 1);
+		assertEquals(calculateStringFraction("        1/8"), 1/8, 1);
 	}
 	
 	@Test

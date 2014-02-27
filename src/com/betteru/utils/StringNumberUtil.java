@@ -24,6 +24,7 @@ public class StringNumberUtil {
 	 * @return
 	 */
 	public static String formatFractionString(String number) {
+		number = number.trim();
 		if(number.contains("."))
 			number = "0" + number;
 		String[] split = number.split("\\.");
@@ -47,12 +48,23 @@ public class StringNumberUtil {
 		return formatDecimalString(number);
 	}
 	
+	/**
+	 * Formats a decimal to 2 decimal places
+	 * @param d
+	 * @return
+	 */
 	public static String formatDecimalString(double d) { return formatDecimalString(d+""); }
 	public static String formatDecimalString(String dec) {
 		return String.format("%4.2f", Double.parseDouble(dec));
 	}
 	
+	/**
+	 * Converts a String fraction, i.e. "1/4" into it's double counterpart
+	 * @param frac
+	 * @return
+	 */
 	public static double calculateStringFraction(String frac) {
+		frac = frac.trim();
 		String[] split = frac.split("/");
 		if(split.length == 2) {
 			double numerator = Integer.parseInt(split[0]);
