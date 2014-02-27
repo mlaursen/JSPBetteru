@@ -36,7 +36,7 @@ public class Account extends AccountTemplate implements Updateable {
 	@DatabaseField(values=DatabaseFieldType.UPDATE)
 	private Date birthday;
 
-	private Date activeSince;
+	private Date activeSince, lastLogin;
 	public Account() { }
 
 	/**
@@ -133,6 +133,24 @@ public class Account extends AccountTemplate implements Updateable {
 	}
 	public void setActiveSince(MyResultRow r) {
 		this.activeSince = DateUtil.stringToDate(r.get("active_since"));
+	}
+
+	/**
+	 * @return the lastLogin
+	 */
+	public Date getLastLogin() {
+		return lastLogin;
+	}
+
+	/**
+	 * @param lastLogin the lastLogin to set
+	 */
+	public void setLastLogin(Date lastLogin) {
+		this.lastLogin = lastLogin;
+	}
+	
+	public void setLastLogin(MyResultRow r) {
+		this.lastLogin = DateUtil.stringToDate(r.get("last_login"));
 	}
 
 	/**   	toString **/
