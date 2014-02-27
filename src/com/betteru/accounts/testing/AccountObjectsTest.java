@@ -22,38 +22,10 @@ import com.github.mlaursen.database.ObjectManager;
  *
  */
 public class AccountObjectsTest {
-	
-	@Test
-	public void testGetAccount() {
-		Account a = new Account(0);
-		assertEquals(a.getPrimaryKey(),"0");
-		assertEquals(a.getUsername(), "test");
-		assertTrue(sameDate(a.getBirthday(), stringToDate("21-JAN-91", "dd-MMM-yy")));
-		assertEquals(a.getUnitSystem(), new UnitSystem("IMPERIAL"));
-		assertEquals(a.getGender(), new Gender("FEMALE"));
-		assertTrue(sameDate(a.getActiveSince(), stringToDate("14-FEB-14", "dd-MMM-yy")));
-	}
 
-	@Test
-	public void testUpdateAccount() {
-		/*
-		Account a = new Account(0);
-		assertTrue(a.update());
-		a.setBirthday(stringToDate("01-21-1991"));
-		assertTrue(a.update());
-		*/
-	}
 	
 	@Test
-	public void testUpdateLastLogin() {
-		Account a = new Account(0);
-		assertTrue(a.updateLastLogin());
-		a = new Account(0);
-		assertTrue(sameDate(a.getLastLogin(), new java.sql.Date(Calendar.getInstance().getTimeInMillis())));
-	}
-	
-	@Test
-	public void testCreateDeleteAccount() {
+	public void testCreateDeleteUpdateAccount() {
 		TempAccount ta = new TempAccount("testing", "testing");
 		assertTrue(ta.create());
 		assertTrue(ta.createAccount());
@@ -68,14 +40,33 @@ public class AccountObjectsTest {
 		assertNull(a.getBirthday());
 		assertNull(a.getGender());
 		assertNull(a.getUnitSystem());
-		
-		a.setBirthday(stringToDate("01-01-1991"));
+		a.setBirthday(stringToDate("01-JAN-91", "dd-MMM-yy"));
 		a.setGender(new Gender("MALE"));
 		a.setUnitSystem(new UnitSystem("IMPERIAL"));
 		assertTrue(a.update());
 		a = new Account(a.getPrimaryKey());
-		
+		assertNotNull(a.getBirthday());
+		assertTrue(sameDate(a.getBirthday(), stringToDate("01-JAN-91", "dd-MMM-yy")));
+		assertEquals(a.getGender(), new Gender("MALE"));
+		assertEquals(a.getUnitSystem(), new UnitSystem("IMPERIAL"));
 		assertTrue(a.delete());
-		
+	}
+	@Test
+	public void testGetAccount() {
+		Account a = new Account(0);
+		assertEquals(a.getPrimaryKey(),"0");
+		assertEquals(a.getUsername(), "test");
+		assertTrue(sameDate(a.getBirthday(), stringToDate("21-JAN-91", "dd-MMM-yy")));
+		assertEquals(a.getUnitSystem(), new UnitSystem("IMPERIAL"));
+		assertEquals(a.getGender(), new Gender("FEMALE"));
+		assertTrue(sameDate(a.getActiveSince(), stringToDate("14-FEB-14", "dd-MMM-yy")));
+	}
+	
+	@Test
+	public void testUpdateLastLogin() {
+		Account a = new Account(0);
+		assertTrue(a.updateLastLogin());
+		a = new Account(0);
+		assertTrue(sameDate(a.getLastLogin(), new java.sql.Date(Calendar.getInstance().getTimeInMillis())));
 	}
 }
