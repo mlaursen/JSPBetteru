@@ -26,6 +26,7 @@ public class AccountView extends DatabaseView {
 	}
 	private Account account;
 	private AccountSetting accountSetting;
+	private int age;
 	public AccountView() { }
 	public AccountView(String primaryKey) {
 		super();
@@ -122,6 +123,16 @@ public class AccountView extends DatabaseView {
 		accountSetting.setWeekday(new Weekday(w));
 	}
 	
+	/**
+	 * @return the age
+	 */
+	public int getAge() {
+		return age;
+	}
+	
+	public void setAge(MyResultRow r) {
+		this.age = StringNumberUtil.attemptParseInteger(r, "age");
+	}
 	@Override
 	public boolean update() {
 		return account.update() && accountSetting.update();

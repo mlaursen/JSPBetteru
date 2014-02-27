@@ -79,21 +79,40 @@ public class StringNumberUtil {
 	 * @param field The field name
 	 * @return
 	 */
-	public static double attemptParseDouble(MyResultRow r, String field) {
+	public static Double attemptParseDouble(MyResultRow r, String field) {
 		return attemptParseDouble(r.get(field), 0);
 	}
 	
-	public static double attemptParseDouble(MyResultRow r, String field, double fallback) {
+	public static Double attemptParseDouble(MyResultRow r, String field, double fallback) {
 		return attemptParseDouble(r.get(field), fallback);
 	}
 	
-	public static double attemptParseDouble(String possibleDouble) { return attemptParseDouble(possibleDouble, 0); }
-	public static double attemptParseDouble(String possibleDouble, double fallback) {
+	public static Double attemptParseDouble(String possibleDouble) { return attemptParseDouble(possibleDouble, 0); }
+	public static Double attemptParseDouble(String possibleDouble, double fallback) {
 		try {
 			return Double.parseDouble(possibleDouble);
 		}
 		catch(NullPointerException | NumberFormatException e) {
 			System.err.println(possibleDouble + " was unable to be parsed as a double.");
+			return fallback;
+		}
+	}
+	
+	public static Integer attemptParseInteger(MyResultRow r, String field) {
+		return attemptParseInteger(r.get(field), 0);
+	}
+	
+	public static Integer attemptParseInteger(MyResultRow r, String field, Integer fallback) {
+		return attemptParseInteger(r.get(field), fallback);
+	}
+	
+	public static Integer attemptParseInteger(String possibleInteger) { return attemptParseInteger(possibleInteger, 0); }
+	public static Integer attemptParseInteger(String possibleInteger, Integer fallback) {
+		try {
+			return Integer.parseInt(possibleInteger);
+		}
+		catch(NullPointerException | NumberFormatException e) {
+			System.err.println(possibleInteger + " was unable to be parsed as an Integer.");
 			return fallback;
 		}
 	}

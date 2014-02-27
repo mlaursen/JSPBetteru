@@ -85,4 +85,15 @@ public class UtilsTest {
 		assertEquals(calculateStringFraction("1/2"), .5, 1);
 		assertEquals(calculateStringFraction("1/32"), 1/32, 1);
 	}
+	
+	@Test
+	public void testAttemptParseInteger() {
+		assertEquals(attemptParseInteger("21"), new Integer(21));
+		assertEquals(attemptParseInteger("0"), new Integer(0));
+		assertEquals(attemptParseInteger("-21"), new Integer(-21));
+		assertEquals(attemptParseInteger("hello world!"), new Integer(0));
+		assertEquals(attemptParseInteger("hello world!", 22), new Integer(22));
+		assertEquals(attemptParseInteger(""), new Integer(0));
+		assertEquals(attemptParseInteger(null), new Integer(0));
+	}
 }

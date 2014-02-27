@@ -12,9 +12,13 @@ import java.util.Calendar;
 import org.junit.Test;
 
 import com.betteru.accounts.objects.Account;
+import com.betteru.accounts.objects.AccountSetting;
+import com.betteru.accounts.objects.AccountView;
 import com.betteru.accounts.objects.TempAccount;
 import com.betteru.databasechoices.accounts.Gender;
+import com.betteru.databasechoices.accounts.Multiplier;
 import com.betteru.databasechoices.accounts.UnitSystem;
+import com.betteru.databasechoices.accounts.Weekday;
 import com.github.mlaursen.database.ObjectManager;
 
 /**
@@ -68,5 +72,49 @@ public class AccountObjectsTest {
 		assertTrue(a.updateLastLogin());
 		a = new Account(0);
 		assertTrue(sameDate(a.getLastLogin(), new java.sql.Date(Calendar.getInstance().getTimeInMillis())));
+	}
+	
+	@Test
+	public void testAccountSetting() {
+		AccountSetting as = new AccountSetting(0);
+		assertNotNull(as.getHeight());
+		assertNotNull(as.getMultiplier());
+		assertNotNull(as.getPrimaryKey());
+		assertEquals(as.getAccountId(), "0");
+		assertEquals(as.getWeekday(), new Weekday("TUESDAY"));
+		assertEquals(as.getMultiplier(), new Multiplier("SEDENTARY"));
+		assertEquals(as.getHeight(), 71, 1);
+		assertNotNull(as.getDateChanged());
+		
+		as.setWeekday(new Weekday("MONDAY"));
+		as.setHeight(70);
+		assertTrue(as.update());
+		as = new AccountSetting(0);
+		assertEquals(as.getWeekday(), new Weekday("MONDAY"));
+		assertEquals(as.getHeight(), 70, 1);
+		
+		as.setWeekday(new Weekday("TUESDAY"));
+		assertTrue(as.update());
+	}
+	
+	
+	@Test
+	public void testAccountView() {
+		Account a = new Account(0);
+		AccountSetting as = new AccountSetting(0);
+		AccountView av = new AccountView(0);
+		assertTrue(sameDate(av.getBirthday(), a.getBirthday()));
+		assertEquals(av.getGender(), a.getGender());
+		assertEquals(av.getUnitSystem(), a.getUnitSystem());
+		assertEquals(av.getHeight(), as.getHeight(), 1);
+		assertEquals(av.getMultiplier(), as.getMultiplier());
+		assertEquals(av.getWeekday(), as.getWeekday());
+		assertEquals(av.getAge(), 23);
+		
+		av.setGender("FEMALE");
+		assertTrue(av.update());
+		
+		av.setGender("MALE");
+		assertTrue(av.update());
 	}
 }
