@@ -93,7 +93,7 @@ public class StringNumberUtil {
 			return Double.parseDouble(possibleDouble);
 		}
 		catch(NullPointerException | NumberFormatException e) {
-			System.err.println(possibleDouble + " was unable to be parsed as a double.");
+			//System.err.println(possibleDouble + " was unable to be parsed as a double.");
 			return fallback;
 		}
 	}
@@ -112,7 +112,7 @@ public class StringNumberUtil {
 			return Integer.parseInt(possibleInteger);
 		}
 		catch(NullPointerException | NumberFormatException e) {
-			System.err.println(possibleInteger + " was unable to be parsed as an Integer.");
+			//System.err.println(possibleInteger + " was unable to be parsed as an Integer.");
 			return fallback;
 		}
 	}

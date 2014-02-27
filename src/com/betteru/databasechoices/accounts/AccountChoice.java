@@ -40,7 +40,7 @@ public class AccountChoice extends DatabaseObject implements Getable, GetAllable
 	 */
 	public AccountChoice(MyResultRow r) {
 		super();
-		primaryKey = r.get(primaryKeyName);
+		setAll(r);
 	}
 	
 	@Override

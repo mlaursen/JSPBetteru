@@ -42,8 +42,7 @@ public class Multiplier extends AccountChoice {
 	}
 	
 	public void setAmount(MyResultRow r) {
-		if(r.get("amount") != null)
-			this.amount = StringNumberUtil.attemptParseDouble(r, "amount");
+		this.amount = StringNumberUtil.attemptParseDouble(r, "amount");
 	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()

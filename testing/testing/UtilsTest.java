@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.betteru.utils;
+package testing;
 
 import static org.junit.Assert.*;
 
