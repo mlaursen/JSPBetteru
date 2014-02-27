@@ -67,7 +67,7 @@ public class Testing {
 		/*
 		Account a = new Account(20);
 		System.out.println(a);
-		a.setBirthday(Util.stringToDate("01/21/1950"));
+		a.setBirthday(SecurityUtil.stringToDate("01/21/1950"));
 		a.setUnitSystem(new UnitSystem("IMPERIAL"));
 		a.setGender(new Gender("MALE"));
 		System.out.println(a);
@@ -306,10 +306,10 @@ public class Testing {
 		System.out.println(new SubmitButton().setValue("login").toHtml());
 		System.out.println(new PasswordField().toHtml());
 		
-		String middleware = Util.createCode(16);
+		String middleware = SecurityUtil.createCode(16);
 		System.out.println(middleware);
 		System.out.println(new HiddenField(middleware).toHtml());
-		System.out.println(new HiddenField(Util.createCode(16)).toHtml());
+		System.out.println(new HiddenField(SecurityUtil.createCode(16)).toHtml());
 		
 		System.out.println("\n\n\nStarting Account_Old");
 		System.out.println(new EditAccountForm().toHtml());
@@ -338,7 +338,7 @@ public class Testing {
 		System.out.println("\n\n\nStarting CreateAccountForm");
 		System.out.println(new CreateAccountForm().asModal());
 		/*
-		System.out.println(Util.createCode().length());
+		System.out.println(SecurityUtil.createCode().length());
 		Account_Old a = new Account_Old("test", "test");
 		a.setId();
 		int id = a.getId();

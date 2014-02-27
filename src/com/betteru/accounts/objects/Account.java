@@ -7,7 +7,8 @@ import java.sql.Date;
 
 import com.betteru.databasechoices.accounts.Gender;
 import com.betteru.databasechoices.accounts.UnitSystem;
-import com.betteru.utils.Util;
+import com.betteru.utils.DateUtil;
+import com.betteru.utils.SecurityUtil;
 import com.github.mlaursen.annotations.DatabaseField;
 import com.github.mlaursen.annotations.DatabaseFieldType;
 import com.github.mlaursen.database.objects.MyResultRow;
@@ -66,7 +67,7 @@ public class Account extends AccountTemplate implements Updateable {
 		if(r != null) {
 			String pswd = r.get("password");
 			String salt = pswd.substring(0, 64);
-			String hash = Util.repeatedHashing(salt, getPassword());
+			String hash = SecurityUtil.repeatedHashing(salt, getPassword());
 			valid = hash.equals(pswd);
 			if(valid)
 				primaryKey = r.get(primaryKeyName);
@@ -89,7 +90,7 @@ public class Account extends AccountTemplate implements Updateable {
 	}
 	
 	public void setBirthday(MyResultRow r) {
-		birthday = Util.stringToDate(r.get("birthday"));
+		birthday = DateUtil.stringToDate(r.get("birthday"));
 	}
 
 	public UnitSystem getUnitSystem() {
@@ -131,7 +132,7 @@ public class Account extends AccountTemplate implements Updateable {
 		this.activeSince = activeSince;
 	}
 	public void setActiveSince(MyResultRow r) {
-		this.activeSince = Util.stringToDate(r.get("active_since"));
+		this.activeSince = DateUtil.stringToDate(r.get("active_since"));
 	}
 
 	/**   	toString **/

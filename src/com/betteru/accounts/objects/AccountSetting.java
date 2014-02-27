@@ -7,8 +7,8 @@ import java.sql.Date;
 
 import com.betteru.databasechoices.accounts.Multiplier;
 import com.betteru.databasechoices.accounts.Weekday;
+import com.betteru.utils.DateUtil;
 import com.betteru.utils.StringNumberFormat;
-import com.betteru.utils.Util;
 import com.github.mlaursen.annotations.DatabaseField;
 import com.github.mlaursen.annotations.DatabaseFieldType;
 import com.github.mlaursen.database.objects.DatabaseObject;
@@ -133,7 +133,7 @@ public class AccountSetting extends DatabaseObject implements Getable, Createabl
 	}
 
 	public void setDateChanged(MyResultRow r) {
-		this.dateChanged = Util.stringToDate(r.get("date_changed"));
+		this.dateChanged = DateUtil.stringToDate(r.get("date_changed"));
 	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()

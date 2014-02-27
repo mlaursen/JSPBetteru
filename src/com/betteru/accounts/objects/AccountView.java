@@ -11,8 +11,8 @@ import com.betteru.databasechoices.accounts.Gender;
 import com.betteru.databasechoices.accounts.Multiplier;
 import com.betteru.databasechoices.accounts.UnitSystem;
 import com.betteru.databasechoices.accounts.Weekday;
+import com.betteru.utils.DateUtil;
 import com.betteru.utils.StringNumberFormat;
-import com.betteru.utils.Util;
 import com.github.mlaursen.database.objects.DatabaseView;
 import com.github.mlaursen.database.objects.MyResultRow;
 
@@ -99,7 +99,7 @@ public class AccountView extends DatabaseView {
 	}
 	
 	public void setBirthday(String b) {
-		account.setBirthday(Util.stringToDate(b));
+		account.setBirthday(DateUtil.stringToDate(b));
 	}
 	
 	public void setUnitSystem(String u) {
