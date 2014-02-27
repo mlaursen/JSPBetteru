@@ -62,7 +62,7 @@ public class AccountObjectsTest {
 		assertEquals(a.getUsername(), "test");
 		assertTrue(sameDate(a.getBirthday(), stringToDate("21-JAN-91", "dd-MMM-yy")));
 		assertEquals(a.getUnitSystem(), new UnitSystem("IMPERIAL"));
-		assertEquals(a.getGender(), new Gender("FEMALE"));
+		assertEquals(a.getGender(), new Gender("MALE"));
 		assertTrue(sameDate(a.getActiveSince(), stringToDate("14-FEB-14", "dd-MMM-yy")));
 	}
 	
