@@ -3,7 +3,7 @@
  */
 package com.betteru.meals.objects;
 
-import com.betteru.utils.StringNumberFormat;
+import com.betteru.utils.StringNumberUtil;
 import com.github.mlaursen.annotations.DatabaseField;
 import com.github.mlaursen.annotations.DatabaseFieldType;
 import com.github.mlaursen.database.objects.DatabaseObject;
@@ -109,7 +109,7 @@ public class MealPart extends DatabaseObject implements Createable, Getable, Upd
 	}
 	
 	public void setAmount(MyResultRow r) {
-		this.amount = StringNumberFormat.attemptParseDouble(r, "amount");
+		this.amount = StringNumberUtil.attemptParseDouble(r, "amount");
 	}
 
 	/**

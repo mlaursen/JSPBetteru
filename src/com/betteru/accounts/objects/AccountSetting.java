@@ -8,7 +8,7 @@ import java.sql.Date;
 import com.betteru.databasechoices.accounts.Multiplier;
 import com.betteru.databasechoices.accounts.Weekday;
 import com.betteru.utils.DateUtil;
-import com.betteru.utils.StringNumberFormat;
+import com.betteru.utils.StringNumberUtil;
 import com.github.mlaursen.annotations.DatabaseField;
 import com.github.mlaursen.annotations.DatabaseFieldType;
 import com.github.mlaursen.database.objects.DatabaseObject;
@@ -117,7 +117,7 @@ public class AccountSetting extends DatabaseObject implements Getable, Createabl
 	}
 	
 	public void setHeight(MyResultRow r) {
-		this.height = StringNumberFormat.attemptParseDouble(r, "height");
+		this.height = StringNumberUtil.attemptParseDouble(r, "height");
 	}
 	/**
 	 * @return the dateChanged

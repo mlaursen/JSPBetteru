@@ -3,7 +3,7 @@
  */
 package com.betteru.databasechoices.accounts;
 
-import com.betteru.utils.StringNumberFormat;
+import com.betteru.utils.StringNumberUtil;
 import com.github.mlaursen.database.objects.MyResultRow;
 
 /**
@@ -43,7 +43,7 @@ public class Multiplier extends AccountChoice {
 	
 	public void setAmount(MyResultRow r) {
 		if(r.get("amount") != null)
-			this.amount = StringNumberFormat.attemptParseDouble(r, "amount");
+			this.amount = StringNumberUtil.attemptParseDouble(r, "amount");
 	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()

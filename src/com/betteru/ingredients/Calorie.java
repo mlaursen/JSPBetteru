@@ -1,6 +1,6 @@
 package com.betteru.ingredients;
 
-import com.betteru.utils.StringNumberFormat;
+import com.betteru.utils.StringNumberUtil;
 import com.github.mlaursen.database.objects.MyResultRow;
 
 
@@ -12,11 +12,11 @@ public class Calorie {
 	}
 	
 	public Calorie(MyResultRow r) {
-		this.amt = StringNumberFormat.attemptParseDouble(r.get("calories"));
+		this.amt = StringNumberUtil.attemptParseDouble(r.get("calories"));
 	}
 	
 	public Calorie(String amt) {
-		this.amt = StringNumberFormat.attemptParseDouble(amt);
+		this.amt = StringNumberUtil.attemptParseDouble(amt);
 	}
 	
 	public void setAmount(double a) {

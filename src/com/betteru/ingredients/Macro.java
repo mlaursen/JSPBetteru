@@ -1,6 +1,6 @@
 package com.betteru.ingredients;
 
-import com.betteru.utils.StringNumberFormat;
+import com.betteru.utils.StringNumberUtil;
 import com.github.mlaursen.database.objects.MyResultRow;
 
 public abstract class Macro {
@@ -13,11 +13,11 @@ public abstract class Macro {
 	}
 	
 	public Macro(MyResultRow r) {
-		amt = StringNumberFormat.attemptParseDouble(r, this.getClass().getSimpleName());
+		amt = StringNumberUtil.attemptParseDouble(r, this.getClass().getSimpleName());
 	}
 	
 	public Macro(String amt) {
-		this.amt = StringNumberFormat.attemptParseDouble(amt);
+		this.amt = StringNumberUtil.attemptParseDouble(amt);
 	}
 	public double getAmount() {
 		return amt;

@@ -1,7 +1,7 @@
 package com.betteru.ingredients;
 
 import com.betteru.databasechoices.ingredients.FoodUnit;
-import com.betteru.utils.StringNumberFormat;
+import com.betteru.utils.StringNumberUtil;
 import com.github.mlaursen.database.Util;
 import com.github.mlaursen.database.objects.MyResultRow;
 
@@ -18,13 +18,13 @@ public class Serving {
 		String n = Util.formatClassName(this.getClass());
 		String s = (n + "_size").toLowerCase();
 		String u = (n + "_unit").toLowerCase();
-		size = StringNumberFormat.attemptParseDouble(r.get(s));
+		size = StringNumberUtil.attemptParseDouble(r.get(s));
 		foodUnit = new FoodUnit(r.get(u));
 		
 	}
 	
 	public Serving(String s, String u) {
-		size = StringNumberFormat.attemptParseDouble(s);
+		size = StringNumberUtil.attemptParseDouble(s);
 		foodUnit = new FoodUnit(u);
 	}
 	
@@ -58,7 +58,7 @@ public class Serving {
 	 */
 	@Override
 	public String toString() {
-		return StringNumberFormat.formatFractionString(size) + " (" + getUnitName() + ")";
+		return StringNumberUtil.formatFractionString(size) + " (" + getUnitName() + ")";
 	}
 
 	

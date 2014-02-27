@@ -11,7 +11,7 @@ import com.betteru.ingredients.Fat;
 import com.betteru.ingredients.Macro;
 import com.betteru.ingredients.Protein;
 import com.betteru.ingredients.Serving;
-import com.betteru.utils.StringNumberFormat;
+import com.betteru.utils.StringNumberUtil;
 import com.github.mlaursen.database.objects.DatabaseView;
 import com.github.mlaursen.database.objects.MyResultRow;
 import com.github.mlaursen.database.objecttypes.GetAllable;
@@ -172,7 +172,7 @@ public class MealPartView extends DatabaseView implements GetAllable {
 	}
 	
 	public void setAmount(MyResultRow r) {
-		this.amount = StringNumberFormat.attemptParseDouble(r, "amount");
+		this.amount = StringNumberUtil.attemptParseDouble(r, "amount");
 	}
 	
 	public void setIngredientName(MyResultRow r) {

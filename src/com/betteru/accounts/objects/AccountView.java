@@ -12,7 +12,7 @@ import com.betteru.databasechoices.accounts.Multiplier;
 import com.betteru.databasechoices.accounts.UnitSystem;
 import com.betteru.databasechoices.accounts.Weekday;
 import com.betteru.utils.DateUtil;
-import com.betteru.utils.StringNumberFormat;
+import com.betteru.utils.StringNumberUtil;
 import com.github.mlaursen.database.objects.DatabaseView;
 import com.github.mlaursen.database.objects.MyResultRow;
 
@@ -107,7 +107,7 @@ public class AccountView extends DatabaseView {
 	}
 	
 	public void setHeight(String h) {
-		accountSetting.setHeight(StringNumberFormat.attemptParseDouble(h));
+		accountSetting.setHeight(StringNumberUtil.attemptParseDouble(h));
 	}
 	
 	public void setGender(String g) {

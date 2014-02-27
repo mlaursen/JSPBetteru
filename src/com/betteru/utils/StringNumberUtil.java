@@ -2,7 +2,7 @@ package com.betteru.utils;
 
 import com.github.mlaursen.database.objects.MyResultRow;
 
-public class StringNumberFormat {
+public class StringNumberUtil {
 
 	public static final String[] FRACTIONS = new String[]{ "1/2", "1/3", "1/4", "1/8" };
 	public static String formatFractionString(double d) { return formatFractionString(d + ""); }

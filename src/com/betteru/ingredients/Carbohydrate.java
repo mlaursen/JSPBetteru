@@ -1,6 +1,6 @@
 package com.betteru.ingredients;
 
-import com.betteru.utils.StringNumberFormat;
+import com.betteru.utils.StringNumberUtil;
 import com.github.mlaursen.database.objects.MyResultRow;
 
 public class Carbohydrate extends Macro {
@@ -10,7 +10,7 @@ public class Carbohydrate extends Macro {
 	}
 	
 	public Carbohydrate(MyResultRow r) {
-		super(StringNumberFormat.attemptParseDouble(r.get("carbs")));
+		super(StringNumberUtil.attemptParseDouble(r.get("carbs")));
 	}
 
 	/**
