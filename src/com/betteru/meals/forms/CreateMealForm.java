@@ -7,8 +7,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.betteru.ingredients.database.Ingredient;
-import com.betteru.ingredients.database.IngredientChoice;
+import com.betteru.ingredients.objects.Ingredient;
+import com.betteru.ingredients.objects.IngredientChoice;
 import com.github.mlaursen.bootstrap.forms.HtmlForm;
 import com.github.mlaursen.bootstrap.forms.fields.ControlGroup;
 import com.github.mlaursen.bootstrap.forms.fields.Dropdown;

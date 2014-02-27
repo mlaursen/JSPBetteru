@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.betteru.accounts.database;
+package com.betteru.accounts.objects;
 
 import java.sql.Date;
 

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.betteru.ingredients.database;
+package com.betteru.ingredients.objects;
 
 import java.util.ArrayList;
 import java.util.List;

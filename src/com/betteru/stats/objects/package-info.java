@@ -5,4 +5,4 @@
  * @author Mikkel Laursen
  *
  */
-package com.betteru.intake.database;
+package com.betteru.stats.objects;

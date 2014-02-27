@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.betteru.accounts.database;
+package com.betteru.accounts.objects;
 
 import static com.github.mlaursen.annotations.DatabaseFieldType.NEW;
 import static com.github.mlaursen.annotations.DatabaseFieldType.GET;

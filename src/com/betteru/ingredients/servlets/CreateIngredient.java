@@ -17,8 +17,8 @@ import com.betteru.ingredients.Carbohydrate;
 import com.betteru.ingredients.Fat;
 import com.betteru.ingredients.Protein;
 import com.betteru.ingredients.Serving;
-import com.betteru.ingredients.database.Ingredient;
 import com.betteru.ingredients.forms.CreateIngredientForm;
+import com.betteru.ingredients.objects.Ingredient;
 import com.github.mlaursen.bootstrap.forms.fields.TextAction;
 
 /**

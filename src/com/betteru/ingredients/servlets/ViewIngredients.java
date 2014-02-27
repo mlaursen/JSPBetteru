@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.betteru.databasechoices.ingredients.Brand;
 import com.betteru.databasechoices.ingredients.Category;
-import com.betteru.ingredients.database.Ingredient;
+import com.betteru.ingredients.objects.Ingredient;
 import com.github.mlaursen.bootstrap.sidebar.SidebarNav;
 
 /**

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.betteru.meals.database;
+package com.betteru.meals.objects;
 
 import com.github.mlaursen.annotations.DatabaseField;
 import com.github.mlaursen.annotations.DatabaseFieldType;

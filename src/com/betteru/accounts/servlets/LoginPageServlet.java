@@ -9,10 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.betteru.accounts.database.Account;
-import com.betteru.accounts.database.TempAccount;
 import com.betteru.accounts.forms.CreateAccountForm;
 import com.betteru.accounts.forms.LoginForm;
+import com.betteru.accounts.objects.Account;
+import com.betteru.accounts.objects.TempAccount;
 
 /**
  * Servlet implementation class LoginPageServlet

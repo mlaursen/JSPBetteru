@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.betteru.meals.database;
+package com.betteru.meals.objects;
 
 import com.betteru.utils.StringNumberFormat;
 import com.github.mlaursen.annotations.DatabaseField;

@@ -1,4 +1,4 @@
-package com.betteru.accounts.database;
+package com.betteru.accounts.objects;
 
 import com.betteru.utils.Util;
 import com.github.mlaursen.annotations.DatabaseField;

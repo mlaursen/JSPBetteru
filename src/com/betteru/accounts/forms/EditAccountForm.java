@@ -11,7 +11,7 @@ import com.github.mlaursen.bootstrap.forms.fields.DropdownChoice;
 import com.github.mlaursen.bootstrap.forms.fields.button.SubmitButton;
 import com.github.mlaursen.bootstrap.forms.fields.input.DateField;
 import com.github.mlaursen.bootstrap.forms.fields.input.NumberField;
-import com.betteru.accounts.database.AccountView;
+import com.betteru.accounts.objects.AccountView;
 import com.betteru.databasechoices.accounts.AccountChoice;
 import com.betteru.databasechoices.accounts.Gender;
 import com.betteru.databasechoices.accounts.Multiplier;

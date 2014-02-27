@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.github.mlaursen.bootstrap.forms.fields.DropdownChoice;
-import com.betteru.accounts.database.AccountView;
 import com.betteru.accounts.forms.EditAccountForm;
+import com.betteru.accounts.objects.AccountView;
 
 /**
  * Servlet implementation class EditAccountServlet

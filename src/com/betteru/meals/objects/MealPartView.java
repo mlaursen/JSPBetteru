@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.betteru.meals.database;
+package com.betteru.meals.objects;
 
 import java.util.List;
 
