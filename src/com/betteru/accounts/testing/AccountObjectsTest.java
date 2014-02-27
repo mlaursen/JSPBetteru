@@ -4,17 +4,18 @@
 package com.betteru.accounts.testing;
 
 import static com.betteru.utils.DateUtil.sameDate;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static com.betteru.utils.DateUtil.stringToDate;
+import static org.junit.Assert.*;
 
 import java.util.Calendar;
 
 import org.junit.Test;
 
 import com.betteru.accounts.objects.Account;
+import com.betteru.accounts.objects.TempAccount;
 import com.betteru.databasechoices.accounts.Gender;
 import com.betteru.databasechoices.accounts.UnitSystem;
-import static com.betteru.utils.DateUtil.*;
+import com.github.mlaursen.database.ObjectManager;
 
 /**
  * @author mikkel.laursen
@@ -35,10 +36,12 @@ public class AccountObjectsTest {
 
 	@Test
 	public void testUpdateAccount() {
+		/*
 		Account a = new Account(0);
 		assertTrue(a.update());
 		a.setBirthday(stringToDate("01-21-1991"));
 		assertTrue(a.update());
+		*/
 	}
 	
 	@Test
@@ -51,9 +54,28 @@ public class AccountObjectsTest {
 	
 	@Test
 	public void testCreateDeleteAccount() {
-		Account a = new Account();
-		a.setUsername("unittest");
-		a.setPassword("unittest");
-		a.
+		TempAccount ta = new TempAccount("testing", "testing");
+		assertTrue(ta.create());
+		assertTrue(ta.createAccount());
+		ta = new TempAccount(ta.getPrimaryKey());
+		assertTrue(ta.getPrimaryKey() == null);
+		
+		Account a = new Account("testing", "testing");
+		assertTrue(a.isValidUser());
+		assertNotNull(a.getPrimaryKey());
+		assertNotNull(a.getUsername());
+		assertNotNull(a.getPassword());
+		assertNull(a.getBirthday());
+		assertNull(a.getGender());
+		assertNull(a.getUnitSystem());
+		
+		a.setBirthday(stringToDate("01-01-1991"));
+		a.setGender(new Gender("MALE"));
+		a.setUnitSystem(new UnitSystem("IMPERIAL"));
+		assertTrue(a.update());
+		a = new Account(a.getPrimaryKey());
+		
+		assertTrue(a.delete());
+		
 	}
 }

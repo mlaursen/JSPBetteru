@@ -13,13 +13,14 @@ import com.github.mlaursen.annotations.DatabaseField;
 import com.github.mlaursen.annotations.DatabaseFieldType;
 import com.github.mlaursen.database.objects.MyResultRow;
 import com.github.mlaursen.database.objects.Procedure;
+import com.github.mlaursen.database.objecttypes.Deleteable;
 import com.github.mlaursen.database.objecttypes.Updateable;
 
 /**
  * @author mikkel.laursen
  *
  */
-public class Account extends AccountTemplate implements Updateable {
+public class Account extends AccountTemplate implements Updateable, Deleteable {
 	private static final String UPDATE_LAST_LOGIN = "updatelastlogin";
 	{
 		Procedure updateLogin = new Procedure( UPDATE_LAST_LOGIN, "id");
@@ -56,18 +57,15 @@ public class Account extends AccountTemplate implements Updateable {
 	
 	public Account(MyResultRow r) {
 		super(r);
-		setBirthday(r);
-		setUnitSystem(r);
-		setGender(r);
 	}
 	
 	public boolean isValidUser() {
-		MyResultRow r = manager.getFirstRowFromCursorProcedure("get", username);
+		MyResultRow r = manager.getFirstRowFromCursorProcedure("get", this.username);
 		boolean valid = false;
 		if(r != null) {
 			String pswd = r.get("password");
 			String salt = pswd.substring(0, 64);
-			String hash = SecurityUtil.repeatedHashing(salt, getPassword());
+			String hash = SecurityUtil.repeatedHashing(salt, this.password);
 			valid = hash.equals(pswd);
 			if(valid)
 				primaryKey = r.get(primaryKeyName);
