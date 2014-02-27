@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.betteru.accounts.testing;
+package accounts;
 
 import static com.betteru.utils.DateUtil.sameDate;
 import static com.betteru.utils.DateUtil.stringToDate;

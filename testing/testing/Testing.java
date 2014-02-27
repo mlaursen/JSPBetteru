@@ -1,4 +1,4 @@
-package com.betteru.testing;
+package testing;
 
 import com.betteru.ingredients.objects.IngredientChoice;
 

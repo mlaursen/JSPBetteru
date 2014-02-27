@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.github.mlaursen.bootstrap.utils.Util;
 import com.github.mlaursen.bootstrap.forms.fields.DropdownChoice;
+import com.github.mlaursen.database.DatabaseObjectClassUtil;
 import com.github.mlaursen.database.objects.DatabaseObject;
 import com.github.mlaursen.database.objects.MyResultRow;
 import com.github.mlaursen.database.objecttypes.GetAllable;
@@ -59,7 +60,7 @@ public class AccountChoice extends DatabaseObject implements Getable, GetAllable
 	}
 
 	public String defaultChoice() {
-		return "Select your " + (com.github.mlaursen.database.Util.formatClassName(getClass(), null, " ").trim());
+		return "Select your " + (DatabaseObjectClassUtil.formatClassName(getClass(), null, " ").trim());
 	}
 	
 	@Override

@@ -1,13 +1,14 @@
 /**
  * 
  */
-package com.betteru.testing;
+package testing;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
-import com.betteru.accounts.testing.AccountObjectsTest;
+import accounts.AccountObjectsTest;
+
 import com.betteru.utils.UtilsTest;
 
 /**
