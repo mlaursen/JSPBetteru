@@ -13,6 +13,10 @@ import org.junit.Test;
 import com.betteru.databasechoices.accounts.Gender;
 import com.betteru.databasechoices.accounts.Multiplier;
 import com.betteru.databasechoices.accounts.UnitSystem;
+import com.betteru.databasechoices.accounts.Weekday;
+import com.betteru.databasechoices.ingredients.Brand;
+import com.betteru.databasechoices.ingredients.Category;
+import com.betteru.databasechoices.ingredients.FoodUnit;
 
 /**
  * @author mikkel.laursen
@@ -45,6 +49,43 @@ public class DatabaseChoicesTest {
 		assertEquals(2, units.size());
 		assertTrue(units.contains(new UnitSystem("IMPERIAL")));
 		assertTrue(units.contains(new UnitSystem("METRIC")));
+		
+		Weekday w = new Weekday();
+		Weekday monday = w.get("MONDAY", Weekday.class);
+		List<Weekday> ws = w.getAll(Weekday.class);
+		assertEquals(7, ws.size());
+		assertTrue(ws.contains(monday));
+		assertTrue(ws.contains(new Weekday("TUESDAY")));
+		assertTrue(ws.contains(new Weekday("WEDNESDAY")));
+		assertTrue(ws.contains(new Weekday("THURSDAY")));
+		assertTrue(ws.contains(new Weekday("FRIDAY")));
+		assertTrue(ws.contains(new Weekday("SATURDAY")));
+		assertTrue(ws.contains(new Weekday("SUNDAY")));
+		assertEquals(1, monday.getDayOfWeek());
+	}
+	
+	@Test
+	public void testIngredientChoices() {
+		Brand b = new Brand();
+		Brand testBrand = new Brand("Test");
+		//System.out.println(testBrand.create());
+		assertTrue(testBrand.create());
+		List<Brand> bs = b.getAll(Brand.class);
+		assertTrue(bs.contains(testBrand));
+		assertTrue(testBrand.delete());
+		
+		Category c = new Category();
+		List<Category> cs = c.getAll(Category.class);
+		assertEquals(4,  cs.size());
+		assertTrue(cs.contains(new Category("Proteins")));
+		assertTrue(cs.contains(new Category("Carbs")));
+		assertTrue(cs.contains(new Category("Dairy")));
+		assertTrue(cs.contains(new Category("Other")));
+		
+		FoodUnit fu = new FoodUnit();
+		FoodUnit gram = fu.get("g", FoodUnit.class);
+		assertEquals("g", gram.getPrimaryKey());
+		assertEquals("gram", gram.getLongName());
 	}
 
 }

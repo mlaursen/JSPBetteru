@@ -3,6 +3,7 @@
  */
 package com.betteru.databasechoices.accounts;
 
+import com.betteru.utils.StringNumberUtil;
 import com.github.mlaursen.database.objects.MyResultRow;
 
 /**
@@ -11,9 +12,6 @@ import com.github.mlaursen.database.objects.MyResultRow;
  */
 public class Weekday extends AccountChoice {
 
-	/**
-	 * 
-	 */
 	public Weekday() {
 		// TODO Auto-generated constructor stub
 	}
@@ -32,7 +30,6 @@ public class Weekday extends AccountChoice {
 	 */
 	public Weekday(String primaryKey, int id) {
 		super(primaryKey, id);
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -41,6 +38,14 @@ public class Weekday extends AccountChoice {
 	public Weekday(MyResultRow r) {
 		super(r);
 		// TODO Auto-generated constructor stub
+	}
+	
+	public int getDayOfWeek() {
+		return dropdownKey;
+	}
+	
+	public void setDayOfWeek(MyResultRow r) {
+		dropdownKey = StringNumberUtil.attemptParseInteger(r, "day_of_week");
 	}
 
 }

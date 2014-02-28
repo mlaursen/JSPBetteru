@@ -8,6 +8,8 @@ CREATE OR REPLACE PACKAGE BRAND_PKG AS
   -- Returns a SYS_REFCURSOR for all the brands
   PROCEDURE GET(PCURSOR OUT SYS_REFCURSOR);
   
+  -- Deletes a brand by name
+  PROCEDURE DELETE(PNAME IN BRAND.NAME%TYPE);
 END BRAND_PKG;
 /
 
@@ -32,6 +34,18 @@ CREATE OR REPLACE PACKAGE BODY BRAND_PKG AS
       SELECT NAME FROM BRAND;
   END GET;
   
+  PROCEDURE DELETE(PNAME IN BRAND.NAME%TYPE)
+  IS
+  BEGIN
+    DELETE FROM BRAND
+    WHERE NAME=PNAME;
+    COMMIT;
+    
+    EXCEPTION
+      WHEN OTHERS THEN
+        ROLLBACK;
+        RAISE;
+  END DELETE;
 END BRAND_PKG;
 /
 -------------------------------------------------------------------------------
