@@ -21,9 +21,9 @@ import com.github.mlaursen.database.objects.MyResultRow;
  *
  */
 public class AccountView extends DatabaseView {
-	{
+	/*{
 		this.setGetProcedureName("getfromview");
-	}
+	}*/
 	private Account account;
 	private AccountSetting accountSetting;
 	private int age;

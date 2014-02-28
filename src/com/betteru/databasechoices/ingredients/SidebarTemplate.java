@@ -6,6 +6,7 @@ package com.betteru.databasechoices.ingredients;
 import com.github.mlaursen.bootstrap.sidebar.SidebarItemList;
 import com.github.mlaursen.bootstrap.sidebar.SidebarItemable;
 import com.github.mlaursen.database.objects.MyResultRow;
+import com.github.mlaursen.database.objects.ObjectManager;
 
 /**
  * @author mikkel.laursen
@@ -52,7 +53,7 @@ public class SidebarTemplate extends Template implements SidebarItemable {
 	public SidebarItemList<SidebarItemable> getSidebarList() {
 		String n = getClass().getSimpleName();
 		n = n.equals("Brand") ? "Brands" : "Categories";
-		return new SidebarItemList(n.toLowerCase(), n, n.toLowerCase(), getAll(getClass()));
+		return new SidebarItemList(n.toLowerCase(), n, n.toLowerCase(), new ObjectManager(this.getClass()).getAll(getClass()));
 	}
 
 	/* (non-Javadoc)

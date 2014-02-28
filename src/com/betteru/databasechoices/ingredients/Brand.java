@@ -13,12 +13,6 @@ import com.github.mlaursen.database.objecttypes.Deleteable;
  *
  */
 public class Brand extends SidebarTemplate implements Createable, Deleteable {
-	{
-		Procedure pNew = manager.getPackage().getProcedure("new");
-		pNew.addParams("name");
-		
-	}
-	
 	public Brand() { }
 	public Brand(String primaryKey) {
 		super(primaryKey);
@@ -38,15 +32,5 @@ public class Brand extends SidebarTemplate implements Createable, Deleteable {
 	 */
 	public Brand(MyResultRow r) {
 		super(r);
-	}
-
-	@Override
-	public boolean create() {
-		return manager.executeStoredProcedure("new", primaryKey);
-	}
-	
-	@Override
-	public boolean delete() {
-		return manager.executeStoredProcedure("delete", primaryKey);
 	}
 }

@@ -24,17 +24,6 @@ public abstract class AccountTemplate extends DatabaseObject implements Getable,
 	@DatabaseField(values={NEW})
 	protected String password;
 	protected AccountTemplate() { }
-
-	/**
-	 * @param primaryKey
-	 */
-	public AccountTemplate(String primaryKey) {
-		super(primaryKey);
-	}
-	
-	public AccountTemplate(Integer primaryKey) {
-		super(primaryKey);
-	}
 	
 	public AccountTemplate(String username, String password) {
 		super();

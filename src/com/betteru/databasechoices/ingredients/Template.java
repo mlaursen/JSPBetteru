@@ -9,6 +9,7 @@ import java.util.List;
 import com.github.mlaursen.bootstrap.forms.fields.DropdownChoice;
 import com.github.mlaursen.database.objects.DatabaseObject;
 import com.github.mlaursen.database.objects.MyResultRow;
+import com.github.mlaursen.database.objects.ObjectManager;
 import com.github.mlaursen.database.objecttypes.GetAllable;
 import com.github.mlaursen.database.objecttypes.Getable;
 
@@ -76,7 +77,7 @@ public abstract class Template extends DatabaseObject implements Getable, GetAll
 		if(this.getClass().getSimpleName().equals("Brand")) {
 			choices.add(new Brand("New Brand"));
 		}
-		choices.addAll((List<DropdownChoice>) this.getAll(this.getClass()));
+		choices.addAll((List<DropdownChoice>) new ObjectManager(this.getClass()).getAll(this.getClass()));
 		for(int i = 0; i < choices.size(); i++) {
 			choices.get(i).setDropdownKey(i);
 		}

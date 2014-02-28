@@ -4,6 +4,9 @@
 package com.betteru.accounts.objects;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import com.betteru.databasechoices.accounts.Gender;
 import com.betteru.databasechoices.accounts.UnitSystem;
@@ -12,6 +15,7 @@ import com.betteru.utils.SecurityUtil;
 import com.github.mlaursen.annotations.DatabaseField;
 import com.github.mlaursen.annotations.DatabaseFieldType;
 import com.github.mlaursen.database.objects.MyResultRow;
+import com.github.mlaursen.database.objects.ObjectManager;
 import com.github.mlaursen.database.objects.Procedure;
 import com.github.mlaursen.database.objecttypes.Deleteable;
 import com.github.mlaursen.database.objecttypes.Updateable;
@@ -22,12 +26,7 @@ import com.github.mlaursen.database.objecttypes.Updateable;
  */
 public class Account extends AccountTemplate implements Updateable, Deleteable {
 	private static final String UPDATE_LAST_LOGIN = "updatelastlogin";
-	{
-		Procedure updateLogin = new Procedure( UPDATE_LAST_LOGIN, "id");
-		updateLogin.setHasCursor(false);
-		
-		manager.addCustomProcedure(updateLogin);
-	}
+	
 	@DatabaseField(values=DatabaseFieldType.UPDATE)
 	private Gender gender;
 	
@@ -39,18 +38,6 @@ public class Account extends AccountTemplate implements Updateable, Deleteable {
 
 	private Date activeSince, lastLogin;
 	public Account() { }
-
-	/**
-	 * @param primaryKey
-	 */
-	public Account(String primaryKey) {
-		super(primaryKey);
-	}
-	
-	public Account(Integer primaryKey) {
-		super(primaryKey);
-	}
-	
 	public Account(String username, String password) {
 		super(username, password);
 	}
@@ -60,22 +47,27 @@ public class Account extends AccountTemplate implements Updateable, Deleteable {
 	}
 	
 	public boolean isValidUser() {
-		MyResultRow r = manager.getFirstRowFromCursorProcedure("get", this.username);
+		Account a = new ObjectManager(Account.class).get(this.username, Account.class);
+		//MyResultRow r = new ObjectManager(this.getClass()).getFirstRowFromCursorProcedure("get", this.username);
 		boolean valid = false;
-		if(r != null) {
-			String pswd = r.get("password");
+		if(a != null && a.getPassword() != null) {
+			String pswd = a.getPassword();
 			String salt = pswd.substring(0, 64);
 			String hash = SecurityUtil.repeatedHashing(salt, this.password);
 			valid = hash.equals(pswd);
 			if(valid)
-				primaryKey = r.get(primaryKeyName);
+				primaryKey = a.getPrimaryKey();
 		}
 		return valid;
 	}
 	
-	public boolean updateLastLogin() {
-		return manager.executeStoredProcedure(UPDATE_LAST_LOGIN, primaryKey);
+	@Override
+	public List<Procedure> getCustomProcedures() {
+		Procedure lastLogin = new Procedure(UPDATE_LAST_LOGIN, "id");
+		lastLogin.setHasCursor(false);
+		return Arrays.asList(lastLogin);
 	}
+	
 	/**		Getters and setters  	 */
 
 

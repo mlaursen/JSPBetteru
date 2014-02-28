@@ -36,9 +36,7 @@ public class AccountSetting extends DatabaseObject implements Getable, Createabl
 	public AccountSetting(String primaryKey) {
 		super(primaryKey);
 	}
-	public AccountSetting(Integer primaryKey) {
-		super(primaryKey);
-	}
+	
 	public AccountSetting(MyResultRow r) {
 		super(r);
 	}
@@ -55,10 +53,6 @@ public class AccountSetting extends DatabaseObject implements Getable, Createabl
 		this.accountId = accountId;
 	}
 	
-	@Override
-	public boolean update() {
-		return create();
-	}
 	
 	/**
 	 * Set the account id from a myresultrow.

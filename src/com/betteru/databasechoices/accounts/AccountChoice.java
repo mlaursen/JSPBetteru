@@ -11,6 +11,7 @@ import com.github.mlaursen.bootstrap.forms.fields.DropdownChoice;
 import com.github.mlaursen.database.DatabaseObjectClassUtil;
 import com.github.mlaursen.database.objects.DatabaseObject;
 import com.github.mlaursen.database.objects.MyResultRow;
+import com.github.mlaursen.database.objects.ObjectManager;
 import com.github.mlaursen.database.objecttypes.GetAllable;
 import com.github.mlaursen.database.objecttypes.Getable;
 
@@ -67,7 +68,7 @@ public class AccountChoice extends DatabaseObject implements Getable, GetAllable
 	public List<DropdownChoice> getAllChoices() {
 		List<DropdownChoice> choices = new ArrayList<DropdownChoice>();
 		choices.add(new AccountChoice(defaultChoice()));
-		choices.addAll(this.getAll(this.getClass()));
+		choices.addAll(new ObjectManager(this.getClass()).getAll(this.getClass()));
 		for(int i = 0; i < choices.size(); i++) {
 			choices.get(i).setDropdownKey(i);
 		}
