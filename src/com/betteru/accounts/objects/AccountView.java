@@ -28,18 +28,6 @@ public class AccountView extends DatabaseView {
 	private AccountSetting accountSetting;
 	private int age;
 	public AccountView() { }
-	public AccountView(String primaryKey) {
-		super();
-		MyResultRow r = manager.getFirstRowFromCursorProcedure("get", primaryKey);
-		setAll(r);
-	}
-	public AccountView(Integer primaryKey) {
-		this(primaryKey.toString());
-	}
-	
-	public AccountView(HttpServletRequest request) {
-		this((String) request.getSession().getAttribute("userid"));
-	}
 	
 	public AccountView(MyResultRow r) {
 		super(r);
@@ -132,10 +120,6 @@ public class AccountView extends DatabaseView {
 	
 	public void setAge(MyResultRow r) {
 		this.age = StringNumberUtil.attemptParseInteger(r, "age");
-	}
-	@Override
-	public boolean update() {
-		return account.update() && accountSetting.update();
 	}
 	
 	public Account getAccount() { return this.account; }

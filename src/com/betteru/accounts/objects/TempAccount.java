@@ -1,28 +1,20 @@
 package com.betteru.accounts.objects;
 
+import java.util.Arrays;
+import java.util.List;
+
 import com.betteru.utils.SecurityUtil;
 import com.github.mlaursen.annotations.DatabaseField;
 import com.github.mlaursen.annotations.DatabaseFieldType;
 import com.github.mlaursen.database.objects.MyResultRow;
+import com.github.mlaursen.database.objects.ObjectManager;
 import com.github.mlaursen.database.objects.Procedure;
 import com.github.mlaursen.database.objecttypes.Deleteable;
 
 public class TempAccount extends AccountTemplate implements Deleteable {
-	{
-		Procedure newAccount = new Procedure("newaccount", "id");
-		newAccount.setHasCursor(false);
-		
-		Procedure getId = new Procedure("getid", "username");
-		
-		manager.addCustomProcedure(newAccount);
-		manager.addCustomProcedure(getId);
-	}
 	@DatabaseField(values = { DatabaseFieldType.NEW })
 	private String code;
 	public TempAccount() { }
-	public TempAccount(String primaryKey) {
-		super(primaryKey);
-	}
 	
 	public TempAccount(String username, String password) {
 		super();
@@ -30,17 +22,13 @@ public class TempAccount extends AccountTemplate implements Deleteable {
 		this.password = password;
 		code = SecurityUtil.createCode();
 	}
-	
-	public TempAccount(Integer primaryKey) {
-		this(primaryKey.toString());
-	}
 
 	public TempAccount(MyResultRow r) {
 		super(r);
 	}
 	
 	public boolean createAccount() {
-		return manager.executeStoredProcedure("newaccount", primaryKey);
+		return new ObjectManager(TempAccount.class).executeCustomProcedure("newaccount", TempAccount.class, primaryKey);//manager.executeStoredProcedure("newaccount", primaryKey);
 	}
 	
 	
@@ -66,20 +54,32 @@ public class TempAccount extends AccountTemplate implements Deleteable {
 	}
 	
 	@Override
+	public List<Procedure> getCustomProcedures() {
+		Procedure newAccount = new Procedure("newaccount", "id");
+		newAccount.setHasCursor(false);
+		
+		Procedure getId = new Procedure("getid", "username");
+		return Arrays.asList(newAccount, getId);
+	}
+	
+	
 	public boolean create() {
+		ObjectManager m = new ObjectManager(TempAccount.class);
 		boolean valid;
 		if(username == null || password == null || code == null)
 			valid = false;
 		else {
 			String hashed = SecurityUtil.createHash(username, password);
 			password = hashed;
-			valid = super.create();//manager.executeStoredProcedure("new", username, password, code);
+			valid = m.create(this);//manager.executeStoredProcedure("new", username, password, code);
 		}
 		if(valid) {
-			this.primaryKey = manager.getFirstRowFromCursorProcedure("getid", username).construct(TempAccount.class).primaryKey;
+			this.primaryKey = m.getCustom("getid", TempAccount.class, username).primaryKey;
+					//manager.getFirstRowFromCursorProcedure("getid", username).construct(TempAccount.class).primaryKey;
 		}
 		return valid;
 	}
+	
 	
 	@Override
 	public String toString() {
