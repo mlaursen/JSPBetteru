@@ -4,8 +4,6 @@
 package com.betteru.accounts.objects;
 
 import static com.github.mlaursen.annotations.DatabaseFieldType.NEW;
-import static com.github.mlaursen.annotations.DatabaseFieldType.GET;
-import static com.github.mlaursen.annotations.DatabaseFieldType.UPDATE;
 
 import com.github.mlaursen.annotations.DatabaseField;
 import com.github.mlaursen.database.objects.DatabaseObject;
