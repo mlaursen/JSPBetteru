@@ -1,12 +1,18 @@
 package testing;
 
+import com.betteru.accounts.objects.Account;
 import com.betteru.ingredients.objects.IngredientChoice;
+import com.github.mlaursen.database.ConnectionManager;
+import com.github.mlaursen.database.ObjectManager;
 
 
 public class Testing {
 
 	public static void main(String[] args) throws Exception {
-		System.out.println(new IngredientChoice().getAllChoices());
+		ConnectionManager m = new ConnectionManager();
+		ObjectManager om = new ObjectManager(Account.class);
+		System.out.println(om);
+		//System.out.println(new IngredientChoice().getAllChoices());
 		/*
 		MealPartView mpv = new MealPartView();
 		System.out.println(mpv.getAll());
