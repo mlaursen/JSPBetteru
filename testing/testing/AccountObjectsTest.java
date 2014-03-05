@@ -34,7 +34,7 @@ public class AccountObjectsTest {
 	protected static TestingObjectManager tom = new TestingObjectManager();
 	static {
 		tom.setDebug(true);
-		tom.setDelete(false);
+		//tom.setDelete(false);
 	}
 	
 	@ClassRule
