@@ -1,5 +1,6 @@
 start init_tables.sql;
-start init_sequences.sql
+START INIT_SEQUENCES.SQL
+start init_functions.sql;
 start init_packages.sql;
 start init_package_body.sql;
 start init_views.sql;

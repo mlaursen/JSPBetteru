@@ -39,8 +39,6 @@ END TEMP_ACCOUNT_PKG;
 -- ACCOUNT PACKAGE
 --------------------------------------------------------------------------------
 CREATE OR REPLACE PACKAGE ACCOUNT_PKG AS
-  -- Gets the age for an account from the birthday
-  FUNCTION GETAGE(PBIRTHDAY IN ACCOUNT.BIRTHDAY%TYPE) RETURN INTEGER;
   
   -- Creates a new account
   PROCEDURE NEW( PUSER IN ACCOUNT.USERNAME%TYPE

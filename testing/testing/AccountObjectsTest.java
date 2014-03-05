@@ -34,7 +34,7 @@ public class AccountObjectsTest {
 	protected static TestingObjectManager tom = new TestingObjectManager();
 	static {
 		tom.setDebug(true);
-		//tom.setDelete(false);
+		tom.setDelete(false);
 	}
 	
 	@ClassRule
@@ -47,7 +47,9 @@ public class AccountObjectsTest {
 	
 	@Test
 	public void testCreateDeleteUpdateAccount() {
-		tom.addPackage(Account.class);
+		tom.addPackageWithView(Account.class, AccountView.class);
+		tom.addPackage(TempAccount.class);
+		tom.recompile();
 		//System.out.println(tom);
 		//tom.addPackage(TempAccount.class);
 		//TempAccount ta = new TempAccount("testing", "testing");

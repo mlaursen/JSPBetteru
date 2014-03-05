@@ -23,6 +23,10 @@ import com.betteru.databasechoices.ingredients.FoodUnit;
  *
  */
 public class DatabaseChoicesTest {
+	@Test
+	public void test() {
+		
+	}
 /*
 	@Test
 	public void testAccountChoices() {

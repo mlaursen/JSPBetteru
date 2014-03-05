@@ -79,19 +79,7 @@ END TEMP_ACCOUNT_PKG;
 -- ACCOUNT PACKAGE
 --------------------------------------------------------------------------------
 CREATE OR REPLACE PACKAGE BODY ACCOUNT_PKG AS
-  -- Gets the age for an account from the birthday
-  FUNCTION GETAGE(PBIRTHDAY IN ACCOUNT.BIRTHDAY%TYPE) RETURN INTEGER
-  IS
-    IDATE DATE;
-  BEGIN
-    IF PBIRTHDAY IS NULL THEN
-      IDATE := SYSDATE;
-    ELSE
-      IDATE := PBIRTHDAY;
-    END IF;
-    RETURN TO_CHAR(SYSDATE,'YYYY')-TO_CHAR(IDATE,'YYYY');
-  END GETAGE;
-  
+    
   PROCEDURE DELETE(PID IN INTEGER)
   IS
   BEGIN
