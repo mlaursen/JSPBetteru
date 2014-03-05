@@ -4,7 +4,6 @@
 package com.betteru.accounts.objects;
 
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -14,8 +13,8 @@ import com.betteru.utils.DateUtil;
 import com.betteru.utils.SecurityUtil;
 import com.github.mlaursen.annotations.DatabaseField;
 import com.github.mlaursen.annotations.DatabaseFieldType;
+import com.github.mlaursen.database.managers.ObjectManager;
 import com.github.mlaursen.database.objects.MyResultRow;
-import com.github.mlaursen.database.objects.ObjectManager;
 import com.github.mlaursen.database.objects.Procedure;
 import com.github.mlaursen.database.objecttypes.Deleteable;
 import com.github.mlaursen.database.objecttypes.Updateable;
@@ -48,7 +47,6 @@ public class Account extends AccountTemplate implements Updateable, Deleteable {
 	
 	public boolean isValidUser() {
 		Account a = new ObjectManager(Account.class).get(this.username, Account.class);
-		//MyResultRow r = new ObjectManager(this.getClass()).getFirstRowFromCursorProcedure("get", this.username);
 		boolean valid = false;
 		if(a != null && a.getPassword() != null) {
 			String pswd = a.getPassword();

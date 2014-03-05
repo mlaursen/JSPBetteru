@@ -5,11 +5,16 @@ package testing;
 
 import static com.betteru.utils.DateUtil.sameDate;
 import static com.betteru.utils.DateUtil.stringToDate;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Calendar;
 
+import org.junit.ClassRule;
 import org.junit.Test;
+import org.junit.rules.ExternalResource;
 
 import com.betteru.accounts.objects.Account;
 import com.betteru.accounts.objects.AccountSetting;
@@ -19,23 +24,43 @@ import com.betteru.databasechoices.accounts.Gender;
 import com.betteru.databasechoices.accounts.Multiplier;
 import com.betteru.databasechoices.accounts.UnitSystem;
 import com.betteru.databasechoices.accounts.Weekday;
-import com.github.mlaursen.database.ObjectManager;
+import com.github.mlaursen.database.managers.TestingObjectManager;
 
 /**
  * @author mikkel.laursen
  *
  */
 public class AccountObjectsTest {
-
+	protected static TestingObjectManager tom = new TestingObjectManager();
+	static {
+		tom.setDebug(true);
+		tom.setDelete(false);
+	}
+	
+	@ClassRule
+	public static ExternalResource resource = new ExternalResource() {
+		@Override
+		protected void after() {
+			tom.cleanUp();
+		}
+	};
 	
 	@Test
 	public void testCreateDeleteUpdateAccount() {
-		TempAccount ta = new TempAccount("testing", "testing");
-		assertTrue(ta.create());
-		assertTrue(ta.createAccount());
-		ta = new TempAccount(ta.getPrimaryKey());
-		assertTrue(ta.getPrimaryKey() == null);
-		
+		tom.addPackage(Account.class);
+		//System.out.println(tom);
+		//tom.addPackage(TempAccount.class);
+		//TempAccount ta = new TempAccount("testing", "testing");
+		//ta.hashPassword();
+		//assertTrue(tom.create(ta));
+		//assertTrue(tom.executeCustomProcedure("newaccount", TempAccount.class, ta.getUsername(), ta.getPassword()));
+		//assertTrue(ta.create());
+		//assertTrue(ta.createAccount());
+		//ta = tom.get(ta.getPrimaryKey(), TempAccount.class);
+		//ta = new TempAccount(ta.getPrimaryKey());
+		//assertTrue(ta.getPrimaryKey() == null);
+	}
+		/*
 		Account a = new Account("testing", "testing");
 		assertTrue(a.isValidUser());
 		assertNotNull(a.getPrimaryKey());
@@ -117,4 +142,5 @@ public class AccountObjectsTest {
 		av.setGender("MALE");
 		assertTrue(av.update());
 	}
+	*/
 }

@@ -6,8 +6,8 @@ import java.util.List;
 import com.betteru.utils.SecurityUtil;
 import com.github.mlaursen.annotations.DatabaseField;
 import com.github.mlaursen.annotations.DatabaseFieldType;
+import com.github.mlaursen.database.managers.ObjectManager;
 import com.github.mlaursen.database.objects.MyResultRow;
-import com.github.mlaursen.database.objects.ObjectManager;
 import com.github.mlaursen.database.objects.Procedure;
 import com.github.mlaursen.database.objecttypes.Deleteable;
 
@@ -27,10 +27,9 @@ public class TempAccount extends AccountTemplate implements Deleteable {
 		super(r);
 	}
 	
-	public boolean createAccount() {
-		return new ObjectManager(TempAccount.class).executeCustomProcedure("newaccount", TempAccount.class, primaryKey);//manager.executeStoredProcedure("newaccount", primaryKey);
+	public void hashPassword() {
+		this.password = SecurityUtil.createHash(this.username, this.password);
 	}
-	
 	
 	/**
 	 * @return the code
@@ -55,14 +54,12 @@ public class TempAccount extends AccountTemplate implements Deleteable {
 	
 	@Override
 	public List<Procedure> getCustomProcedures() {
-		Procedure newAccount = new Procedure("newaccount", "id");
+		Procedure newAccount = new Procedure("newaccount", "username", "password");
 		newAccount.setHasCursor(false);
-		
-		Procedure getId = new Procedure("getid", "username");
-		return Arrays.asList(newAccount, getId);
+		return Arrays.asList(newAccount);
 	}
 	
-	
+	/*
 	public boolean create() {
 		ObjectManager m = new ObjectManager(TempAccount.class);
 		boolean valid;
@@ -74,12 +71,12 @@ public class TempAccount extends AccountTemplate implements Deleteable {
 			valid = m.create(this);//manager.executeStoredProcedure("new", username, password, code);
 		}
 		if(valid) {
-			this.primaryKey = m.getCustom("getid", TempAccount.class, username).primaryKey;
+			this.primaryKey = m.executeCustomGetProcedure("getid", TempAccount.class, username).primaryKey;
 					//manager.getFirstRowFromCursorProcedure("getid", username).construct(TempAccount.class).primaryKey;
 		}
 		return valid;
 	}
-	
+	*/
 	
 	@Override
 	public String toString() {

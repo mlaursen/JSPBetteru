@@ -18,6 +18,11 @@ CREATE OR REPLACE PACKAGE TEMP_ACCOUNT_PKG AS
   -- creates a new account from a temp account's id
   PROCEDURE NEWACCOUNT( PID IN TEMP_ACCOUNT.ID%TYPE );
   
+  -- creates a new account from a temp account's username/password
+  PROCEDURE NEWACCOUNT( PUSER IN TEMP_ACCOUNT.USERNAME%TYPE
+                      , PPASS IN TEMP_ACCOUNT.PASSWORD%TYPE
+                      );
+  
   -- Deletes a temp account by id
   PROCEDURE DEL(PID IN TEMP_ACCOUNT.ID%TYPE);
   
@@ -25,13 +30,7 @@ CREATE OR REPLACE PACKAGE TEMP_ACCOUNT_PKG AS
   PROCEDURE GET(PCURSOR OUT SYS_REFCURSOR);
   
   -- Returns a sys_refcursor for a temp account by tempaccountid
-  PROCEDURE GET(PID IN TEMP_ACCOUNT.ID%TYPE, PCURSOR OUT SYS_REFCURSOR);
-  
-  -- Returns a sys_refcursor for a temp account by username/password
-  PROCEDURE GETID(PUSER IN TEMP_ACCOUNT.USERNAME%TYPE
-                 , PCURSOR OUT SYS_REFCURSOR
-                 );
-  
+  PROCEDURE GET(PID IN TEMP_ACCOUNT.ID%TYPE, PCURSOR OUT SYS_REFCURSOR);  
   
 END TEMP_ACCOUNT_PKG;
 /

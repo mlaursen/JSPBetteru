@@ -1,9 +1,8 @@
 package testing;
 
 import com.betteru.accounts.objects.Account;
-import com.betteru.ingredients.objects.IngredientChoice;
-import com.github.mlaursen.database.ConnectionManager;
-import com.github.mlaursen.database.ObjectManager;
+import com.github.mlaursen.database.managers.ConnectionManager;
+import com.github.mlaursen.database.managers.ObjectManager;
 
 
 public class Testing {

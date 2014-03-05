@@ -23,7 +23,7 @@ import com.betteru.databasechoices.ingredients.FoodUnit;
  *
  */
 public class DatabaseChoicesTest {
-
+/*
 	@Test
 	public void testAccountChoices() {
 		Gender g = new Gender("MALE");
@@ -87,5 +87,5 @@ public class DatabaseChoicesTest {
 		assertEquals("g", gram.getPrimaryKey());
 		assertEquals("gram", gram.getLongName());
 	}
-
+*/
 }
