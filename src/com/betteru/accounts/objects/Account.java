@@ -22,22 +22,25 @@ import com.github.mlaursen.database.objecttypes.Updateable;
 
 /**
  * @author mikkel.laursen
- *
+ * 
  */
 public class Account extends AccountTemplate implements Getable, Createable, Updateable, Deleteable {
-	private static final String UPDATE_LAST_LOGIN = "updatelastlogin";
 	
-	@DatabaseField(values=DatabaseFieldType.UPDATE)
+	public static final String UPDATE_LAST_LOGIN = "updatelastlogin";
+	
+	@DatabaseField(values = DatabaseFieldType.UPDATE)
 	private Gender gender;
 	
-	@DatabaseField(values=DatabaseFieldType.UPDATE)
+	@DatabaseField(values = DatabaseFieldType.UPDATE)
 	private UnitSystem unitSystem;
-
-	@DatabaseField(values=DatabaseFieldType.UPDATE)
+	
+	@DatabaseField(values = DatabaseFieldType.UPDATE)
 	private Date birthday;
-
+	
 	private Date activeSince, lastLogin;
-	public Account() { }
+	
+	public Account() {}
+	
 	public Account(String username, String password) {
 		super(username, password);
 	}
@@ -46,6 +49,10 @@ public class Account extends AccountTemplate implements Getable, Createable, Upd
 		super(r);
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public boolean isValidUser() {
 		Account a = new ObjectManager(Account.class).get(this.username, Account.class);
 		boolean valid = false;
@@ -54,10 +61,14 @@ public class Account extends AccountTemplate implements Getable, Createable, Upd
 			String salt = pswd.substring(0, 64);
 			String hash = SecurityUtil.repeatedHashing(salt, this.password);
 			valid = hash.equals(pswd);
-			if(valid)
-				primaryKey = a.getPrimaryKey();
 		}
 		return valid;
+	}
+	
+	public boolean updateLastLogin() {
+		return this.primaryKey != null
+				&& new ObjectManager(Account.class).executeCustomProcedure(UPDATE_LAST_LOGIN, Account.class, this.getPrimaryKey());
+		
 	}
 	
 	@Override
@@ -67,13 +78,12 @@ public class Account extends AccountTemplate implements Getable, Createable, Upd
 		return Arrays.asList(lastLogin);
 	}
 	
-	/**		Getters and setters  	 */
-
-
+	/** Getters and setters */
+	
 	public Date getBirthday() {
 		return birthday;
 	}
-
+	
 	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
 	}
@@ -81,11 +91,11 @@ public class Account extends AccountTemplate implements Getable, Createable, Upd
 	public void setBirthday(MyResultRow r) {
 		birthday = r.getDate("birthday");
 	}
-
+	
 	public UnitSystem getUnitSystem() {
 		return unitSystem;
 	}
-
+	
 	public void setUnitSystem(UnitSystem unitSystem) {
 		this.unitSystem = unitSystem;
 	}
@@ -93,22 +103,21 @@ public class Account extends AccountTemplate implements Getable, Createable, Upd
 	public void setUnitSystem(MyResultRow r) {
 		String unit = r.get("unit");
 		unitSystem = unit == null ? null : new UnitSystem(unit);
-		//unitSystem = new UnitSystem(r.get("unit"));
+		// unitSystem = new UnitSystem(r.get("unit"));
 	}
-
+	
 	public Gender getGender() {
 		return gender;
 	}
-
+	
 	public void setGender(Gender gender) {
 		this.gender = gender;
 	}
 	
 	public void setGender(MyResultRow r) {
 		String g = r.get("gender");
-		gender = g == null? null : new Gender(g);
+		gender = g == null ? null : new Gender(g);
 	}
-	
 	
 	/**
 	 * @return the activeSince
@@ -116,9 +125,10 @@ public class Account extends AccountTemplate implements Getable, Createable, Upd
 	public Date getActiveSince() {
 		return activeSince;
 	}
-
+	
 	/**
-	 * @param activeSince the activeSince to set
+	 * @param activeSince
+	 *            the activeSince to set
 	 */
 	public void setActiveSince(Date activeSince) {
 		this.activeSince = activeSince;
@@ -131,16 +141,17 @@ public class Account extends AccountTemplate implements Getable, Createable, Upd
 	public void setActiveSince(MyResultRow r) {
 		this.activeSince = r.getDate("active_since");
 	}
-
+	
 	/**
 	 * @return the lastLogin
 	 */
 	public Date getLastLogin() {
 		return lastLogin;
 	}
-
+	
 	/**
-	 * @param lastLogin the lastLogin to set
+	 * @param lastLogin
+	 *            the lastLogin to set
 	 */
 	public void setLastLogin(Date lastLogin) {
 		this.lastLogin = lastLogin;
@@ -149,13 +160,13 @@ public class Account extends AccountTemplate implements Getable, Createable, Upd
 	public void setLastLogin(MyResultRow r) {
 		this.lastLogin = r.getDate("last_login");
 	}
-
-	/**   	toString **/
-
+	
+	/** toString **/
+	
 	@Override
 	public String toString() {
 		return "Account [primaryKey=" + primaryKey + ", username=" + username + ", password=" + password + ", birthday=" + birthday
 				+ ", unitSystem=" + unitSystem + ", gender=" + gender + "]";
 	}
-
+	
 }
