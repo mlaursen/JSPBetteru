@@ -29,17 +29,15 @@ import com.github.mlaursen.database.managers.TestingObjectManager;
 public class AccountObjectsTest {
 	protected static TestingObjectManager tom = new TestingObjectManager();
 	static {
-		tom.setDebug(true);
-		//tom.setDelete(false);
+		//tom.setDebug(true);
+		tom.setDelete(false);
 	}
 	
 	@ClassRule
 	public static ExternalResource resource = new ExternalResource() {
 		@Override
 		protected void before() {
-			tom.addPackage(AccountSetting.class);
-			tom.addPackageWithView(Account.class, AccountView.class);
-			tom.addPackage(TempAccount.class);
+			tom = new TestingObjectManager(AccountSetting.class, TempAccount.class, Account.class);//, AccountView.class);
 			tom.recompile();
 		}
 		@Override
