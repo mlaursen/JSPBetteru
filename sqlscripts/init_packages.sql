@@ -15,16 +15,14 @@ CREATE OR REPLACE PACKAGE TEMP_ACCOUNT_PKG AS
                , PID   IN TEMP_ACCOUNT.ID%TYPE DEFAULT SEQ_TEMP_ACCOUNT_ID.NEXTVAL
                );
   
-  -- creates a new account from a temp account's id
-  PROCEDURE NEWACCOUNT( PID IN TEMP_ACCOUNT.ID%TYPE );
-  
   -- creates a new account from a temp account's username/password
-  PROCEDURE NEWACCOUNT( PUSER IN TEMP_ACCOUNT.USERNAME%TYPE
-                      , PPASS IN TEMP_ACCOUNT.PASSWORD%TYPE
-                      );
+  PROCEDURE NEWACCOUNT( PUSER IN TEMP_ACCOUNT.USERNAME%TYPE );
   
   -- Deletes a temp account by id
   PROCEDURE DEL(PID IN TEMP_ACCOUNT.ID%TYPE);
+  
+  -- Deletes a temp account by username
+  PROCEDURE DEL(PUSER IN TEMP_ACCOUNT.USERNAME%TYPE);
   
   -- Returns a sys_refcursor for all temp accounts
   PROCEDURE GET(PCURSOR OUT SYS_REFCURSOR);
@@ -47,7 +45,9 @@ CREATE OR REPLACE PACKAGE ACCOUNT_PKG AS
                );
   
   -- Creates a new account from a temp account
-  PROCEDURE CREATEFROMTEMP(PTEMPID IN TEMP_ACCOUNT.ID%TYPE);
+  PROCEDURE CREATEFROMTEMP( PUSER IN TEMP_ACCOUNT.USERNAME%TYPE
+                          , PPASS IN TEMP_ACCOUNT.PASSWORD%TYPE
+                          );
   
   -- Retrieves a SYS_REFCURSOR for all the accounts
   PROCEDURE GET(PCURSOR OUT SYS_REFCURSOR);
