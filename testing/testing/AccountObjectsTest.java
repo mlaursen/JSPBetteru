@@ -33,7 +33,7 @@ import com.github.mlaursen.database.managers.TestingObjectManager;
 public class AccountObjectsTest {
 	protected static TestingObjectManager tom = new TestingObjectManager();
 	static {
-		tom.setDebug(true);
+		//tom.setDebug(true);
 		tom.setDelete(false);
 	}
 	
@@ -45,11 +45,25 @@ public class AccountObjectsTest {
 		}
 	};
 	
+	/**
+	 * Testing sucks. Order for all of those matter
+	 */
 	@Test
 	public void testCreateDeleteUpdateAccount() {
+		tom.addPackage(AccountSetting.class);
 		tom.addPackageWithView(Account.class, AccountView.class);
 		tom.addPackage(TempAccount.class);
 		tom.recompile();
+		TempAccount ta = new TempAccount("testing", "testing");
+		ta.hashPassword();
+		assertTrue(tom.create(ta));
+		assertTrue(tom.executeCustomProcedure("newaccount", TempAccount.class, ta.getUsername()));
+		Account a = tom.get(0, Account.class);
+		System.out.println(a);
+		assertNotNull(a);
+		Account a2 = tom.get("testing", Account.class);
+		System.out.println(a2);
+		//assertTrue(a.isValidUser());
 		//System.out.println(tom);
 		//tom.addPackage(TempAccount.class);
 		//TempAccount ta = new TempAccount("testing", "testing");

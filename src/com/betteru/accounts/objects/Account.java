@@ -16,14 +16,16 @@ import com.github.mlaursen.annotations.DatabaseFieldType;
 import com.github.mlaursen.database.managers.ObjectManager;
 import com.github.mlaursen.database.objects.MyResultRow;
 import com.github.mlaursen.database.objects.Procedure;
+import com.github.mlaursen.database.objecttypes.Createable;
 import com.github.mlaursen.database.objecttypes.Deleteable;
+import com.github.mlaursen.database.objecttypes.Getable;
 import com.github.mlaursen.database.objecttypes.Updateable;
 
 /**
  * @author mikkel.laursen
  *
  */
-public class Account extends AccountTemplate implements Updateable, Deleteable {
+public class Account extends AccountTemplate implements Getable, Createable, Updateable, Deleteable {
 	private static final String UPDATE_LAST_LOGIN = "updatelastlogin";
 	
 	@DatabaseField(values=DatabaseFieldType.UPDATE)
@@ -78,7 +80,7 @@ public class Account extends AccountTemplate implements Updateable, Deleteable {
 	}
 	
 	public void setBirthday(MyResultRow r) {
-		birthday = DateUtil.stringToDate(r.get("birthday"));
+		birthday = r.getDate("birthday");
 	}
 
 	public UnitSystem getUnitSystem() {
@@ -90,7 +92,9 @@ public class Account extends AccountTemplate implements Updateable, Deleteable {
 	}
 	
 	public void setUnitSystem(MyResultRow r) {
-		unitSystem = new UnitSystem(r.get("unit"));
+		String unit = r.get("unit");
+		unitSystem = unit == null ? null : new UnitSystem(unit);
+		//unitSystem = new UnitSystem(r.get("unit"));
 	}
 
 	public Gender getGender() {
@@ -102,7 +106,8 @@ public class Account extends AccountTemplate implements Updateable, Deleteable {
 	}
 	
 	public void setGender(MyResultRow r) {
-		gender = new Gender(r.get("gender"));
+		String g = r.get("gender");
+		gender = g == null? null : new Gender(g);
 	}
 	
 	
@@ -119,8 +124,13 @@ public class Account extends AccountTemplate implements Updateable, Deleteable {
 	public void setActiveSince(Date activeSince) {
 		this.activeSince = activeSince;
 	}
+	
+	/**
+	 * 
+	 * @param r
+	 */
 	public void setActiveSince(MyResultRow r) {
-		this.activeSince = DateUtil.stringToDate(r.get("active_since"));
+		this.activeSince = r.getDate("active_since");
 	}
 
 	/**
