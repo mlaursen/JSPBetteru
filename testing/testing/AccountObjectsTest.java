@@ -5,9 +5,7 @@ package testing;
 
 import static com.github.mlaursen.database.utils.DateUtil.sameDate;
 import static com.github.mlaursen.database.utils.DateUtil.stringToDate;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -18,9 +16,10 @@ import com.betteru.accounts.objects.AccountSetting;
 import com.betteru.accounts.objects.AccountView;
 import com.betteru.accounts.objects.TempAccount;
 import com.betteru.databasechoices.accounts.Gender;
+import com.betteru.databasechoices.accounts.Multiplier;
 import com.betteru.databasechoices.accounts.UnitSystem;
+import com.betteru.databasechoices.accounts.Weekday;
 import com.betteru.utils.SecurityUtil;
-import com.github.mlaursen.database.managers.ObjectManager;
 import com.github.mlaursen.database.managers.TestingObjectManager;
 
 /**
@@ -30,7 +29,7 @@ import com.github.mlaursen.database.managers.TestingObjectManager;
 public class AccountObjectsTest {
 	protected static TestingObjectManager tom = new TestingObjectManager();
 	static {
-		//tom.setDebug(true);
+		tom.setDebug(true);
 		//tom.setDelete(false);
 	}
 	
@@ -62,7 +61,7 @@ public class AccountObjectsTest {
 		return tom.get(username, Account.class);
 	}
 	
-	public Account createFullTestAccount(String username, String password) {
+	public Account createTestAccountFull(String username, String password) {
 		Account a = createTestAccount(username, password);
 		a.setBirthday(stringToDate("01-JAN-91", "dd-MMM-yy"));
 		a.setGender(new Gender("MALE"));
@@ -71,6 +70,14 @@ public class AccountObjectsTest {
 		return a;
 	}
 	
+	public AccountSetting createFullTestAccountSetting(Account a) {
+		AccountSetting as = tom.get(a.getPrimaryKey(), AccountSetting.class);
+		as.setHeight(71);
+		as.setMultiplier(new Multiplier("SEDENTARY"));
+		as.setWeekday(new Weekday("TUESDAY"));
+		assertTrue(tom.create(as));
+		return as;
+	}
 	/**
 	 * Testing sucks. Order for all of those matter
 	 */
@@ -123,52 +130,34 @@ public class AccountObjectsTest {
 	
 	@Test
 	public void testAccountSetting() {
-		Account a = createFullTestAccount("archer", "boop");
-		System.out.println(a);
-		//AccountSetting as = tom.get(a.getPrimaryKey(), AccountSetting.class);
+		Account a = createTestAccountFull("archer", "boop");
+		AccountSetting as = tom.get(a.getPrimaryKey(), AccountSetting.class);
+		assertNotNull(as);
+		assertEquals(a.getPrimaryKey(), as.getAccountId());
+		as.setWeekday(new Weekday("TUESDAY"));
+		as.setMultiplier(new Multiplier("SEDENTARY"));
+		as.setHeight(71);
+		assertTrue(tom.create(as));
 		
-		/*
-		assertNotNull(as.getHeight());
-		assertNotNull(as.getMultiplier());
-		assertNotNull(as.getPrimaryKey());
-		assertEquals(as.getAccountId(), a.getPrimaryKey());
-		assertEquals(as.getWeekday(), new Weekday("TUESDAY"));
-		assertEquals(as.getMultiplier(), new Multiplier("SEDENTARY"));
-		assertEquals(as.getHeight(), 71, 1);
-		assertNotNull(as.getDateChanged());
-		*/
+		AccountSetting as2 = tom.get(a.getPrimaryKey(), AccountSetting.class);
+		assertEquals(as, as2);
+		assertFalse(tom.delete(as));
 		assertTrue(tom.delete(a));
 	}
-	/*
-	@Test
-	public void testAccountSetting() {
-		AccountSetting as = new AccountSetting(0);
-		assertNotNull(as.getHeight());
-		assertNotNull(as.getMultiplier());
-		assertNotNull(as.getPrimaryKey());
-		assertEquals(as.getAccountId(), "0");
-		assertEquals(as.getWeekday(), new Weekday("TUESDAY"));
-		assertEquals(as.getMultiplier(), new Multiplier("SEDENTARY"));
-		assertEquals(as.getHeight(), 71, 1);
-		assertNotNull(as.getDateChanged());
-		
-		as.setWeekday(new Weekday("MONDAY"));
-		as.setHeight(70);
-		assertTrue(as.update());
-		as = new AccountSetting(0);
-		assertEquals(as.getWeekday(), new Weekday("MONDAY"));
-		assertEquals(as.getHeight(), 70, 1);
-		
-		as.setWeekday(new Weekday("TUESDAY"));
-		assertTrue(as.update());
-	}
-	
 	
 	@Test
 	public void testAccountView() {
-		Account a = new Account(0);
-		AccountSetting as = new AccountSetting(0);
-		AccountView av = new AccountView(0);
+		Account a = createTestAccountFull("archer2", "boop");
+		AccountSetting as = createFullTestAccountSetting(a);
+		System.out.println(a);
+		System.out.println(as);
+		AccountView av = tom.get(a.getPrimaryKey(), AccountView.class);
+		System.out.println(av);
+		//assertTrue(sameDate(a.getBirthday(), av.getBirthday()));
+		//assertEquals(a.getGender(), av.getGender());
+		//assertEquals(a.getUnitSystem(), av.getUnitSystem());
+		//assertEquals(as.getHeight(), av.getHeight(), 0);
+		/*
 		assertTrue(sameDate(av.getBirthday(), a.getBirthday()));
 		assertEquals(av.getGender(), a.getGender());
 		assertEquals(av.getUnitSystem(), a.getUnitSystem());
@@ -178,10 +167,12 @@ public class AccountObjectsTest {
 		assertEquals(av.getAge(), 23);
 		
 		av.setGender("FEMALE");
-		assertTrue(av.update());
+		//assertTrue(av.update());
 		
 		av.setGender("MALE");
-		assertTrue(av.update());
+		//assertTrue(av.update());
+		 */
+		assertTrue(tom.delete(a));
 	}
-	*/
+	
 }
