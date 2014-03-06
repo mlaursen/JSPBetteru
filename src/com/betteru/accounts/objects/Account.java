@@ -9,7 +9,6 @@ import java.util.List;
 
 import com.betteru.databasechoices.accounts.Gender;
 import com.betteru.databasechoices.accounts.UnitSystem;
-import com.betteru.utils.DateUtil;
 import com.betteru.utils.SecurityUtil;
 import com.github.mlaursen.annotations.DatabaseField;
 import com.github.mlaursen.annotations.DatabaseFieldType;
@@ -148,7 +147,7 @@ public class Account extends AccountTemplate implements Getable, Createable, Upd
 	}
 	
 	public void setLastLogin(MyResultRow r) {
-		this.lastLogin = DateUtil.stringToDate(r.get("last_login"));
+		this.lastLogin = r.getDate("last_login");
 	}
 
 	/**   	toString **/

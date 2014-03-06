@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.github.mlaursen.bootstrap.forms.fields.DropdownChoice;
+import com.github.mlaursen.database.managers.ObjectManager;
 import com.github.mlaursen.database.objects.DatabaseObject;
 import com.github.mlaursen.database.objects.MyResultRow;
-import com.github.mlaursen.database.objects.ObjectManager;
 import com.github.mlaursen.database.objecttypes.GetAllable;
 import com.github.mlaursen.database.objecttypes.Getable;
 
@@ -18,8 +18,6 @@ import com.github.mlaursen.database.objecttypes.Getable;
  *
  */
 public abstract class Template extends DatabaseObject implements Getable, GetAllable, DropdownChoice {
-	{ setPrimaryKeyName("name"); }
-	
 	protected int id;
 	public Template() { }
 
@@ -27,7 +25,7 @@ public abstract class Template extends DatabaseObject implements Getable, GetAll
 	 * @param primaryKey
 	 */
 	public Template(String primaryKey) {
-		super();
+		super(primaryKey, "name");
 		this.primaryKey = primaryKey;
 	}
 
@@ -40,8 +38,7 @@ public abstract class Template extends DatabaseObject implements Getable, GetAll
 	 * @param r
 	 */
 	public Template(MyResultRow r) {
-		super();
-		setAll(r);
+		super("name", r);
 	}
 
 	/* (non-Javadoc)

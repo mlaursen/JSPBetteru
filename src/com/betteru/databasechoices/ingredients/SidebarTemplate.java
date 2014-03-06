@@ -5,8 +5,8 @@ package com.betteru.databasechoices.ingredients;
 
 import com.github.mlaursen.bootstrap.sidebar.SidebarItemList;
 import com.github.mlaursen.bootstrap.sidebar.SidebarItemable;
+import com.github.mlaursen.database.managers.ObjectManager;
 import com.github.mlaursen.database.objects.MyResultRow;
-import com.github.mlaursen.database.objects.ObjectManager;
 
 /**
  * @author mikkel.laursen

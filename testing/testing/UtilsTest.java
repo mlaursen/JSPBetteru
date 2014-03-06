@@ -3,43 +3,28 @@
  */
 package testing;
 
-import static org.junit.Assert.*;
+import static com.betteru.utils.SecurityUtil.createCode;
+import static com.betteru.utils.SecurityUtil.createHash;
+import static com.betteru.utils.SecurityUtil.repeatedHashing;
+import static com.betteru.utils.StringNumberUtil.attemptParseInteger;
+import static com.betteru.utils.StringNumberUtil.calculateStringFraction;
+import static com.betteru.utils.StringNumberUtil.formatDecimalString;
+import static com.betteru.utils.StringNumberUtil.formatFractionString;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.sql.Date;
 
 import org.junit.Test;
-
-import static com.betteru.utils.DateUtil.*;
-import static com.betteru.utils.SecurityUtil.*;
-import static com.betteru.utils.StringNumberUtil.*;
 
 /**
  * @author mikkel.laursen
  *
  */
 public class UtilsTest {
-	@Test
-	public void testSameDay() {
-		assertTrue(sameDate(Date.valueOf("1990-01-01"), Date.valueOf("1990-01-01")));
-		assertFalse(sameDate(Date.valueOf("1991-01-01"), Date.valueOf("1990-01-01")));
-	}
 	
-	
-	@Test
-	public void testStringToDate() {
-		Date d = Date.valueOf("1990-02-21");
-		assertTrue(sameDate(stringToDate("21-FEB-1990", "dd-MMM-yyyy"), d));
-		assertTrue(sameDate(stringToDate("02-21-1990", "MM-dd-yyyy"), d));
-		assertTrue(sameDate(stringToDate("21-02-1990", "dd-MM-yyyy"), d));
-		assertTrue(sameDate(stringToDate("1990-02-21"), d));
-		assertTrue(sameDate(stringToDate("02/21/1990"), d));
-	}
-	
-	@Test
-	public void testSysdateToString() {
-		assertTrue(sameDate(sysdateToDate("1990-02-21 8:22:13"), sysdateToDate("1990-02-21 8:22:13")));
-		assertTrue(sameDate(sysdateToDate("1990-02-21 8:22:13"), Date.valueOf("1990-02-21")));
-	}
 
 	@Test
 	public void testRepeatedHashing() {

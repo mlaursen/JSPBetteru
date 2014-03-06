@@ -3,14 +3,9 @@
  */
 package testing;
 
-import static com.betteru.utils.DateUtil.sameDate;
-import static com.betteru.utils.DateUtil.stringToDate;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-
-import java.util.Calendar;
 
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -21,10 +16,9 @@ import com.betteru.accounts.objects.AccountSetting;
 import com.betteru.accounts.objects.AccountView;
 import com.betteru.accounts.objects.TempAccount;
 import com.betteru.databasechoices.accounts.Gender;
-import com.betteru.databasechoices.accounts.Multiplier;
 import com.betteru.databasechoices.accounts.UnitSystem;
-import com.betteru.databasechoices.accounts.Weekday;
 import com.github.mlaursen.database.managers.TestingObjectManager;
+import com.github.mlaursen.database.utils.DateUtil;
 
 /**
  * @author mikkel.laursen
@@ -63,18 +57,11 @@ public class AccountObjectsTest {
 		assertNotNull(a);
 		Account a2 = tom.get("testing", Account.class);
 		System.out.println(a2);
-		//assertTrue(a.isValidUser());
-		//System.out.println(tom);
-		//tom.addPackage(TempAccount.class);
-		//TempAccount ta = new TempAccount("testing", "testing");
-		//ta.hashPassword();
-		//assertTrue(tom.create(ta));
-		//assertTrue(tom.executeCustomProcedure("newaccount", TempAccount.class, ta.getUsername(), ta.getPassword()));
-		//assertTrue(ta.create());
-		//assertTrue(ta.createAccount());
-		//ta = tom.get(ta.getPrimaryKey(), TempAccount.class);
-		//ta = new TempAccount(ta.getPrimaryKey());
-		//assertTrue(ta.getPrimaryKey() == null);
+		assertEquals(a, a2);
+		a.setBirthday(DateUtil.stringToDate("01-JAN-91", "dd-MMM-yy"));
+		a.setGender(new Gender("MALE"));
+		a.setUnitSystem(new UnitSystem("IMPERIAL"));
+		assertTrue(tom.update(a));
 	}
 		/*
 		Account a = new Account("testing", "testing");

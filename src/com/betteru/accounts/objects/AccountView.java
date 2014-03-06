@@ -5,16 +5,14 @@ package com.betteru.accounts.objects;
 
 import java.sql.Date;
 
-import javax.servlet.http.HttpServletRequest;
-
 import com.betteru.databasechoices.accounts.Gender;
 import com.betteru.databasechoices.accounts.Multiplier;
 import com.betteru.databasechoices.accounts.UnitSystem;
 import com.betteru.databasechoices.accounts.Weekday;
-import com.betteru.utils.DateUtil;
 import com.betteru.utils.StringNumberUtil;
 import com.github.mlaursen.database.objects.DatabaseView;
 import com.github.mlaursen.database.objects.MyResultRow;
+import com.github.mlaursen.database.utils.DateUtil;
 
 /**
  * @author mikkel.laursen
@@ -119,7 +117,7 @@ public class AccountView extends DatabaseView {
 	}
 	
 	public void setAge(MyResultRow r) {
-		this.age = StringNumberUtil.attemptParseInteger(r, "age");
+		this.age = r.getInt("age");//StringNumberUtil.attemptParseInteger(r, "age");
 	}
 	
 	public Account getAccount() { return this.account; }

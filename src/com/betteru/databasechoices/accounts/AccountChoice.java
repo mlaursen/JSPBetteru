@@ -6,28 +6,24 @@ package com.betteru.databasechoices.accounts;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.github.mlaursen.bootstrap.utils.Util;
 import com.github.mlaursen.bootstrap.forms.fields.DropdownChoice;
-import com.github.mlaursen.database.DatabaseObjectClassUtil;
+import com.github.mlaursen.bootstrap.utils.Util;
+import com.github.mlaursen.database.managers.ObjectManager;
 import com.github.mlaursen.database.objects.DatabaseObject;
 import com.github.mlaursen.database.objects.MyResultRow;
-import com.github.mlaursen.database.objects.ObjectManager;
 import com.github.mlaursen.database.objecttypes.GetAllable;
 import com.github.mlaursen.database.objecttypes.Getable;
+import com.github.mlaursen.database.utils.ClassUtil;
 
 /**
  * @author mikkel.laursen
  *
  */
 public class AccountChoice extends DatabaseObject implements Getable, GetAllable, DropdownChoice {
-	{
-		setPrimaryKeyName("name");
-	}
-	
 	protected int dropdownKey;
 	public AccountChoice() { }
 	public AccountChoice(String primaryKey) {
-		super();
+		super(primaryKey, "name");
 		this.primaryKey = primaryKey == null ? this.defaultChoice() : primaryKey;
 	}
 	
@@ -40,8 +36,7 @@ public class AccountChoice extends DatabaseObject implements Getable, GetAllable
 	 * @param r
 	 */
 	public AccountChoice(MyResultRow r) {
-		super();
-		setAll(r);
+		super("name", r);
 	}
 	
 	@Override
@@ -61,7 +56,7 @@ public class AccountChoice extends DatabaseObject implements Getable, GetAllable
 	}
 
 	public String defaultChoice() {
-		return "Select your " + (DatabaseObjectClassUtil.formatClassName(getClass(), null, " ").trim());
+		return "Select your " + (ClassUtil.formatClassName(getClass(), null, " ").trim());
 	}
 	
 	@Override
