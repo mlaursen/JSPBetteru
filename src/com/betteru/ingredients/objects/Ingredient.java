@@ -255,10 +255,15 @@ public class Ingredient extends DatabaseObject implements Getable, GetAllable, C
 	public boolean equals(Object o) {
 		if(o instanceof Ingredient) {
 			Ingredient i = (Ingredient) o;
-			return name.equals(i.getName()) && brand.equals(i.getBrand())
-					&& category.equals(i.getCategory()) && defaultServing.equals(i.getDefaultServing())
-					&& alternateServing.equals(getAlternateServing()) && calories.equals(i.getCalories())
-					&& fat.equals(i.getFat()) && carbs.equals(i.getCarbs()) && protein.equals(i.getProtein());
+			if(i.getPrimaryKey() != null && this.primaryKey != null) {
+				return i.getPrimaryKey().equals(this.primaryKey);
+			}
+			else {
+				return name.equals(i.getName()) && brand.equals(i.getBrand())
+						&& category.equals(i.getCategory()) /*&& defaultServing.equals(i.getDefaultServing())
+						&& alternateServing.equals(getAlternateServing()) && calories.equals(i.getCalories())
+						&& fat.equals(i.getFat()) && carbs.equals(i.getCarbs()) && protein.equals(i.getProtein())*/;
+			}
 		}
 		else
 			return false;
