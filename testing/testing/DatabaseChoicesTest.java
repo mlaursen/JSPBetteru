@@ -3,29 +3,57 @@
  */
 package testing;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
+import java.util.Arrays;
 import java.util.List;
 
+import org.junit.ClassRule;
 import org.junit.Test;
+import org.junit.rules.ExternalResource;
 
 import com.betteru.databasechoices.accounts.Gender;
 import com.betteru.databasechoices.accounts.Multiplier;
 import com.betteru.databasechoices.accounts.UnitSystem;
 import com.betteru.databasechoices.accounts.Weekday;
-import com.betteru.databasechoices.ingredients.Brand;
-import com.betteru.databasechoices.ingredients.Category;
-import com.betteru.databasechoices.ingredients.FoodUnit;
+import com.github.mlaursen.database.managers.TestingObjectManager;
+
+import static com.betteru.databasechoices.accounts.Gender.*;
+import static org.junit.Assert.*;
 
 /**
  * @author mikkel.laursen
  *
  */
 public class DatabaseChoicesTest {
+	protected static TestingObjectManager tom;
+	
+	@ClassRule
+	public static ExternalResource resource = new ExternalResource() {
+		@Override
+		protected void before() {
+			boolean debug = false;
+			boolean delete = true;
+			boolean copyData = true;
+			tom = new TestingObjectManager(delete, debug, copyData, "gender", "weekday", "unit_system", "multiplier");
+			tom.addPackage(Gender.class);
+			tom.addPackage(Weekday.class);
+			tom.addPackage(Multiplier.class);
+			tom.addPackage(UnitSystem.class);
+		}
+		@Override
+		protected void after() {
+			tom.cleanUp();
+		}
+	};
 	@Test
 	public void test() {
 		
+	}
+	
+	@Test
+	public void testGender() {
+		List<Gender> gendersDB = tom.getAll(Gender.class);
+		List<Gender> genders = Arrays.asList(MALE, FEMALE);
+		assertEquals(genders.size(), gendersDB.size());
 	}
 /*
 	@Test

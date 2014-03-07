@@ -19,9 +19,12 @@ import com.github.mlaursen.database.utils.ClassUtil;
  * @author mikkel.laursen
  *
  */
-public class AccountChoice extends DatabaseObject implements Getable, GetAllable, DropdownChoice {
+public abstract class AccountChoice extends DatabaseObject implements Getable, GetAllable, DropdownChoice {
 	protected int dropdownKey;
-	public AccountChoice() { }
+	public AccountChoice() {
+		super();
+		this.primaryKey = this.defaultChoice();
+	}
 	public AccountChoice(String primaryKey) {
 		super(primaryKey, "name");
 		this.primaryKey = primaryKey == null ? this.defaultChoice() : primaryKey;
@@ -57,17 +60,6 @@ public class AccountChoice extends DatabaseObject implements Getable, GetAllable
 
 	public String defaultChoice() {
 		return "Select your " + (ClassUtil.formatClassName(getClass(), null, " ").trim());
-	}
-	
-	@Override
-	public List<DropdownChoice> getAllChoices() {
-		List<DropdownChoice> choices = new ArrayList<DropdownChoice>();
-		choices.add(new AccountChoice(defaultChoice()));
-		choices.addAll(new ObjectManager(this.getClass()).getAll(this.getClass()));
-		for(int i = 0; i < choices.size(); i++) {
-			choices.get(i).setDropdownKey(i);
-		}
-		return choices;
 	}
 	
 	/* (non-Javadoc)

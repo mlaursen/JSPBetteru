@@ -73,8 +73,8 @@ public class AccountObjectsTest {
 	public AccountSetting createFullTestAccountSetting(Account a) {
 		AccountSetting as = tom.get(a.getPrimaryKey(), AccountSetting.class);
 		as.setHeight(71);
-		as.setMultiplier(new Multiplier("SEDENTARY"));
-		as.setWeekday(new Weekday("TUESDAY"));
+		as.setMultiplier(Multiplier.SEDENTARY);
+		as.setWeekday(Weekday.TUESDAY);
 		assertTrue(tom.create(as));
 		return as;
 	}
@@ -135,7 +135,7 @@ public class AccountObjectsTest {
 		assertNotNull(as);
 		assertEquals(a.getPrimaryKey(), as.getAccountId());
 		as.setWeekday(new Weekday("TUESDAY"));
-		as.setMultiplier(new Multiplier("SEDENTARY"));
+		as.setMultiplier(Multiplier.SEDENTARY);
 		as.setHeight(71);
 		assertTrue(tom.create(as));
 		

@@ -3,7 +3,10 @@
  */
 package com.betteru.databasechoices.accounts;
 
-import com.betteru.utils.StringNumberUtil;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.github.mlaursen.bootstrap.forms.fields.DropdownChoice;
 import com.github.mlaursen.database.objects.MyResultRow;
 
 /**
@@ -12,10 +15,24 @@ import com.github.mlaursen.database.objects.MyResultRow;
  */
 public class Multiplier extends AccountChoice {
 
+	public static final Multiplier DEFAULT           = new Multiplier();
+	public static final Multiplier SEDENTARY         = new Multiplier("SEDENTARY", 1.2);
+	public static final Multiplier LIGHTLY_ACTIVE    = new Multiplier("LIGHTLY ACTIVE", 1.375);
+	public static final Multiplier MODERATELY_ACTIVE = new Multiplier("MODERATELY ACTIVE", 1.55);
+	public static final Multiplier VERY_ACTIVE       = new Multiplier("VERY ACTIVE", 1.725);
+	public static final Multiplier EXTREMELY_ACTIVE  = new Multiplier("EXTREMELY ACTIVE", 1.9);
 	private double amount;
-	public Multiplier() { }
+	public Multiplier() { 
+		super();
+		this.amount = 0;
+	}
+	
 	public Multiplier(String primaryKey) {
 		super(primaryKey);
+	}
+	public Multiplier(String primaryKey, double amount) {
+		super(primaryKey);
+		this.amount = amount;
 	}
 
 	/**
@@ -42,7 +59,7 @@ public class Multiplier extends AccountChoice {
 	}
 	
 	public void setAmount(MyResultRow r) {
-		this.amount = StringNumberUtil.attemptParseDouble(r, "amount");
+		this.amount = r.getDouble("amount");
 	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
@@ -50,6 +67,20 @@ public class Multiplier extends AccountChoice {
 	@Override
 	public String toString() {
 		return "Multiplier [" + (primaryKey != null ? "primaryKey=" + primaryKey + ", " : "") + "amount=" + amount + ", dropdownKey=" + dropdownKey + "]";
+	}
+	/* (non-Javadoc)
+	 * @see com.github.mlaursen.bootstrap.forms.fields.DropdownChoice#getAllChoices()
+	 */
+	@Override
+	public List<DropdownChoice> getAllChoices() {
+		List<DropdownChoice> choices = new ArrayList<DropdownChoice>();
+		choices.add(DEFAULT);
+		choices.add(SEDENTARY);
+		choices.add(LIGHTLY_ACTIVE);
+		choices.add(MODERATELY_ACTIVE);
+		choices.add(VERY_ACTIVE);
+		choices.add(EXTREMELY_ACTIVE);
+		return choices;
 	}
 
 }

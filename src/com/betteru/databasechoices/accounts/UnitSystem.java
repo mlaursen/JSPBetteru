@@ -11,6 +11,8 @@ import com.github.mlaursen.database.objects.MyResultRow;
  */
 public class UnitSystem extends AccountChoice {
 
+	public static final UnitSystem IMPERIAL = new UnitSystem("IMPERIAL");
+	public static final UnitSystem METRIC   = new UnitSystem("METRIC");
 	/**
 	 * 
 	 */

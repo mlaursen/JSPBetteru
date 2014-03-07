@@ -12,6 +12,13 @@ import com.github.mlaursen.database.objects.MyResultRow;
  */
 public class Weekday extends AccountChoice {
 
+	public static final Weekday SUNDAY = new Weekday("SUNDAY", 0);
+	public static final Weekday MONDAY = new Weekday("MONDAY", 1);
+	public static final Weekday TUESDAY = new Weekday("TUESDAY", 2);
+	public static final Weekday WEDNESDAY = new Weekday("WEDNESDAY", 3);
+	public static final Weekday THURSDAY = new Weekday("THURSDAY", 4);
+	public static final Weekday FRIDAY = new Weekday("FRIDAY", 5);
+	public static final Weekday SATURDAY = new Weekday("SATURDAY", 6);
 	public Weekday() {
 		// TODO Auto-generated constructor stub
 	}
@@ -45,7 +52,7 @@ public class Weekday extends AccountChoice {
 	}
 	
 	public void setDayOfWeek(MyResultRow r) {
-		dropdownKey = StringNumberUtil.attemptParseInteger(r, "day_of_week");
+		dropdownKey = r.getInt("day_of_week");
 	}
 
 }
