@@ -27,17 +27,16 @@ import com.github.mlaursen.database.managers.TestingObjectManager;
  *
  */
 public class AccountObjectsTest {
-	protected static TestingObjectManager tom = new TestingObjectManager();
-	static {
-		//tom.setDebug(true);
-		tom.setDelete(false);
-	}
-	
+	protected static TestingObjectManager tom;// = new TestingObjectManager();
+		
 	@ClassRule
 	public static ExternalResource resource = new ExternalResource() {
 		@Override
 		protected void before() {
-			tom = new TestingObjectManager(AccountSetting.class, TempAccount.class, Account.class);//, AccountView.class);
+			tom = new TestingObjectManager(true, false, false, "account", "account_view", "temp_account", "account_setting");//, AccountView.class);
+			tom.addPackage(AccountSetting.class);
+			tom.addPackage(TempAccount.class);
+			tom.addPackageWithView(Account.class, AccountView.class);
 			tom.recompile();
 		}
 		@Override
@@ -149,7 +148,7 @@ public class AccountObjectsTest {
 		AccountSetting as = createFullTestAccountSetting(a);
 		System.out.println(a);
 		System.out.println(as);
-		AccountView av = tom.get(a.getPrimaryKey(), AccountView.class);
+		AccountView av = tom.executeCustomGetProcedure("getfromview", AccountView.class, a.getPrimaryKey());//.get(a.getPrimaryKey(), AccountView.class);
 		System.out.println(av);
 		//assertTrue(sameDate(a.getBirthday(), av.getBirthday()));
 		//assertEquals(a.getGender(), av.getGender());

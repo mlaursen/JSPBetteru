@@ -4,20 +4,25 @@
 package com.betteru.accounts.objects;
 
 import java.sql.Date;
+import java.util.Arrays;
+import java.util.List;
 
 import com.betteru.databasechoices.accounts.Gender;
 import com.betteru.databasechoices.accounts.Multiplier;
 import com.betteru.databasechoices.accounts.UnitSystem;
 import com.betteru.databasechoices.accounts.Weekday;
 import com.betteru.utils.StringNumberUtil;
+import com.github.mlaursen.annotations.DatabaseViewClass;
 import com.github.mlaursen.database.objects.DatabaseView;
 import com.github.mlaursen.database.objects.MyResultRow;
+import com.github.mlaursen.database.objects.Procedure;
 import com.github.mlaursen.database.utils.DateUtil;
 
 /**
  * @author mikkel.laursen
  *
  */
+@DatabaseViewClass(Account.class)
 public class AccountView extends DatabaseView {
 	/*{
 		this.setGetProcedureName("getfromview");
@@ -29,6 +34,7 @@ public class AccountView extends DatabaseView {
 	
 	public AccountView(MyResultRow r) {
 		super(r);
+		System.out.println(r);
 	}
 	/**
 	 * @param a the a to set
@@ -39,8 +45,8 @@ public class AccountView extends DatabaseView {
 	
 	public void setAccount(MyResultRow r) {
 		this.account = new Account();
-		this.account.setPrimaryKey(r);
-		this.account.setUsername(r);
+		this.account.setPrimaryKey(r.get("id"));
+		this.account.setUsername(r.get("username"));
 		this.account.setBirthday(r);
 		this.account.setGender(r);
 		this.account.setUnitSystem(r);
@@ -122,6 +128,12 @@ public class AccountView extends DatabaseView {
 	
 	public Account getAccount() { return this.account; }
 	public AccountSetting getAccountSetting() { return this.accountSetting; }
+	
+	@Override
+	public List<Procedure> getCustomProcedures() {
+		Procedure p = new Procedure("getfromview", "id");
+		return Arrays.asList(p);
+	}
 	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
