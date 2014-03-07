@@ -16,23 +16,25 @@ import com.github.mlaursen.database.objects.MyResultRow;
 public class Multiplier extends AccountChoice {
 
 	public static final Multiplier DEFAULT           = new Multiplier();
-	public static final Multiplier SEDENTARY         = new Multiplier("SEDENTARY", 1.2);
-	public static final Multiplier LIGHTLY_ACTIVE    = new Multiplier("LIGHTLY ACTIVE", 1.375);
-	public static final Multiplier MODERATELY_ACTIVE = new Multiplier("MODERATELY ACTIVE", 1.55);
-	public static final Multiplier VERY_ACTIVE       = new Multiplier("VERY ACTIVE", 1.725);
-	public static final Multiplier EXTREMELY_ACTIVE  = new Multiplier("EXTREMELY ACTIVE", 1.9);
+	public static final Multiplier SEDENTARY         = new Multiplier("SEDENTARY", 1.2, 1);
+	public static final Multiplier LIGHTLY_ACTIVE    = new Multiplier("LIGHTLY ACTIVE", 1.375, 2);
+	public static final Multiplier MODERATELY_ACTIVE = new Multiplier("MODERATELY ACTIVE", 1.55, 3);
+	public static final Multiplier VERY_ACTIVE       = new Multiplier("VERY ACTIVE", 1.725, 4);
+	public static final Multiplier EXTREMELY_ACTIVE  = new Multiplier("EXTREMELY ACTIVE", 1.9, 5);
 	private double amount;
 	public Multiplier() { 
 		super();
 		this.amount = 0;
+		this.dropdownKey = 0;
 	}
 	
 	public Multiplier(String primaryKey) {
 		super(primaryKey);
 	}
-	public Multiplier(String primaryKey, double amount) {
+	public Multiplier(String primaryKey, double amount, int id) {
 		super(primaryKey);
 		this.amount = amount;
+		this.dropdownKey = id;
 	}
 
 	/**

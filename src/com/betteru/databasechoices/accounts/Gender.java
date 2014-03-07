@@ -16,8 +16,8 @@ import com.github.mlaursen.database.objects.MyResultRow;
  */
 public class Gender extends AccountChoice {
 	public static final Gender DEFAULT = new Gender();
-	public static final Gender MALE = new Gender("MALE");
-	public static final Gender FEMALE = new Gender("FEMALE");
+	public static final Gender MALE = new Gender("MALE", 1);
+	public static final Gender FEMALE = new Gender("FEMALE", 2);
 	
 	/**
 	 * 
