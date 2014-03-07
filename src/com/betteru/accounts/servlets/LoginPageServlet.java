@@ -13,19 +13,17 @@ import com.betteru.accounts.forms.CreateAccountForm;
 import com.betteru.accounts.forms.LoginForm;
 import com.betteru.accounts.objects.Account;
 import com.betteru.accounts.objects.TempAccount;
+import com.github.mlaursen.database.managers.ObjectManager;
 
 /**
  * Servlet implementation class LoginPageServlet
  */
 public class LoginPageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+    private ObjectManager manager;
     public LoginPageServlet() {
         super();
-        // TODO Auto-generated constructor stub
+        manager = new ObjectManager(Account.class, TempAccount.class);
     }
 
 	/**
@@ -47,10 +45,10 @@ public class LoginPageServlet extends HttpServlet {
 		
 		if(loginForm.isFromRequest(request)) {
 			Account a = new Account(loginForm.getFieldValue("username"), loginForm.getFieldValue("password"));
-			if(loginForm.isValid() && a.isValidUser()) {
+			if(loginForm.isValid() && a.isValidUser(manager)) {
 				HttpSession session = request.getSession(true);
 				session.setAttribute("userid", a.getPrimaryKey());
-				a.updateLastLogin();
+				a.updateLastLogin(manager);
 				response.sendRedirect("accounts/index.jsp");
 				return;
 			}
@@ -60,7 +58,7 @@ public class LoginPageServlet extends HttpServlet {
 		}
 		else if(createForm.isFromRequest(request)) {
 			TempAccount ta = new TempAccount(createForm.getFieldValue("username"), createForm.getFieldValue("password"));
-			if(createForm.isValid() && ta.create() && ta.createAccount()) {
+			if(createForm.isValid() && manager.create(ta) && manager.executeCustomProcedure(TempAccount.NEW_ACCOUNT, TempAccount.class, ta.getUsername())) {
 				request.setAttribute("success", "You have successfully created your account.  Please log in.");
 			}
 			else {

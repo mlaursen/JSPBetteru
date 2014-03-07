@@ -49,25 +49,34 @@ public class Account extends AccountTemplate implements Getable, Createable, Upd
 		super(r);
 	}
 	
+	public Account(AccountView av) {
+		super();
+		this.primaryKey = av.getPrimaryKey();
+		this.birthday = av.getBirthday();
+		this.gender = av.getGender();
+		this.unitSystem = av.getUnitSystem();
+	}
+	
 	/**
 	 * 
 	 * @return
 	 */
-	public boolean isValidUser() {
-		Account a = new ObjectManager(Account.class).get(this.username, Account.class);
+	public boolean isValidUser(ObjectManager manager) {
+		Account a = manager.get(this.username, Account.class);
 		boolean valid = false;
 		if(a != null && a.getPassword() != null) {
 			String pswd = a.getPassword();
 			String salt = pswd.substring(0, 64);
 			String hash = SecurityUtil.repeatedHashing(salt, this.password);
 			valid = hash.equals(pswd);
+			if(valid)
+				this.primaryKey = a.getPrimaryKey();
 		}
 		return valid;
 	}
 	
-	public boolean updateLastLogin() {
-		return this.primaryKey != null
-				&& new ObjectManager(Account.class).executeCustomProcedure(UPDATE_LAST_LOGIN, Account.class, this.getPrimaryKey());
+	public boolean updateLastLogin(ObjectManager manager) {
+		return this.primaryKey != null && manager.executeCustomProcedure(UPDATE_LAST_LOGIN, Account.class, this.getPrimaryKey());
 		
 	}
 	

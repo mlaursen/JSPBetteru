@@ -27,6 +27,7 @@ import com.github.mlaursen.database.utils.DateUtil;
 @DatabaseViewClass(Account.class)
 public class AccountView extends DatabaseView {
 
+	public static String GET_FROM_VIEW = "getfromview";
 	private Account account;
 	private AccountSetting accountSetting;
 	private int age;
@@ -36,9 +37,6 @@ public class AccountView extends DatabaseView {
 		super(r);
 	}
 	
-	public AccountView(HttpServletRequest request) {
-		
-	}
 	/**
 	 * @param a the a to set
 	 */
@@ -133,7 +131,7 @@ public class AccountView extends DatabaseView {
 	
 	@Override
 	public List<Procedure> getCustomProcedures() {
-		Procedure p = new Procedure("getfromview", "id");
+		Procedure p = new Procedure(GET_FROM_VIEW, "id");
 		return Arrays.asList(p);
 	}
 	

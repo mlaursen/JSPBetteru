@@ -38,6 +38,14 @@ public class AccountSetting extends DatabaseObject implements Getable, Createabl
 	public AccountSetting(MyResultRow r) {
 		super(r);
 	}
+	
+	public AccountSetting(AccountView av) {
+		super();
+		this.accountId = av.getPrimaryKey();
+		this.weekday = av.getWeekday();
+		this.multiplier = av.getMultiplier();
+		this.height = av.getHeight();
+	}
 	/**
 	 * @return the accountId
 	 */

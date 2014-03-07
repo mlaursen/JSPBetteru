@@ -57,7 +57,7 @@ public class AccountObjectsTest {
 	
 	public Account createTestAccount(String username, String password) {
 		TempAccount ta = createTestTempAccount(username, password);
-		assertTrue(tom.executeCustomProcedure("newaccount", TempAccount.class, ta.getUsername()));
+		assertTrue(tom.executeCustomProcedure(TempAccount.NEW_ACCOUNT, TempAccount.class, ta.getUsername()));
 		return tom.get(username, Account.class);
 	}
 	
@@ -84,7 +84,7 @@ public class AccountObjectsTest {
 	@Test
 	public void testAccount1() {
 		TempAccount ta = createTestTempAccount("testing", "testing");
-		assertTrue(tom.executeCustomProcedure("newaccount", TempAccount.class, ta.getUsername()));
+		assertTrue(tom.executeCustomProcedure(TempAccount.NEW_ACCOUNT, TempAccount.class, ta.getUsername()));
 		Account a = tom.get(0, Account.class);
 		assertNotNull(a);
 		Account a2 = tom.get("testing", Account.class);

@@ -30,7 +30,8 @@ public class EditAccountServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		AccountView a = new AccountView(request);
+		String userid = (String) request.getSession().getAttribute("userid");
+		AccountView a = manager.executeCustomGetProcedure(AccountView.GET_FROM_VIEW, AccountView.class, userid);
 		RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/accounts/settings.jsp");
 		request.setAttribute("form", new EditAccountForm(a).toHtml());
 		rd.forward(request, response);
@@ -41,7 +42,7 @@ public class EditAccountServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userid = (String) request.getSession().getAttribute("userid");
-		AccountView av = new AccountView(userid);
+		AccountView av = manager.executeCustomGetProcedure(AccountView.GET_FROM_VIEW, AccountView.class, userid);
 		EditAccountForm form = new EditAccountForm(request, av);
 		if(form.isValid()) {
 			String birthday = form.getBirthday();
@@ -56,7 +57,9 @@ public class EditAccountServlet extends HttpServlet {
 			av.setHeight(height);
 			av.setWeekday(weekday);
 			av.setMultiplier(multiplier);
-			if(av.update()) {
+			Account a = new Account(av);
+			AccountSetting as = new AccountSetting(av);
+			if(manager.update(a) && manager.create(as)) {
 				request.setAttribute("success", "Your settings have been successfully updated!");
 			}
 			else {

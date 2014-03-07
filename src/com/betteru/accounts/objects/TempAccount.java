@@ -13,7 +13,7 @@ import com.github.mlaursen.database.objecttypes.Deleteable;
 import com.github.mlaursen.database.objecttypes.Getable;
 
 public class TempAccount extends AccountTemplate implements Getable, Createable, Deleteable {
-	
+	public static final String NEW_ACCOUNT = "newaccount";
 	@DatabaseField(values = { DatabaseFieldType.NEW })
 	private String code;
 	
@@ -59,7 +59,7 @@ public class TempAccount extends AccountTemplate implements Getable, Createable,
 	
 	@Override
 	public List<Procedure> getCustomProcedures() {
-		Procedure newAccount = new Procedure("newaccount", "username");
+		Procedure newAccount = new Procedure(NEW_ACCOUNT, "username");
 		newAccount.setHasCursor(false);
 		return Arrays.asList(newAccount);
 	}
