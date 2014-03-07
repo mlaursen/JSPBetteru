@@ -9,19 +9,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.betteru.meals.forms.CreateMealForm;
+import com.github.mlaursen.database.managers.ObjectManager;
 
 /**
  * Servlet implementation class CreateMeal
  */
 public class CreateMeal extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+    private ObjectManager manager;
     /**
      * @see HttpServlet#HttpServlet()
      */
     public CreateMeal() {
         super();
-        // TODO Auto-generated constructor stub
+        this.manager = new ObjectManager();
     }
 
 	/**

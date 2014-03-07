@@ -9,6 +9,7 @@ import com.github.mlaursen.annotations.DatabaseFieldType;
 import com.github.mlaursen.database.objects.DatabaseObject;
 import com.github.mlaursen.database.objects.MyResultRow;
 import com.github.mlaursen.database.objecttypes.Createable;
+import com.github.mlaursen.database.objecttypes.GetAllable;
 import com.github.mlaursen.database.objecttypes.Getable;
 import com.github.mlaursen.database.objecttypes.Updateable;
 
@@ -30,32 +31,18 @@ public class MealPart extends DatabaseObject implements Createable, Getable, Upd
 	@DatabaseField(values={DatabaseFieldType.NEW, DatabaseFieldType.UPDATE})
 	private String defaultUnit;
 	
-	public MealPart() {
-		// TODO Auto-generated constructor stub
+	public MealPart() {	}
+	public MealPart(String mealId, String ingredientId, double amount, String defaultUnit) {
+		this.mealId = mealId;
+		this.ingredientId = ingredientId;
+		this.amount = amount;
+		this.defaultUnit = defaultUnit;
 	}
-
-	/**
-	 * @param primaryKey
-	 */
-	public MealPart(String primaryKey) {
-		super(primaryKey);
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * @param primaryKey
-	 */
-	public MealPart(Integer primaryKey) {
-		super(primaryKey);
-		// TODO Auto-generated constructor stub
-	}
-
 	/**
 	 * @param r
 	 */
 	public MealPart(MyResultRow r) {
 		super(r);
-		// TODO Auto-generated constructor stub
 	}
 
 	/**

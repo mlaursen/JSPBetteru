@@ -12,10 +12,10 @@ import com.betteru.ingredients.objects.IngredientChoice;
 import com.github.mlaursen.bootstrap.forms.HtmlForm;
 import com.github.mlaursen.bootstrap.forms.fields.ControlGroup;
 import com.github.mlaursen.bootstrap.forms.fields.Dropdown;
-import com.github.mlaursen.bootstrap.forms.fields.DropdownChoice;
 import com.github.mlaursen.bootstrap.forms.fields.TextArea;
 import com.github.mlaursen.bootstrap.forms.fields.input.NumberField;
 import com.github.mlaursen.bootstrap.forms.fields.input.TextField;
+import com.github.mlaursen.database.managers.ObjectManager;
 
 /**
  * @author mikkel.laursen
@@ -24,10 +24,12 @@ import com.github.mlaursen.bootstrap.forms.fields.input.TextField;
 public class CreateMealForm extends HtmlForm {
 	
 	private int numMealParts;
-	public static final List<Ingredient> ALL_INGREDIENTS = new Ingredient().getAll(Ingredient.class);
+	//public static final List<Ingredient> ALL_INGREDIENTS = new Ingredient().getAll(Ingredient.class);
 	private static final String ACTION = "create.jsp";
+	//private ObjectManager manager;
 	public CreateMealForm() {
 		super(ACTION, "createmiddlewaretoken");
+		//this.manager = manager;
 		numMealParts = 1;
 		TextField name = new TextField("name");
 		name.setLabel("Meal Name");

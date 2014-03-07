@@ -26,23 +26,16 @@ public class Meal extends DatabaseObject implements Getable, Updateable, Createa
 	public Meal() {
 		// TODO Auto-generated constructor stub
 	}
-
-	/**
-	 * @param primaryKey
-	 */
-	public Meal(String primaryKey) {
-		super(primaryKey);
-		// TODO Auto-generated constructor stub
+	
+	public Meal(String name, String description) {
+		this.name = name;
+		this.description = new MyClob(description);
 	}
 
-	/**
-	 * @param primaryKey
-	 */
-	public Meal(Integer primaryKey) {
-		super(primaryKey);
-		// TODO Auto-generated constructor stub
+	public Meal(String name, MyClob description) {
+		this.name = name;
+		this.description = description;
 	}
-
 	/**
 	 * @param r
 	 */

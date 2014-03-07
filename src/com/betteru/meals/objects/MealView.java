@@ -10,6 +10,8 @@ import com.betteru.ingredients.Carbohydrate;
 import com.betteru.ingredients.Fat;
 import com.betteru.ingredients.Macro;
 import com.betteru.ingredients.Protein;
+import com.github.mlaursen.annotations.DatabaseViewClass;
+import com.github.mlaursen.database.managers.ObjectManager;
 import com.github.mlaursen.database.objects.DatabaseView;
 import com.github.mlaursen.database.objects.MyClob;
 import com.github.mlaursen.database.objects.MyResultRow;
@@ -20,6 +22,7 @@ import com.github.mlaursen.database.objecttypes.Getable;
  * @author mikkel.laursen
  *
  */
+@DatabaseViewClass(Meal.class)
 public class MealView extends DatabaseView implements Getable, GetAllable {
 
 	private String name;
@@ -28,15 +31,31 @@ public class MealView extends DatabaseView implements Getable, GetAllable {
 	private Macro totalFat, totalCarbs, totalProtein;
 	private List<MealPartView> mealParts;// = new ArrayList<MealPartView>();
 	public MealView() { }
-	public MealView(String primaryKey) {
+	
+	
+
+	/**
+	 * @param name
+	 * @param description
+	 * @param totalCalories
+	 * @param totalFat
+	 * @param totalCarbs
+	 * @param totalProtein
+	 * @param mealParts
+	 */
+	public MealView(String name, MyClob description, Calorie totalCalories, Macro totalFat, Macro totalCarbs, Macro totalProtein,
+			List<MealPartView> mealParts) {
 		super();
-		this.primaryKey = primaryKey;
-		this.setAll(manager.getFirstRowFromCursorProcedure("get", primaryKey));
+		this.name = name;
+		this.description = description;
+		this.totalCalories = totalCalories;
+		this.totalFat = totalFat;
+		this.totalCarbs = totalCarbs;
+		this.totalProtein = totalProtein;
+		this.mealParts = mealParts;
 	}
 
-	public MealView(Integer primaryKey) {
-		this(primaryKey.toString());
-	}
+
 
 	/**
 	 * @param r
@@ -167,10 +186,9 @@ public class MealView extends DatabaseView implements Getable, GetAllable {
 		this.totalProtein = new Protein(r.get("total_protein"));
 	}
 
-	public void setMealParts(MyResultRow r) {
-		this.mealParts = new MealPartView().getAll(r.get("id"));
+	public void getMealParts(ObjectManager manager) {
+		this.mealParts = manager.getAll(new MealPartView());
 	}
-
 	
 	@Override
 	public String toString() {

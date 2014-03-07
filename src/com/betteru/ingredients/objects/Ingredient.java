@@ -18,7 +18,6 @@ import com.github.mlaursen.annotations.DatabaseFieldType;
 import com.github.mlaursen.annotations.MultipleDatabaseField;
 import com.github.mlaursen.database.objects.DatabaseObject;
 import com.github.mlaursen.database.objects.MyResultRow;
-import com.github.mlaursen.database.objects.Procedure;
 import com.github.mlaursen.database.objecttypes.Createable;
 import com.github.mlaursen.database.objecttypes.Deleteable;
 import com.github.mlaursen.database.objecttypes.Filterable;
@@ -77,7 +76,6 @@ public class Ingredient extends DatabaseObject implements Getable, GetAllable, C
 	 */
 	public Ingredient(MyResultRow r) {
 		super(r);
-		// TODO Auto-generated constructor stub
 	}
 	
 	public Ingredient(CreateIngredientForm f) {
