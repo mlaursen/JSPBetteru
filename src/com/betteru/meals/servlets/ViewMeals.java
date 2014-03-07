@@ -9,8 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.betteru.meals.objects.Meal;
-import com.betteru.meals.objects.MealPart;
 import com.betteru.meals.objects.MealPartView;
 import com.betteru.meals.objects.MealView;
 import com.github.mlaursen.database.managers.ObjectManager;

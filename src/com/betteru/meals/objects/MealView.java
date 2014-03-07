@@ -69,7 +69,7 @@ public class MealView extends DatabaseView implements Getable, GetAllable {
 	public String getIngredientList() {
 		String s = "<ul>\n";
 		for(MealPartView v : mealParts) {
-			s += String.format("  <li>%s - %s %s</li>\n", v.getIngredientName(), v.getServing().getSize(), v.getServing().getUnitName());
+			s += String.format("  <li>%s - %.2f %s</li>\n", v.getIngredientName(), v.getAmount(), v.getServing().getUnitName());
 		}
 		return s += "</ul>\n";
 	}
