@@ -27,13 +27,16 @@ import com.github.mlaursen.database.managers.TestingObjectManager;
  *
  */
 public class AccountObjectsTest {
-	protected static TestingObjectManager tom;// = new TestingObjectManager();
+	protected static TestingObjectManager tom;
 		
 	@ClassRule
 	public static ExternalResource resource = new ExternalResource() {
 		@Override
 		protected void before() {
-			tom = new TestingObjectManager(true, false, false, "account", "account_view", "temp_account", "account_setting");//, AccountView.class);
+			boolean debug = false;
+			boolean delete = true;
+			boolean copyData = false;
+			tom = new TestingObjectManager(delete, debug, copyData, "account", "account_view", "temp_account", "account_setting");
 			tom.addPackage(AccountSetting.class);
 			tom.addPackage(TempAccount.class);
 			tom.addPackageWithView(Account.class, AccountView.class);
@@ -146,29 +149,15 @@ public class AccountObjectsTest {
 	public void testAccountView() {
 		Account a = createTestAccountFull("archer2", "boop");
 		AccountSetting as = createFullTestAccountSetting(a);
-		System.out.println(a);
-		System.out.println(as);
 		AccountView av = tom.executeCustomGetProcedure("getfromview", AccountView.class, a.getPrimaryKey());//.get(a.getPrimaryKey(), AccountView.class);
-		System.out.println(av);
-		//assertTrue(sameDate(a.getBirthday(), av.getBirthday()));
-		//assertEquals(a.getGender(), av.getGender());
-		//assertEquals(a.getUnitSystem(), av.getUnitSystem());
-		//assertEquals(as.getHeight(), av.getHeight(), 0);
-		/*
-		assertTrue(sameDate(av.getBirthday(), a.getBirthday()));
-		assertEquals(av.getGender(), a.getGender());
-		assertEquals(av.getUnitSystem(), a.getUnitSystem());
-		assertEquals(av.getHeight(), as.getHeight(), 1);
-		assertEquals(av.getMultiplier(), as.getMultiplier());
-		assertEquals(av.getWeekday(), as.getWeekday());
-		assertEquals(av.getAge(), 23);
-		
-		av.setGender("FEMALE");
-		//assertTrue(av.update());
-		
-		av.setGender("MALE");
-		//assertTrue(av.update());
-		 */
+		assertTrue(sameDate(a.getBirthday(), av.getBirthday()));
+		assertEquals(a.getGender(), av.getGender());
+		assertEquals(a.getUnitSystem(), av.getUnitSystem());
+		assertEquals(as.getHeight(), av.getHeight(), 0);
+		assertEquals(as.getMultiplier(), av.getMultiplier());
+		assertEquals(as.getWeekday(), av.getWeekday());
+		// I don't feel like calculating the age. This will fail after a year
+		assertEquals(23, av.getAge(), 0);
 		assertTrue(tom.delete(a));
 	}
 	

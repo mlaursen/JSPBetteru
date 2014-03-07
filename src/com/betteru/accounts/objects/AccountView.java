@@ -34,7 +34,6 @@ public class AccountView extends DatabaseView {
 	
 	public AccountView(MyResultRow r) {
 		super(r);
-		System.out.println(r);
 	}
 	/**
 	 * @param a the a to set
@@ -45,8 +44,7 @@ public class AccountView extends DatabaseView {
 	
 	public void setAccount(MyResultRow r) {
 		this.account = new Account();
-		this.account.setPrimaryKey(r.get("id"));
-		this.account.setUsername(r.get("username"));
+		this.account.setUsername(r);
 		this.account.setBirthday(r);
 		this.account.setGender(r);
 		this.account.setUnitSystem(r);
