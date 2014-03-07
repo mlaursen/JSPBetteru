@@ -6,8 +6,8 @@ package com.betteru.ingredients.objects;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.betteru.ingredients.Serving;
 import com.github.mlaursen.bootstrap.forms.fields.DropdownChoice;
+import com.github.mlaursen.database.managers.ObjectManager;
 
 /**
  * @author mikkel.laursen
@@ -77,7 +77,7 @@ public class IngredientChoice implements DropdownChoice {
 	 */
 	@Override
 	public List<DropdownChoice> getAllChoices() {
-		List<Ingredient> is = new Ingredient().getAll(Ingredient.class);
+		List<Ingredient> is = new ObjectManager(Ingredient.class).getAll(Ingredient.class);
 		List<DropdownChoice> choices = new ArrayList<DropdownChoice>();
 		for(Ingredient i : is) {
 			choices.add(new IngredientChoice(i.getPrimaryKey(), i.getBrand() + " - " + i.getName()));

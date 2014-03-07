@@ -31,10 +31,7 @@ import com.github.mlaursen.database.objecttypes.Updateable;
  *
  */
 public class Ingredient extends DatabaseObject implements Getable, GetAllable, Createable, Updateable, Deleteable, Filterable {
-	{
-		Procedure pFilter = new Procedure("filter", "category", "brand");
-		this.manager.addCustomProcedure(pFilter);
-	}
+
 	@DatabaseField(values={DatabaseFieldType.NEW, DatabaseFieldType.UPDATE})
 	private String name;
 	
@@ -62,17 +59,17 @@ public class Ingredient extends DatabaseObject implements Getable, GetAllable, C
 	@DatabaseField(values={DatabaseFieldType.NEW, DatabaseFieldType.UPDATE})
 	private Protein protein;
 	public Ingredient() { }
-	public Ingredient(String primaryKey) {
-		super(primaryKey);
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * @param primaryKey
-	 */
-	public Ingredient(Integer primaryKey) {
-		super(primaryKey);
-		// TODO Auto-generated constructor stub
+	public Ingredient(String name, Brand b, Category c, Serving def, Serving alt, Calorie cal, Fat f, Carbohydrate carb, Protein protein) {
+		super();
+		this.name = name;
+		this.brand = b;
+		this.category = c;
+		this.defaultServing = def;
+		this.alternateServing = alt;
+		this.calories = cal;
+		this.fat = f;
+		this.carbs = carb;
+		this.protein = protein;
 	}
 
 	/**

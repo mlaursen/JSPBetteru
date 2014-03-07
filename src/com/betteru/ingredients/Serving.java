@@ -2,8 +2,8 @@ package com.betteru.ingredients;
 
 import com.betteru.databasechoices.ingredients.FoodUnit;
 import com.betteru.utils.StringNumberUtil;
-import com.github.mlaursen.database.DatabaseObjectClassUtil;
 import com.github.mlaursen.database.objects.MyResultRow;
+import com.github.mlaursen.database.utils.ClassUtil;
 
 public class Serving {
 
@@ -15,7 +15,7 @@ public class Serving {
 	}
 	
 	public Serving(MyResultRow r) {
-		String n = DatabaseObjectClassUtil.formatClassName(this.getClass());
+		String n = ClassUtil.formatClassName(this.getClass());
 		String s = (n + "_size").toLowerCase();
 		String u = (n + "_unit").toLowerCase();
 		size = StringNumberUtil.attemptParseDouble(r.get(s));

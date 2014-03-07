@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.betteru.ingredients.objects.Ingredient;
+import com.github.mlaursen.database.managers.ObjectManager;
 
 
 /**
@@ -16,13 +17,13 @@ import com.betteru.ingredients.objects.Ingredient;
  */
 public class FilterIngredients extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+    private ObjectManager manager;   
     /**
      * @see HttpServlet#HttpServlet()
      */
     public FilterIngredients() {
         super();
-        // TODO Auto-generated constructor stub
+        manager = new ObjectManager(Ingredient.class);
     }
 
 	/**
@@ -30,7 +31,7 @@ public class FilterIngredients extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/ingredients/load_table.jsp");
-		request.setAttribute("ingredients", new Ingredient().filter(request.getParameter("category"), request.getParameter("brand")));
+		request.setAttribute("ingredients", manager.filter(Ingredient.class, request.getParameter("category"), request.getParameter("brand")));
 		rd.forward(request, response);
 	}
 

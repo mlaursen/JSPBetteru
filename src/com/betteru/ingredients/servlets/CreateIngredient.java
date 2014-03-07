@@ -9,30 +9,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.betteru.databasechoices.ingredients.Brand;
-import com.betteru.databasechoices.ingredients.Category;
-import com.betteru.databasechoices.ingredients.FoodUnit;
-import com.betteru.ingredients.AltServing;
-import com.betteru.ingredients.Calorie;
-import com.betteru.ingredients.Carbohydrate;
-import com.betteru.ingredients.Fat;
-import com.betteru.ingredients.Protein;
-import com.betteru.ingredients.Serving;
 import com.betteru.ingredients.forms.CreateIngredientForm;
 import com.betteru.ingredients.objects.Ingredient;
 import com.github.mlaursen.bootstrap.forms.fields.TextAction;
+import com.github.mlaursen.database.managers.ObjectManager;
 
 /**
  * Servlet implementation class CreateIngredient
  */
 public class CreateIngredient extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+    private ObjectManager manager;   
     /**
      * @see HttpServlet#HttpServlet()
      */
     public CreateIngredient() {
         super();
-        // TODO Auto-generated constructor stub
+        manager = new ObjectManager(Ingredient.class, Brand.class);
     }
 
 	/**
@@ -54,10 +47,10 @@ public class CreateIngredient extends HttpServlet {
 			TextAction brands = (TextAction) f.getField(CreateIngredientForm.BRANDS);
 			boolean success = true;
 			if(brands.getChosen() == 0)
-				success = new Brand(brands.getValue()).create();
+				success = manager.create(new Brand(brands.getValue()));
 			if(success) {
 				Ingredient i = new Ingredient(f);
-				success = i.create();
+				success = manager.create(i);
 			}
 			
 			if(!success) {
