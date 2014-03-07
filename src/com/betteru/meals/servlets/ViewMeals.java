@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.betteru.meals.objects.Meal;
+import com.betteru.meals.objects.MealPart;
 import com.betteru.meals.objects.MealPartView;
 import com.betteru.meals.objects.MealView;
 import com.github.mlaursen.database.managers.ObjectManager;
@@ -23,15 +25,16 @@ public class ViewMeals extends HttpServlet {
 	public ViewMeals() {
 		super();
 		this.manager = new ObjectManager(MealView.class, MealPartView.class);
+		//manager.addPackageWithView(MealPart.class, MealPartView.class);
+		//manager.addPackageWithView(Meal.class, MealView.class);
 	}
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/meals/all_meals.jsp");
-		List<MealView> meals = manager.getAll(MealView.class);//new MealView().getAll(MealView.class);
-		System.out.println(meals);
-		System.out.println(manager);
+		List<MealView> meals = manager.getAll(MealView.class);
+		MealView.generateMealParts(meals, manager);
 		request.setAttribute("meals", meals);
 		rd.forward(request, response);
 	}

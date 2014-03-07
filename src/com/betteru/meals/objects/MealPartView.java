@@ -10,9 +10,12 @@ import com.betteru.ingredients.Macro;
 import com.betteru.ingredients.Protein;
 import com.betteru.ingredients.Serving;
 import com.betteru.utils.StringNumberUtil;
+import com.github.mlaursen.annotations.DatabaseField;
+import com.github.mlaursen.annotations.DatabaseFieldType;
 import com.github.mlaursen.annotations.DatabaseViewClass;
 import com.github.mlaursen.database.objects.DatabaseView;
 import com.github.mlaursen.database.objects.MyResultRow;
+import com.github.mlaursen.database.objecttypes.Filterable;
 import com.github.mlaursen.database.objecttypes.GetAllable;
 
 /**
@@ -20,8 +23,9 @@ import com.github.mlaursen.database.objecttypes.GetAllable;
  * 
  */
 @DatabaseViewClass(MealPart.class)
-public class MealPartView extends DatabaseView implements GetAllable {
+public class MealPartView extends DatabaseView implements Filterable, GetAllable {
 	
+	@DatabaseField(values={DatabaseFieldType.FILTER})
 	private String mealId;
 	private double amount;
 	private Calorie totalCalories;
@@ -30,7 +34,6 @@ public class MealPartView extends DatabaseView implements GetAllable {
 	private Serving serving;
 	
 	public MealPartView() {}
-	
 	public MealPartView(String mealId, double amount, Calorie totalCalories, Macro totalFat, Macro totalCarbs, Macro totalProtein,
 			String ingredientName, String brandName, String categoryName, Serving serving) {
 		this.mealId = mealId;

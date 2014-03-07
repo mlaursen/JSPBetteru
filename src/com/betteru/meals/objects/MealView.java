@@ -3,6 +3,7 @@
  */
 package com.betteru.meals.objects;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.betteru.ingredients.Calorie;
@@ -29,7 +30,7 @@ public class MealView extends DatabaseView implements Getable, GetAllable {
 	private MyClob description;
 	private Calorie totalCalories;
 	private Macro totalFat, totalCarbs, totalProtein;
-	private List<MealPartView> mealParts;// = new ArrayList<MealPartView>();
+	private List<MealPartView> mealParts = new ArrayList<MealPartView>();
 	public MealView() { }
 	
 	
@@ -62,7 +63,6 @@ public class MealView extends DatabaseView implements Getable, GetAllable {
 	 */
 	public MealView(MyResultRow r) {
 		super(r);
-		// TODO Auto-generated constructor stub
 	}
 	
 	
@@ -72,7 +72,6 @@ public class MealView extends DatabaseView implements Getable, GetAllable {
 			s += String.format("  <li>%s - %s %s</li>\n", v.getIngredientName(), v.getServing().getSize(), v.getServing().getUnitName());
 		}
 		return s += "</ul>\n";
-		
 	}
 	
 	
@@ -185,9 +184,14 @@ public class MealView extends DatabaseView implements Getable, GetAllable {
 	public void setTotalProtein(MyResultRow r) {
 		this.totalProtein = new Protein(r.get("total_protein"));
 	}
-
-	public void getMealParts(ObjectManager manager) {
-		this.mealParts = manager.getAll(new MealPartView());
+	
+	public static void generateMealParts(List<MealView> meals, ObjectManager manager) {
+		for(MealView mv : meals) {
+			mv.generateMealParts(manager);
+		}
+	}
+	public void generateMealParts(ObjectManager manager) {
+		this.mealParts = manager.filter(MealPartView.class, this.primaryKey);
 	}
 	
 	@Override
