@@ -8,22 +8,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.github.mlaursen.bootstrap.forms.fields.DropdownChoice;
 import com.betteru.accounts.forms.EditAccountForm;
+import com.betteru.accounts.objects.Account;
+import com.betteru.accounts.objects.AccountSetting;
 import com.betteru.accounts.objects.AccountView;
+import com.github.mlaursen.database.managers.ObjectManager;
 
 /**
  * Servlet implementation class EditAccountServlet
  */
 public class EditAccountServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+    private ObjectManager manager;   
+    
     public EditAccountServlet() {
         super();
-        // TODO Auto-generated constructor stub
+        manager = new ObjectManager(Account.class, AccountView.class, AccountSetting.class);
     }
 
 	/**

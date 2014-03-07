@@ -7,6 +7,8 @@ import java.sql.Date;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.betteru.databasechoices.accounts.Gender;
 import com.betteru.databasechoices.accounts.Multiplier;
 import com.betteru.databasechoices.accounts.UnitSystem;
@@ -24,9 +26,7 @@ import com.github.mlaursen.database.utils.DateUtil;
  */
 @DatabaseViewClass(Account.class)
 public class AccountView extends DatabaseView {
-	/*{
-		this.setGetProcedureName("getfromview");
-	}*/
+
 	private Account account;
 	private AccountSetting accountSetting;
 	private int age;
@@ -34,6 +34,10 @@ public class AccountView extends DatabaseView {
 	
 	public AccountView(MyResultRow r) {
 		super(r);
+	}
+	
+	public AccountView(HttpServletRequest request) {
+		
 	}
 	/**
 	 * @param a the a to set
@@ -121,7 +125,7 @@ public class AccountView extends DatabaseView {
 	}
 	
 	public void setAge(MyResultRow r) {
-		this.age = r.getInt("age");//StringNumberUtil.attemptParseInteger(r, "age");
+		this.age = r.getInt("age");
 	}
 	
 	public Account getAccount() { return this.account; }
