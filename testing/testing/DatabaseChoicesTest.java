@@ -3,6 +3,13 @@
  */
 package testing;
 
+import static com.betteru.databasechoices.accounts.Gender.FEMALE;
+import static com.betteru.databasechoices.accounts.Gender.MALE;
+import static com.betteru.databasechoices.accounts.Multiplier.*;
+import static com.betteru.databasechoices.accounts.Weekday.*;
+import static com.betteru.databasechoices.accounts.UnitSystem.*;
+import static org.junit.Assert.assertEquals;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -14,10 +21,8 @@ import com.betteru.databasechoices.accounts.Gender;
 import com.betteru.databasechoices.accounts.Multiplier;
 import com.betteru.databasechoices.accounts.UnitSystem;
 import com.betteru.databasechoices.accounts.Weekday;
+import com.github.mlaursen.bootstrap.forms.fields.DropdownChoice;
 import com.github.mlaursen.database.managers.TestingObjectManager;
-
-import static com.betteru.databasechoices.accounts.Gender.*;
-import static org.junit.Assert.*;
 
 /**
  * @author mikkel.laursen
@@ -44,16 +49,42 @@ public class DatabaseChoicesTest {
 			tom.cleanUp();
 		}
 	};
-	@Test
-	public void test() {
-		
-	}
 	
 	@Test
 	public void testGender() {
 		List<Gender> gendersDB = tom.getAll(Gender.class);
 		List<Gender> genders = Arrays.asList(MALE, FEMALE);
 		assertEquals(genders.size(), gendersDB.size());
+		List<DropdownChoice> choices = new Gender().getAllChoices();
+		assertEquals(3, choices.size());
+	}
+	
+	@Test
+	public void testMultiplier() {
+		List<Multiplier> multipliersDB = tom.getAll(Multiplier.class);
+		List<Multiplier> multipliers = Arrays.asList(SEDENTARY, LIGHTLY_ACTIVE, MODERATELY_ACTIVE, VERY_ACTIVE, EXTREMELY_ACTIVE);
+		assertEquals(multipliers.size(), multipliersDB.size());
+		List<DropdownChoice> choices = new Multiplier().getAllChoices();
+		assertEquals(multipliers.size()+1, choices.size());
+	}
+	
+	@Test
+	public void testWeekday() {
+		List<Weekday> weekdaysDB = tom.getAll(Weekday.class);
+		List<Weekday> weekdays = Arrays.asList(SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY);
+		assertEquals(weekdays.size(), weekdaysDB.size());
+		List<DropdownChoice> choices = new Weekday().getAllChoices();
+		// no default choice
+		assertEquals(weekdays.size(), choices.size());
+	}
+	
+	@Test
+	public void testUnitSystem() {
+		List<UnitSystem> unitsDB = tom.getAll(UnitSystem.class);
+		List<UnitSystem> units = Arrays.asList(IMPERIAL, METRIC);
+		assertEquals(units.size(), unitsDB.size());
+		List<DropdownChoice> choices = new UnitSystem().getAllChoices();
+		assertEquals(units.size()+1, choices.size());
 	}
 /*
 	@Test

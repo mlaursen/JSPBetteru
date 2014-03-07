@@ -3,7 +3,10 @@
  */
 package com.betteru.databasechoices.accounts;
 
-import com.betteru.utils.StringNumberUtil;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.github.mlaursen.bootstrap.forms.fields.DropdownChoice;
 import com.github.mlaursen.database.objects.MyResultRow;
 
 /**
@@ -20,7 +23,6 @@ public class Weekday extends AccountChoice {
 	public static final Weekday FRIDAY = new Weekday("FRIDAY", 5);
 	public static final Weekday SATURDAY = new Weekday("SATURDAY", 6);
 	public Weekday() {
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -53,6 +55,22 @@ public class Weekday extends AccountChoice {
 	
 	public void setDayOfWeek(MyResultRow r) {
 		dropdownKey = r.getInt("day_of_week");
+	}
+
+	/* (non-Javadoc)
+	 * @see com.github.mlaursen.bootstrap.forms.fields.DropdownChoice#getAllChoices()
+	 */
+	@Override
+	public List<DropdownChoice> getAllChoices() {
+		List<DropdownChoice> choices = new ArrayList<DropdownChoice>();
+		choices.add(SUNDAY);
+		choices.add(MONDAY);
+		choices.add(TUESDAY);
+		choices.add(WEDNESDAY);
+		choices.add(THURSDAY);
+		choices.add(FRIDAY);
+		choices.add(SATURDAY);
+		return choices;
 	}
 
 }
