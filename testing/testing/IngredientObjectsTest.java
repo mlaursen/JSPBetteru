@@ -38,7 +38,7 @@ public class IngredientObjectsTest {
 		@Override
 		protected void before() {
 			boolean debug = false;
-			boolean delete = false;
+			boolean delete = true;
 			boolean copyData = false;
 			tom = new TestingObjectManager(delete, debug, copyData, "ingredient", "category", "brand", "food_unit");
 			tom.addPackage(Ingredient.class);
@@ -57,7 +57,7 @@ public class IngredientObjectsTest {
 		return getTestIngredient("Test Ingredient", "Test Brand", "Proteins", 22, "g", 30, "other", 400, 10, 33, 30);
 	}
 	
-	protected Ingredient getTestIngredient(String name, String brand, String category, double s1, String u1, double s2, String u2,
+	protected static Ingredient getTestIngredient(String name, String brand, String category, double s1, String u1, double s2, String u2,
 			double cal, double fat, double carb, double pro) {
 		return new Ingredient(name, new Brand(brand), new Category(category), new Serving(s1, new FoodUnit(u1)), new AltServing(s2,
 				new FoodUnit(u2)), new Calorie(cal), new Fat(fat), new Carbohydrate(carb), new Protein(pro));
@@ -69,6 +69,22 @@ public class IngredientObjectsTest {
 		assertTrue(tom.create(i));
 		i = tom.get(0, Ingredient.class);
 		assertNotNull(i);
+	}
+	
+	public static void createTestIngredients(TestingObjectManager tom) {
+		String[] catgs = {"Proteins", "Carbs", "Dairy", "Other" };
+		List<Ingredient> ings = new ArrayList<Ingredient>();
+		for(int i = 0; i < 20; i++) {
+			String brand = "Test Brand" + (i % 5);
+			String catg = catgs[i%catgs.length];
+			Ingredient ing = getTestIngredient("Test Ingredient"+i, brand, catg, 22, "g", 30, "other", 400, 10, 33, 30);
+			ings.add(ing);
+			assertTrue(tom.create(ing));
+		}
+		List<Ingredient> fromDB = tom.getAll(Ingredient.class);
+		for(Ingredient i : fromDB) {
+			assertTrue(ings.contains(i));
+		}
 	}
 	
 	@Test
