@@ -4,9 +4,8 @@
 package com.betteru.databasechoices.ingredients;
 
 import com.github.mlaursen.database.objects.MyResultRow;
-import com.github.mlaursen.database.objects.Procedure;
-import com.github.mlaursen.database.objecttypes.Createable;
-import com.github.mlaursen.database.objecttypes.Deleteable;
+import com.github.mlaursen.database.procedures.Createable;
+import com.github.mlaursen.database.procedures.Deleteable;
 
 /**
  * @author mikkel.laursen

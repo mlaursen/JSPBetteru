@@ -3,16 +3,12 @@
  */
 package com.betteru.databasechoices.accounts;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.github.mlaursen.bootstrap.forms.fields.DropdownChoice;
 import com.github.mlaursen.bootstrap.utils.Util;
-import com.github.mlaursen.database.managers.ObjectManager;
 import com.github.mlaursen.database.objects.DatabaseObject;
 import com.github.mlaursen.database.objects.MyResultRow;
-import com.github.mlaursen.database.objecttypes.GetAllable;
-import com.github.mlaursen.database.objecttypes.Getable;
+import com.github.mlaursen.database.procedures.GetAllable;
+import com.github.mlaursen.database.procedures.Getable;
 import com.github.mlaursen.database.utils.ClassUtil;
 
 /**

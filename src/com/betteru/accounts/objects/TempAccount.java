@@ -8,9 +8,9 @@ import com.github.mlaursen.annotations.DatabaseField;
 import com.github.mlaursen.annotations.DatabaseFieldType;
 import com.github.mlaursen.database.objects.MyResultRow;
 import com.github.mlaursen.database.objects.Procedure;
-import com.github.mlaursen.database.objecttypes.Createable;
-import com.github.mlaursen.database.objecttypes.Deleteable;
-import com.github.mlaursen.database.objecttypes.Getable;
+import com.github.mlaursen.database.procedures.Createable;
+import com.github.mlaursen.database.procedures.Deleteable;
+import com.github.mlaursen.database.procedures.Getable;
 
 public class TempAccount extends AccountTemplate implements Getable, Createable, Deleteable {
 	public static final String NEW_ACCOUNT = "newaccount";

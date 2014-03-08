@@ -15,8 +15,8 @@ import com.github.mlaursen.annotations.DatabaseFieldType;
 import com.github.mlaursen.annotations.DatabaseViewClass;
 import com.github.mlaursen.database.objects.DatabaseView;
 import com.github.mlaursen.database.objects.MyResultRow;
-import com.github.mlaursen.database.objecttypes.Filterable;
-import com.github.mlaursen.database.objecttypes.GetAllable;
+import com.github.mlaursen.database.procedures.Filterable;
+import com.github.mlaursen.database.procedures.GetAllable;
 
 /**
  * @author mikkel.laursen

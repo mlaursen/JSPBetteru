@@ -8,8 +8,8 @@ import static com.github.mlaursen.annotations.DatabaseFieldType.NEW;
 import com.github.mlaursen.annotations.DatabaseField;
 import com.github.mlaursen.database.objects.DatabaseObject;
 import com.github.mlaursen.database.objects.MyResultRow;
-import com.github.mlaursen.database.objecttypes.Createable;
-import com.github.mlaursen.database.objecttypes.Getable;
+import com.github.mlaursen.database.procedures.Createable;
+import com.github.mlaursen.database.procedures.Getable;
 
 /**
  * @author mikkel.laursen
