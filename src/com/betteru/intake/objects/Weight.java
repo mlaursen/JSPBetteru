@@ -32,11 +32,14 @@ public class Weight extends DatabaseObject implements Filterable, Getable, Updat
 	}
 	
 	/**
-	 * @param primaryKey
+	 * @param accountId
+	 * @param weightDate
+	 * @param weight
 	 */
-	public Weight(String accountId) {
-		
-		
+	public Weight(String accountId, Date weightDate, double weight) {
+		this.accountId = accountId;
+		this.weightDate = weightDate;
+		this.weight = weight;		
 	}
 	
 	/**
@@ -45,5 +48,72 @@ public class Weight extends DatabaseObject implements Filterable, Getable, Updat
 	public Weight(MyResultRow r) {
 		super(r);
 	}
+
+	
+	/**
+	 * @return the accountId
+	 */
+	public String getAccountId() {
+		return accountId;
+	}
+
+	
+	/**
+	 * @param accountId the accountId to set
+	 */
+	public void setAccountId(String accountId) {
+		this.accountId = accountId;
+	}
+
+	public void setAccountId(MyResultRow r) {
+		this.accountId = r.get("account_id");
+	}
+	
+	/**
+	 * @return the weightDate
+	 */
+	public Date getWeightDate() {
+		return weightDate;
+	}
+
+	
+	/**
+	 * @param weightDate the weightDate to set
+	 */
+	public void setWeightDate(Date weightDate) {
+		this.weightDate = weightDate;
+	}
+
+	public void setWeightDate(MyResultRow r) {
+		this.weightDate = r.getDate("weight_date");
+	}
+	
+	/**
+	 * @return the weight
+	 */
+	public double getWeight() {
+		return weight;
+	}
+
+	
+	/**
+	 * @param weight the weight to set
+	 */
+	public void setWeight(double weight) {
+		this.weight = weight;
+	}
+	
+	public void setWeight(MyResultRow r) {
+		this.weight = r.getDouble("weight");
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Weight [primaryKey=" + primaryKey + ", accountId=" + accountId + ", weightDate=" + weightDate + ", weight=" + weight + "]";
+	}
+	
 	
 }
