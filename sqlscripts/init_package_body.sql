@@ -874,3 +874,51 @@ CREATE OR REPLACE PACKAGE BODY DAILY_INTAKE_PKG AS
 
 END DAILY_INTAKE_PKG;
 /
+
+
+--------------------------------------------------------------------------------
+-- DAILY_MEAL_INTAKE PACKAGE
+--------------------------------------------------------------------------------
+CREATE OR REPLACE PACKAGE BODY DAILY_MEAL_INTAKE_PKG AS
+  -- Returns a single daily_meal_intake by id
+  PROCEDURE GET(PID IN INTEGER, PCURSOR OUT SYS_REFCURSOR)
+  IS
+  BEGIN
+    OPEN PCURSOR FOR
+      SELECT *
+      FROM DAILY_MEAL_INTAKE
+      WHERE ID=PID;
+  END GET;
+  
+  -- Returns a all daily_meal_intake for an account on a certain date.
+  PROCEDURE FILTER(PID IN INTEGER, PDATE IN DATE, PCURSOR OUT SYS_REFCURSOR)
+  IS
+  BEGIN
+    OPEN PCURSOR FOR
+      SELECT *
+      FROM DAILY_MEAL_INTAKE
+      WHERE ACCOUNT_ID=PID AND INTAKE_DATE=PDATE;
+  END FILTER;
+  
+  -- Creates a new daily_intake for an account by id, date, and meal id
+  PROCEDURE NEW( PACTID IN INTEGER
+               , PDATE IN DATE
+               , PMEALID IN INTEGER
+               , PID IN INTEGER DEFAULT SEQ_DAILY_INTAKE_ID.NEXTVAL )
+  IS
+  BEGIN
+    INSERT INTO DAILY_MEAL_INTAKE(ID,ACCOUNT_ID,INTAKE_DATE,MEAL_ID)
+    VALUES(PID,PACTID,PDATE,PMEALID);
+    COMMIT;
+    
+    EXCEPTION
+      WHEN OTHERS THEN
+        ROLLBACK;
+        RAISE;
+  END NEW;
+
+END DAILY_MEAL_INTAKE_PKG;
+/
+
+
+
