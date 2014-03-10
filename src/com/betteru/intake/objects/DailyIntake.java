@@ -47,14 +47,14 @@ public class DailyIntake extends DailyIntakeTemplate implements Updateable, Crea
 		super(r);
 	}
 
-	
+	/*
 	@Override
 	public List<Procedure> getCustomProcedures() {
 		Procedure mifflin = new Procedure(MIFFLIN_ST_JOER, "id", "date");
 		Procedure harris  = new Procedure(HARRIS_BENEDICT, "id", "date");
 		return Arrays.asList(mifflin, harris);
 	}
-	
+	*/
 	
 	
 	
