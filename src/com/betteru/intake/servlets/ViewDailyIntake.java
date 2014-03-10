@@ -31,8 +31,8 @@ public class ViewDailyIntake extends HttpServlet {
 	public ViewDailyIntake() {
 		super();
 		manager = new ObjectManager(DailyIntake.class, DailyMealIntake.class, MifflinStJoer.class, HarrisBenedict.class, Account.class, Weight.class);
-		manager.getPackage(MifflinStJoer.class).setName(ClassUtil.formatClassName(DailyIntake.class));
-		manager.getPackage(HarrisBenedict.class).setName(ClassUtil.formatClassName(DailyIntake.class));
+		manager.renamePackage(MifflinStJoer.class, DailyIntake.class);
+		manager.renamePackage(HarrisBenedict.class, DailyIntake.class);
 		System.out.println(manager);
 	}
 	
