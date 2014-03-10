@@ -14,10 +14,13 @@ import com.betteru.intake.objects.DailyIntake;
 import com.betteru.intake.objects.DailyMealIntake;
 import com.betteru.intake.objects.Formula;
 import com.betteru.intake.objects.Weight;
+import com.betteru.meals.objects.MealView;
 import com.github.mlaursen.database.managers.ObjectManager;
 
 /**
  * Servlet implementation class ViewDailyIntake
+ * 
+ * @author mlaursen
  */
 public class ViewDailyIntake extends HttpServlet {
 	
@@ -28,7 +31,7 @@ public class ViewDailyIntake extends HttpServlet {
 	 */
 	public ViewDailyIntake() {
 		super();
-		manager = new ObjectManager(DailyIntake.class, DailyMealIntake.class, Formula.class, Account.class, Weight.class);
+		manager = new ObjectManager(DailyIntake.class, DailyMealIntake.class, Formula.class, Account.class, Weight.class, MealView.class);
 		manager.renamePackage(Formula.class, DailyIntake.class);
 	}
 	
@@ -42,9 +45,6 @@ public class ViewDailyIntake extends HttpServlet {
 		userid = userid == null ? "0" : userid;
 		List<Formula> formulas = manager.executeCustomGetAllProcedure(Formula.GET_FROM_FORMULA, Formula.class, userid, null);
 		Formula.generateMeals(formulas, manager);
-		for(Formula f : formulas) {
-			System.out.println(f);
-		}
 		request.setAttribute("formulas", formulas);
 		//System.out.println(manager.executeCustomGetAllProcedure(MifflinStJoer.MIFFLIN_ST_JOER, MifflinStJoer.class, 0, null));
 		rd.forward(request, response);
