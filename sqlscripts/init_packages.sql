@@ -324,8 +324,8 @@ CREATE OR REPLACE PACKAGE WEIGHT_PKG AS
   
   -- Creates a new weight. The default weight_date is sysdate
   PROCEDURE NEW( PACTID IN WEIGHT.ACCOUNT_ID%TYPE
+               , PDATE IN WEIGHT.WEIGHT_DATE%TYPE
                , PWEIGHT IN WEIGHT.WEIGHT%TYPE
-               , PDATE IN WEIGHT.WEIGHT_DATE%TYPE DEFAULT SYSDATE
                , PID IN INTEGER DEFAULT SEQ_WEIGHT_ID.NEXTVAL
                );
   

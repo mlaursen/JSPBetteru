@@ -48,6 +48,14 @@ public class AccountObjectsTest {
 		}
 	};
 	
+	public static Account createTestingAccount(String username, String password, TestingObjectManager tom) {
+		TempAccount ta = new TempAccount(username, password);
+		ta.hashPassword();
+		assertTrue(tom.create(ta));
+		assertTrue(tom.executeCustomProcedure(TempAccount.NEW_ACCOUNT, TempAccount.class, username));
+		return tom.get(username, Account.class);
+	}
+	
 	public TempAccount createTestTempAccount(String username, String password) {
 		TempAccount ta = new TempAccount(username, password);
 		ta.hashPassword();
