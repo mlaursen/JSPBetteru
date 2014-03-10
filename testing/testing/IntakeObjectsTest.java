@@ -10,6 +10,8 @@ import org.junit.Test;
 import org.junit.rules.ExternalResource;
 
 import com.betteru.accounts.objects.Account;
+import com.betteru.intake.objects.DailyIntake;
+import com.betteru.intake.objects.DailyMealIntake;
 import com.github.mlaursen.database.managers.TestingObjectManager;
 
 
@@ -31,7 +33,7 @@ protected static TestingObjectManager tom;
 			tom = new TestingObjectManager(delete, debug, copyData, "daily_intake","daily_meal_intake","account","weight");
 			tom.addPackage(Account.class);
 			tom.addPackage(Weight.class);
-			tom.addPackage(DailyIntakeTemplate.class);
+			tom.addPackage(DailyIntake.class);
 			tom.addPackage(DailyMealIntake.class);
 		}
 		
