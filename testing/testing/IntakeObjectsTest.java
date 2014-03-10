@@ -3,8 +3,11 @@
  */
 package testing;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+
+import java.util.List;
 
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -59,6 +62,13 @@ protected static TestingObjectManager tom;
 		assertNotNull(id);
 		Weight w = new Weight(id, DateUtil.stringToDate("10-FEB-14", "dd-MMM-yy"), 180);
 		assertTrue(tom.create(w));
+		List<Weight> weights = tom.filter(Weight.class, 0);
+		assertEquals(1, weights.size());
+		Weight wDB = weights.get(0);
+		assertNotNull(wDB);
+		assertEquals(id, wDB.getAccountId());
+		Weight wDB2 = tom.get(0, Weight.class);
+		assertEquals(wDB.getAccountId(), wDB2.getAccountId());
 	}
 	
 }

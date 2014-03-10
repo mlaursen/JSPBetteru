@@ -314,10 +314,13 @@ END WEEKDAY_PKG;
 -- WEIGHT PACKAGE
 --------------------------------------------------------------------------------
 CREATE OR REPLACE PACKAGE WEIGHT_PKG AS
+  -- Returns a person's weight by weight_id
+  PROCEDURE GET(PID IN INTEGER, PCURSOR OUT SYS_REFCURSOR);
+  
   -- Returns an person's weight for an account id and date given
-  PROCEDURE GET( PID IN WEIGHT.ACCOUNT_ID%TYPE
-               , PDATE IN WEIGHT.WEIGHT_DATE%TYPE
-               , PCURSOR OUT SYS_REFCURSOR);
+  PROCEDURE FILTER( PID IN WEIGHT.ACCOUNT_ID%TYPE
+                  , PDATE IN WEIGHT.WEIGHT_DATE%TYPE
+                  , PCURSOR OUT SYS_REFCURSOR);
   
   -- Returns all records for a person's weight for an account id;
   PROCEDURE FILTER(PID IN WEIGHT.ACCOUNT_ID%TYPE, PCURSOR OUT SYS_REFCURSOR);
