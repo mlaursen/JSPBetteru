@@ -375,7 +375,22 @@ CREATE OR REPLACE PACKAGE DAILY_INTAKE_PKG AS
   PROCEDURE NEW( PACTID IN INTEGER
                , PDATE IN DATE
                , PCAL IN INTEGER DEFAULT 0
+               , PFAT IN DECIMAL DEFAULT 0.0
+               , PCARB IN DECIMAL DEFAULT 0.0
+               , PPROT IN DECIMAL DEFAULT 0.0
                , PID IN INTEGER DEFAULT SEQ_DAILY_INTAKE_ID.NEXTVAL );
+  
+  -- Returns the ACCOUNT_ID, TDEE, INTAKE_DATE, CALORIE_CHANGE, FAT_MULTIPLIER, 
+  -- CARB_MULTIPLIER, and PROTEIN_MULTIPLIER for an account using the 
+  -- Mifflin_St_Joer formula by account id and date. The date can be null, and
+  -- it will return all data for the account id given
+  PROCEDURE getFromMifflinStJoer(PID IN INTEGER, PDATE IN DATE, PCURSOR OUT SYS_REFCURSOR);
+  
+  -- Returns the account id, tdee, intake_date, calorie change, fat multiplier,
+  -- carb multiplier, and protein multiplier for an account using the
+  -- Harris Benedict formula by account id and date. The date can be null, and
+  -- it will return all data for the account id given
+  PROCEDURE getFromHarrisBenedict(PID IN INTEGER, PDATE IN DATE, PCURSOR OUT SYS_REFCURSOR);
 
 END DAILY_INTAKE_PKG;
 /
