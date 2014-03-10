@@ -57,6 +57,14 @@
     <servlet-name>Create Meal</servlet-name>
     <url-pattern>/meals/create.jsp</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>View Daily Intake</servlet-name>
+    <servlet-class>com.betteru.intake.servlets.ViewDailyIntake</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>View Daily Intake</servlet-name>
+    <url-pattern>/intake/index.jsp</url-pattern>
+  </servlet-mapping>
   <error-page>
     <error-code>404</error-code>
     <location>/404.jsp</location>

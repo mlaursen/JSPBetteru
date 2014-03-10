@@ -21,7 +21,6 @@ import com.github.mlaursen.database.utils.ClassUtil;
  * @author mlaursen
  *
  */
-@DatabaseViewClass(DailyIntake.class)
 public class Formula extends DatabaseObject {
 	public static final String MIFFLIN_ST_JOER = "getFromMifflinStJoer";
 	public static final String HARRIS_BENEDICT = "getFromHarrisBenedict";
@@ -257,7 +256,7 @@ public class Formula extends DatabaseObject {
 	 */
 	@Override
 	public String toString() {
-		return "Formula [primaryKey=" + primaryKey + ", accountId=" + accountId + ", tdee=" + tdee + ", calorieChange=" + calorieChange
+		return " [primaryKey=" + primaryKey + ", accountId=" + accountId + ", tdee=" + tdee + ", calorieChange=" + calorieChange
 				+ ", fatMultiplier=" + fatMultiplier + ", carbMultiplier=" + carbMultiplier + ", proteinMultiplier=" + proteinMultiplier
 				+ ", mealIds=" + mealIds + ", meals=" + meals + ", intakeDate=" + intakeDate + "]";
 	}

@@ -13,19 +13,19 @@ import com.github.mlaursen.database.objects.MyResultRow;
  * @author mikkel.laursen
  *
  */
-public class MifflinStJoer extends Formula {
+public class HarrisBenedict extends Formula {
 	
 	/**
 	 * 
 	 */
-	public MifflinStJoer() {
+	public HarrisBenedict() {
 		// TODO Auto-generated constructor stub
 	}
 	
 	/**
 	 * @param r
 	 */
-	public MifflinStJoer(MyResultRow r) {
+	public HarrisBenedict(MyResultRow r) {
 		super(r);
 		// TODO Auto-generated constructor stub
 	}
@@ -40,7 +40,7 @@ public class MifflinStJoer extends Formula {
 	 * @param mealIds
 	 * @param intakeDate
 	 */
-	public MifflinStJoer(String accountId, double tdee, int calorieChange, double fatMultiplier, double carbMultiplier,
+	public HarrisBenedict(String accountId, double tdee, int calorieChange, double fatMultiplier, double carbMultiplier,
 			double proteinMultiplier, List<String> mealIds, Date intakeDate) {
 		super(accountId, tdee, calorieChange, fatMultiplier, carbMultiplier, proteinMultiplier, mealIds, intakeDate);
 		// TODO Auto-generated constructor stub
@@ -48,6 +48,6 @@ public class MifflinStJoer extends Formula {
 	
 	@Override
 	public String toString() {
-		return "Mifflin St Joer" + super.toString();
+		return "Harris Benedict" + super.toString();
 	}
 }
