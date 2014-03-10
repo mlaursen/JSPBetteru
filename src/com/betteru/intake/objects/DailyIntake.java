@@ -4,10 +4,13 @@
 package com.betteru.intake.objects;
 
 import java.sql.Date;
+import java.util.Arrays;
+import java.util.List;
 
 import com.github.mlaursen.annotations.DatabaseField;
 import com.github.mlaursen.annotations.DatabaseFieldType;
 import com.github.mlaursen.database.objects.MyResultRow;
+import com.github.mlaursen.database.objects.Procedure;
 import com.github.mlaursen.database.procedures.Createable;
 import com.github.mlaursen.database.procedures.Filterable;
 import com.github.mlaursen.database.procedures.Updateable;
@@ -19,6 +22,8 @@ import com.github.mlaursen.database.procedures.Updateable;
  */
 public class DailyIntake extends DailyIntakeTemplate implements Updateable, Createable, Filterable {
 	
+	public static final String MIFFLIN_ST_JOER = "getFromMifflinStJoer";
+	public static final String HARRIS_BENEDICT = "getFromHarrisBenedict";
 	@DatabaseField(values={DatabaseFieldType.NEW, DatabaseFieldType.UPDATE})
 	protected int calorieChange;
 	public DailyIntake() {
@@ -42,6 +47,20 @@ public class DailyIntake extends DailyIntakeTemplate implements Updateable, Crea
 		super(r);
 	}
 
+	
+	@Override
+	public List<Procedure> getCustomProcedures() {
+		Procedure mifflin = new Procedure(MIFFLIN_ST_JOER, "id", "date");
+		Procedure harris  = new Procedure(HARRIS_BENEDICT, "id", "date");
+		return Arrays.asList(mifflin, harris);
+	}
+	
+	
+	
+	
+	
+	
+	
 	
 	/**
 	 * @return the calorieChange
