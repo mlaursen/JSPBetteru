@@ -358,3 +358,24 @@ CREATE OR REPLACE PACKAGE CALORIE_SPLIT_PKG AS
 
 END CALORIE_SPLIT_PKG;
 /
+
+--------------------------------------------------------------------------------
+-- DAILY_INTAKE PACKAGE
+--------------------------------------------------------------------------------
+CREATE OR REPLACE PACKAGE DAILY_INTAKE_PKG AS
+  -- Returns a single daily_intake by id
+  PROCEDURE GET(PID IN INTEGER, PCURSOR OUT SYS_REFCURSOR);
+  
+  -- Returns a single daily_intake for an account on a certain date.
+  -- If the date is null, it returns all daily_intake for the user
+  PROCEDURE FILTER(PID IN INTEGER, PDATE IN DATE, PCURSOR OUT SYS_REFCURSOR);
+  
+  -- Creates a new daily_intake for an account by id, date, and calorie change
+  -- Defaults the calorie change to 0
+  PROCEDURE NEW( PACTID IN INTEGER
+               , PDATE IN DATE
+               , PCAL IN INTEGER DEFAULT 0
+               , PID IN INTEGER DEFAULT SEQ_DAILY_INTAKE_ID.NEXTVAL );
+
+END DAILY_INTAKE_PKG;
+/

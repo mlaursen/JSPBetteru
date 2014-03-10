@@ -820,3 +820,57 @@ END CALORIE_SPLIT_PKG;
 /
 
 
+--------------------------------------------------------------------------------
+-- DAILY_INTAKE PACKAGE
+--------------------------------------------------------------------------------
+CREATE OR REPLACE PACKAGE BODY DAILY_INTAKE_PKG AS
+  -- Returns a single daily_intake by id
+  PROCEDURE GET(PID IN INTEGER, PCURSOR OUT SYS_REFCURSOR)
+  IS
+  BEGIN
+    OPEN PCURSOR FOR
+      SELECT *
+      FROM DAILY_INTAKE
+      WHERE ID=PID;
+  END GET;
+  
+  -- Returns a single daily_intake for an account on a certain date.
+  -- If the date is null, it returns all daily_intake for the user
+  PROCEDURE FILTER(PID IN INTEGER, PDATE IN DATE, PCURSOR OUT SYS_REFCURSOR)
+  IS
+  BEGIN
+    IF PDATE IS NOT NULL THEN
+      OPEN PCURSOR FOR
+        SELECT *
+        FROM DAILY_INTAKE
+        WHERE ACCOUNT_ID=PID AND INTAKE_DATE=PDATE
+        ORDER BY INTAKE_DATE;
+    ELSE
+      OPEN PCURSOR FOR
+        SELECT *
+        FROM DAILY_INTAKE
+        WHERE ACCOUNT_ID=PID
+        ORDER BY INTAKE_DATE;
+    END IF;
+  END FILTER;
+  
+  -- Creates a new daily_intake for an account by id, date, and calorie change
+  -- Defaults the calorie change to 0
+  PROCEDURE NEW( PACTID IN INTEGER
+               , PDATE IN DATE
+               , PCAL IN INTEGER DEFAULT 0
+               , PID IN INTEGER DEFAULT SEQ_DAILY_INTAKE_ID.NEXTVAL )
+  IS
+  BEGIN
+    INSERT INTO DAILY_INTAKE(ID, ACCOUNT_ID, INTAKE_DATE, CALORIE_CHANGE)
+    VALUES(PID, PACTID, PDATE, PCAL);
+    COMMIT;
+    
+    EXCEPTION
+      WHEN OTHERS THEN
+        ROLLBACK;
+        RAISE;
+  END NEW;
+
+END DAILY_INTAKE_PKG;
+/
