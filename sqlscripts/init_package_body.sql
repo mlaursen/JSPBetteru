@@ -861,6 +861,28 @@ CREATE OR REPLACE PACKAGE BODY DAILY_INTAKE_PKG AS
     END IF;
   END FILTER;
   
+   FUNCTION getCursorForFormula( PID IN INTEGER
+                              , PDATE IN DATE
+                              , PFORMULA IN VARCHAR2
+                              ) RETURN SYS_REFCURSOR
+  IS
+    ISQL VARCHAR2(500);
+    ICURSOR SYS_REFCURSOR;
+  BEGIN
+    ISQL := 'SELECT V.ID, V.ACCOUNT_ID, TDEE,CALORIE_CHANGE, FAT_MULTIPLIER, 
+                    CARB_MULTIPLIER, PROTEIN_MULTIPLIER, MEAL_IDS, V.INTAKE_DATE
+             FROM '||PFORMULA||'_ACCOUNT_VIEW V INNER JOIN DAILY_INTAKE_VIEW DIV
+             ON V.ACCOUNT_ID=DIV.ACCOUNT_ID
+             WHERE V.ACCOUNT_ID='||PID;
+    IF PDATE IS NOT NULL THEN
+      ISQL := ISQL||' AND V.INTAKE_DATE=TO_DATE('''||PDATE||''')';
+    END IF;
+    OPEN ICURSOR FOR
+      ISQL;
+    
+    RETURN ICURSOR;
+  END getCursorForFormula;
+  
   -- Creates a new daily_intake for an account by id, date, and calorie change
   -- Defaults the calorie change to 0
   PROCEDURE NEW( PACTID IN INTEGER
@@ -881,48 +903,18 @@ CREATE OR REPLACE PACKAGE BODY DAILY_INTAKE_PKG AS
         ROLLBACK;
         RAISE;
   END NEW;
-
-  FUNCTION GETFROMFORMULA( PID IN INTEGER
-                          , PDATE IN DATE
-                          , PFORMULA IN VARCHAR2
-                          ) RETURN SYS_REFCURSOR
+  
+  -- Returns a sys_refcursor for a daily_intake with the correct formula
+  PROCEDURE GETFROMFORMULA(PID IN INTEGER, PDATE IN DATE, PCURSOR OUT SYS_REFCURSOR)
   IS
-    ISQL VARCHAR2(500);
-    ICURSOR SYS_REFCURSOR;
+    IFORMULA VARCHAR2(40);
   BEGIN
-    ISQL := 'SELECT V.ID, V.ACCOUNT_ID, TDEE,CALORIE_CHANGE, FAT_MULTIPLIER, 
-                    CARB_MULTIPLIER, PROTEIN_MULTIPLIER, MEAL_IDS, V.INTAKE_DATE
-             FROM '||PFORMULA||'_ACCOUNT_VIEW V INNER JOIN DAILY_INTAKE_VIEW DIV
-             ON V.ACCOUNT_ID=DIV.ACCOUNT_ID
-             WHERE V.ACCOUNT_ID='||PID;
-    IF PDATE IS NOT NULL THEN
-      ISQL := ISQL||' AND V.INTAKE_DATE=TO_DATE('''||PDATE||''')';
-    END IF;
-    OPEN ICURSOR FOR
-      ISQL;
-    
-    RETURN ICURSOR;
+    SELECT DECODE(FORMULA,'MIFFLIN-ST JOER','MIFFLIN_ST_JOER','HARRIS_BENEDICT') INTO IFORMULA 
+    FROM ACCOUNT_SETTING
+    WHERE ACCOUNTID=PID AND DATE_CHANGED=ACCOUNT_SETTING_PKG.LATEST(PID);
+    PCURSOR := getCursorForFormula(PID, PDATE, IFORMULA);
   END GETFROMFORMULA;
-  
-  -- Returns the ACCOUNT_ID, TDEE, INTAKE_DATE, CALORIE_CHANGE, FAT_MULTIPLIER, 
-  -- CARB_MULTIPLIER, and PROTEIN_MULTIPLIER for an account using the 
-  -- Mifflin_St_Joer formula by account id and date. The date can be null, and
-  -- it will return all data for the account id given
-  PROCEDURE getFromMifflinStJoer(PID IN INTEGER, PDATE IN DATE, PCURSOR OUT SYS_REFCURSOR)
-  IS
-  BEGIN
-    PCURSOR := GETFROMFORMULA(PID, PDATE, 'MIFFLIN_ST_JOER');
-  END getFromMifflinStJoer;
-  
-  -- Returns the account id, tdee, intake_date, calorie change, fat multiplier,
-  -- carb multiplier, and protein multiplier for an account using the
-  -- Harris Benedict formula by account id and date. The date can be null, and
-  -- it will return all data for the account id given
-  PROCEDURE getFromHarrisBenedict(PID IN INTEGER, PDATE IN DATE, PCURSOR OUT SYS_REFCURSOR)
-  IS
-  BEGIN
-    PCURSOR := GETFROMFORMULA(PID,PDATE,'HARRIS_BENEDICT');
-  END getFromHarrisBenedict;
+
 END DAILY_INTAKE_PKG;
 /
 

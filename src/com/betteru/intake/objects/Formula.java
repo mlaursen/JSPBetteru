@@ -3,27 +3,30 @@
  */
 package com.betteru.intake.objects;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import com.betteru.meals.objects.MealView;
-import com.github.mlaursen.annotations.DatabaseViewClass;
 import com.github.mlaursen.database.managers.ObjectManager;
 import com.github.mlaursen.database.objects.DatabaseObject;
 import com.github.mlaursen.database.objects.MyResultRow;
 import com.github.mlaursen.database.objects.Procedure;
-import com.github.mlaursen.database.utils.ClassUtil;
+import com.github.mlaursen.database.utils.DateUtil;
 
 
 /**
  * @author mlaursen
  *
  */
-public class Formula extends DatabaseObject {
+public class Formula extends DatabaseObject implements Serializable {
+	
+	private static final long serialVersionUID = -8666941273158409959L;
 	public static final String MIFFLIN_ST_JOER = "getFromMifflinStJoer";
 	public static final String HARRIS_BENEDICT = "getFromHarrisBenedict";
+	public static final String GET_FROM_FORMULA = "getFromFormula";
 	protected String accountId;
 	
 	protected double tdee;
@@ -71,10 +74,26 @@ public class Formula extends DatabaseObject {
 	
 	@Override
 	public List<Procedure> getCustomProcedures() {
-		Procedure get = new Procedure("getfrom" + this.getClass().getSimpleName().toLowerCase(), "id", "date");
+		Procedure get = new Procedure(GET_FROM_FORMULA, "id", "date");
 		return Arrays.asList(get);
 	}
+	
+	
+	public static void generateMeals(List<Formula> fs, ObjectManager om) {
+		for(Formula f : fs) {
+			f.generateMeals(om);
+		}
+	}
 
+	
+	public void generateMeals(ObjectManager om) {
+		this.meals = new ArrayList<MealView>();
+		if(this.mealIds != null && this.mealIds.size() > 0) {
+			for(String id : mealIds) {
+				this.meals.add(om.get(id, MealView.class));
+			}
+		}
+	}
 	
 	/**
 	 * @return the accountId
@@ -223,20 +242,15 @@ public class Formula extends DatabaseObject {
 		this.meals = meals;
 	}
 	
-	public void generateMeals(ObjectManager om) {
-		this.meals = new ArrayList<MealView>();
-		if(this.mealIds != null && this.mealIds.size() > 0) {
-			for(String id : mealIds) {
-				this.meals.add(om.get(id, MealView.class));
-			}
-		}
-	}
-	
 	/**
 	 * @return the intakeDate
 	 */
 	public Date getIntakeDate() {
 		return intakeDate;
+	}
+	
+	public String getIntakeDateString() {
+		return DateUtil.dateToString(intakeDate);
 	}
 
 	

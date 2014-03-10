@@ -4,13 +4,9 @@
 package com.betteru.intake.objects;
 
 import java.sql.Date;
-import java.util.Arrays;
-import java.util.List;
-
 import com.github.mlaursen.annotations.DatabaseField;
 import com.github.mlaursen.annotations.DatabaseFieldType;
 import com.github.mlaursen.database.objects.MyResultRow;
-import com.github.mlaursen.database.objects.Procedure;
 import com.github.mlaursen.database.procedures.Createable;
 import com.github.mlaursen.database.procedures.Filterable;
 import com.github.mlaursen.database.procedures.Updateable;
@@ -22,6 +18,10 @@ import com.github.mlaursen.database.procedures.Updateable;
  */
 public class DailyIntake extends DailyIntakeTemplate implements Updateable, Createable, Filterable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7842332693437947749L;
 	public static final String MIFFLIN_ST_JOER = "getFromMifflinStJoer";
 	public static final String HARRIS_BENEDICT = "getFromHarrisBenedict";
 	@DatabaseField(values={DatabaseFieldType.NEW, DatabaseFieldType.UPDATE})

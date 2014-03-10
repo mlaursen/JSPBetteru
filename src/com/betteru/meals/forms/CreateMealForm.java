@@ -3,11 +3,8 @@
  */
 package com.betteru.meals.forms;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 
-import com.betteru.ingredients.objects.Ingredient;
 import com.betteru.ingredients.objects.IngredientChoice;
 import com.github.mlaursen.bootstrap.forms.HtmlForm;
 import com.github.mlaursen.bootstrap.forms.fields.ControlGroup;
@@ -15,7 +12,6 @@ import com.github.mlaursen.bootstrap.forms.fields.Dropdown;
 import com.github.mlaursen.bootstrap.forms.fields.TextArea;
 import com.github.mlaursen.bootstrap.forms.fields.input.NumberField;
 import com.github.mlaursen.bootstrap.forms.fields.input.TextField;
-import com.github.mlaursen.database.managers.ObjectManager;
 
 /**
  * @author mikkel.laursen

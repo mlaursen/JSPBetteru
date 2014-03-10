@@ -26,6 +26,8 @@ import com.github.mlaursen.database.procedures.Updateable;
  */
 public class Account extends AccountTemplate implements Getable, Createable, Updateable, Deleteable {
 	
+	private static final long serialVersionUID = -6407584316240397775L;
+
 	public static final String UPDATE_LAST_LOGIN = "updatelastlogin";
 	
 	@DatabaseField(values = DatabaseFieldType.UPDATE)

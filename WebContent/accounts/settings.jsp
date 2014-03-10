@@ -6,7 +6,9 @@
 <t:base>
   <jsp:attribute name="title">Edit Account</jsp:attribute>
   <jsp:attribute name="additional_css">
-  <link href="${pageContext.request.contextPath}/css/bootstrap/overcast/jquery-ui-1.10.3.custom.css" rel="stylesheet" />
+  <link
+      href="${pageContext.request.contextPath}/css/bootstrap/overcast/jquery-ui-1.10.3.custom.css"
+      rel="stylesheet" />
   </jsp:attribute>
   <jsp:attribute name="content">
   <div class="row-fluid">
@@ -21,7 +23,8 @@
   </div>
   </jsp:attribute>
   <jsp:attribute name="additional_js">
-  <script src="${pageContext.request.contextPath}/js/jquery/jquery-ui-1.10.3.custom.js"></script>
+  <script
+      src="${pageContext.request.contextPath}/js/jquery/jquery-ui-1.10.3.custom.js"></script>
   <script type="text/javascript">
   	$(function() {
   		$('#id_birthday').datepicker();

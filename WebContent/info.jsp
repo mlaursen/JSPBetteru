@@ -35,7 +35,8 @@
   <h3>Would You Like to Contribute?</h3>
   <p>
   This is an open-source project and you are more than welcome to contribute. The git-repository is located at:
-  <t:hrefexternal link="https://github.com/mlaursen/jspbetteru" linktext="https://github.com/mlaursen/jspbetteru" />
+  <t:hrefexternal link="https://github.com/mlaursen/jspbetteru"
+          linktext="https://github.com/mlaursen/jspbetteru" />
   </p>
   </div>
   </jsp:attribute>

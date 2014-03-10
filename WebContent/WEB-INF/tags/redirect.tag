@@ -1,8 +1,8 @@
 <%@ tag language="java" pageEncoding="ISO-8859-1"%>
-<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
-<%@ attribute name="time" required="true" %>
-<%@ attribute name="url" required="true" %>
-<%@ attribute name="message" required="true" %>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
+<%@ attribute name="time" required="true"%>
+<%@ attribute name="url" required="true"%>
+<%@ attribute name="message" required="true"%>
 
 <t:base>
   <jsp:attribute name="refresh">

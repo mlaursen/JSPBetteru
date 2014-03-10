@@ -1,5 +1,6 @@
-<%@page contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@page contentType="text/html; charset=ISO-8859-1"
+  pageEncoding="ISO-8859-1"%>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 
 <t:base modals="${modals}">
   <jsp:attribute name="title">Account Login</jsp:attribute>

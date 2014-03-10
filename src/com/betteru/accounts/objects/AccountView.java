@@ -7,8 +7,6 @@ import java.sql.Date;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import com.betteru.databasechoices.accounts.Gender;
 import com.betteru.databasechoices.accounts.Multiplier;
 import com.betteru.databasechoices.accounts.UnitSystem;
@@ -27,6 +25,7 @@ import com.github.mlaursen.database.utils.DateUtil;
 @DatabaseViewClass(Account.class)
 public class AccountView extends DatabaseView {
 
+	private static final long serialVersionUID = 1049140216859207089L;
 	public static String GET_FROM_VIEW = "getfromview";
 	private Account account;
 	private AccountSetting accountSetting;

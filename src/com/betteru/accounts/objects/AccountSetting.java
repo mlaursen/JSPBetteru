@@ -20,6 +20,8 @@ import com.github.mlaursen.database.procedures.Getable;
  */
 public class AccountSetting extends DatabaseObject implements Getable, Createable {
 
+	private static final long serialVersionUID = -5183565110659336141L;
+
 	@DatabaseField(values={DatabaseFieldType.NEW})
 	private String accountId;
 

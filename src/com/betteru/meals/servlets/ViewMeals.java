@@ -29,6 +29,7 @@ public class ViewMeals extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/meals/all_meals.jsp");
 		List<MealView> meals = manager.getAll(MealView.class);
@@ -40,6 +41,7 @@ public class ViewMeals extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 	}

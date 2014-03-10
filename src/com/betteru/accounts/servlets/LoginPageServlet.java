@@ -29,6 +29,7 @@ public class LoginPageServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/accounts/login.jsp");
 		request.setAttribute("modals", new CreateAccountForm().asModal());
@@ -39,6 +40,7 @@ public class LoginPageServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		LoginForm loginForm = new LoginForm(request);
 		CreateAccountForm createForm = new CreateAccountForm(request);

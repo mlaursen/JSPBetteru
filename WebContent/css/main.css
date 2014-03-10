@@ -2,62 +2,58 @@
 CSS for the Fitness Helper Pages
 Author: Mikkel Laursen
 */
-
-
 .additional-info {
-	font-size: smaller;
-	font-style: italic;
+  font-size: smaller;
+  font-style: italic;
 }
 
 .error {
-	color: red;
+  color: red;
 }
 
-.nav-val-text{
-	color: white;
+.nav-val-text {
+  color: white;
 }
 
 #add-ingredient .modal-body {
-	max-height: 500px;
-	height: 500px;
+  max-height: 500px;
+  height: 500px;
 }
 
 #add-ingredient {
-	width: 700px;
-	margin: 0px 0 0 -350px;
+  width: 700px;
+  margin: 0px 0 0 -350px;
 }
 
-
-
-table.navbar-bot { 
-    width: 95%;
+table.navbar-bot {
+  width: 95%;
 }
 
-table.navbar-bot td.left { 
-    width: 40%;
-    text-align: left;
+table.navbar-bot td.left {
+  width: 40%;
+  text-align: left;
 }
 
-table.navbar-bot td.right { 
-    width: 40%;
-    text-align: right;
+table.navbar-bot td.right {
+  width: 40%;
+  text-align: right;
 }
 
-table.navbar-bot td.center a.brand { 
-    text-align: center;
-    float: center;
+table.navbar-bot td.center a.brand {
+  text-align: center;
+  float: center;
 }
 
 .thanks {
-    position: fixed;
-    bottom: 5%;
-    right: 5%;
+  position: fixed;
+  bottom: 5%;
+  right: 5%;
 }
 
 body.page404 {
-    background: white url("/Betteru/media/imgs/404.jpg") no-repeat;
-    background-position: 35%;
-    background-attachment: fixed;
+  background: white url("/Betteru/media/imgs/404.jpg") no-repeat;
+  background-position: 35%;
+  background-attachment: fixed;
 }
 
 .myspan-med {

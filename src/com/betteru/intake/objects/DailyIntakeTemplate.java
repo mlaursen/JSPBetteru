@@ -20,6 +20,10 @@ import com.github.mlaursen.database.procedures.Updateable;
  */
 public abstract class DailyIntakeTemplate extends DatabaseObject implements Filterable, Createable, Updateable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8175350219704278803L;
 	@DatabaseField(values={DatabaseFieldType.FILTER, DatabaseFieldType.UPDATE, DatabaseFieldType.NEW})
 	protected String accountId;
 	@DatabaseField(values={DatabaseFieldType.FILTER, DatabaseFieldType.UPDATE, DatabaseFieldType.NEW})

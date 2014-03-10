@@ -29,6 +29,7 @@ public class EditAccountServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userid = (String) request.getSession().getAttribute("userid");
 		AccountView a = manager.executeCustomGetProcedure(AccountView.GET_FROM_VIEW, AccountView.class, userid);
@@ -40,6 +41,7 @@ public class EditAccountServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userid = (String) request.getSession().getAttribute("userid");
 		AccountView av = manager.executeCustomGetProcedure(AccountView.GET_FROM_VIEW, AccountView.class, userid);

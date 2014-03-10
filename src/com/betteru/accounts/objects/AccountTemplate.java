@@ -16,6 +16,9 @@ import com.github.mlaursen.database.procedures.Getable;
  *
  */
 public abstract class AccountTemplate extends DatabaseObject implements Getable, Createable {
+	
+	private static final long serialVersionUID = 1989460514979083408L;
+
 	@DatabaseField(values={NEW})
 	protected String username;
 	

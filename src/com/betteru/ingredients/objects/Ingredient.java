@@ -3,7 +3,6 @@
  */
 package com.betteru.ingredients.objects;
 
-
 import com.betteru.databasechoices.ingredients.Brand;
 import com.betteru.databasechoices.ingredients.Category;
 import com.betteru.ingredients.AltServing;
@@ -27,37 +26,41 @@ import com.github.mlaursen.database.procedures.Updateable;
 
 /**
  * @author mikkel.laursen
- *
+ * 
  */
 public class Ingredient extends DatabaseObject implements Getable, GetAllable, Createable, Updateable, Deleteable, Filterable {
-
-	@DatabaseField(values={DatabaseFieldType.NEW, DatabaseFieldType.UPDATE})
+	
+	private static final long serialVersionUID = -1043988307946824730L;
+	
+	@DatabaseField(values = { DatabaseFieldType.NEW, DatabaseFieldType.UPDATE })
 	private String name;
 	
-	@DatabaseField(values={DatabaseFieldType.NEW, DatabaseFieldType.UPDATE, DatabaseFieldType.FILTER}, filterPosition=1)
+	@DatabaseField(values = { DatabaseFieldType.NEW, DatabaseFieldType.UPDATE, DatabaseFieldType.FILTER }, filterPosition = 1)
 	private Brand brand;
 	
-	@DatabaseField(values={DatabaseFieldType.NEW, DatabaseFieldType.UPDATE, DatabaseFieldType.FILTER}, filterPosition=0)
+	@DatabaseField(values = { DatabaseFieldType.NEW, DatabaseFieldType.UPDATE, DatabaseFieldType.FILTER }, filterPosition = 0)
 	private Category category;
 	
-	@MultipleDatabaseField(values={DatabaseFieldType.NEW, DatabaseFieldType.UPDATE}, names = { "servingSize", "servingUnit" })
+	@MultipleDatabaseField(values = { DatabaseFieldType.NEW, DatabaseFieldType.UPDATE }, names = { "servingSize", "servingUnit" })
 	private Serving defaultServing;
 	
-	@MultipleDatabaseField(values={DatabaseFieldType.NEW, DatabaseFieldType.UPDATE}, names = { "altservingSize", "altservingUnit" })
+	@MultipleDatabaseField(values = { DatabaseFieldType.NEW, DatabaseFieldType.UPDATE }, names = { "altservingSize", "altservingUnit" })
 	private Serving alternateServing;
 	
-	@DatabaseField(values={DatabaseFieldType.NEW, DatabaseFieldType.UPDATE})
+	@DatabaseField(values = { DatabaseFieldType.NEW, DatabaseFieldType.UPDATE })
 	private Calorie calories;
 	
-	@DatabaseField(values={DatabaseFieldType.NEW, DatabaseFieldType.UPDATE})
+	@DatabaseField(values = { DatabaseFieldType.NEW, DatabaseFieldType.UPDATE })
 	private Carbohydrate carbs;
 	
-	@DatabaseField(values={DatabaseFieldType.NEW, DatabaseFieldType.UPDATE})
+	@DatabaseField(values = { DatabaseFieldType.NEW, DatabaseFieldType.UPDATE })
 	private Fat fat;
 	
-	@DatabaseField(values={DatabaseFieldType.NEW, DatabaseFieldType.UPDATE})
+	@DatabaseField(values = { DatabaseFieldType.NEW, DatabaseFieldType.UPDATE })
 	private Protein protein;
-	public Ingredient() { }
+	
+	public Ingredient() {}
+	
 	public Ingredient(String name, Brand b, Category c, Serving def, Serving alt, Calorie cal, Fat f, Carbohydrate carb, Protein protein) {
 		super();
 		this.name = name;
@@ -70,7 +73,7 @@ public class Ingredient extends DatabaseObject implements Getable, GetAllable, C
 		this.carbs = carb;
 		this.protein = protein;
 	}
-
+	
 	/**
 	 * @param r
 	 */
@@ -90,14 +93,17 @@ public class Ingredient extends DatabaseObject implements Getable, GetAllable, C
 		this.carbs = f.getCarbs();
 		this.protein = f.getProtein();
 	}
+	
 	/**
 	 * @return the name
 	 */
 	public String getName() {
 		return name;
 	}
+	
 	/**
-	 * @param name the name to set
+	 * @param name
+	 *            the name to set
 	 */
 	public void setName(String name) {
 		this.name = name;
@@ -106,14 +112,17 @@ public class Ingredient extends DatabaseObject implements Getable, GetAllable, C
 	public void setName(MyResultRow r) {
 		this.name = r.get("name");
 	}
+	
 	/**
 	 * @return the brand
 	 */
 	public Brand getBrand() {
 		return brand;
 	}
+	
 	/**
-	 * @param brand the brand to set
+	 * @param brand
+	 *            the brand to set
 	 */
 	public void setBrand(Brand brand) {
 		this.brand = brand;
@@ -122,14 +131,17 @@ public class Ingredient extends DatabaseObject implements Getable, GetAllable, C
 	public void setBrand(MyResultRow r) {
 		this.brand = new Brand(r.get("brand"));
 	}
+	
 	/**
 	 * @return the category
 	 */
 	public Category getCategory() {
 		return category;
 	}
+	
 	/**
-	 * @param category the category to set
+	 * @param category
+	 *            the category to set
 	 */
 	public void setCategory(Category category) {
 		this.category = category;
@@ -138,14 +150,17 @@ public class Ingredient extends DatabaseObject implements Getable, GetAllable, C
 	public void setCategory(MyResultRow r) {
 		this.category = new Category(r.get("category"));
 	}
+	
 	/**
 	 * @return the calories
 	 */
 	public Calorie getCalories() {
 		return calories;
 	}
+	
 	/**
-	 * @param calories the calories to set
+	 * @param calories
+	 *            the calories to set
 	 */
 	public void setCalories(Calorie calories) {
 		this.calories = calories;
@@ -154,14 +169,17 @@ public class Ingredient extends DatabaseObject implements Getable, GetAllable, C
 	public void setCalories(MyResultRow r) {
 		this.calories = new Calorie(r);
 	}
+	
 	/**
 	 * @return the carbs
 	 */
 	public Carbohydrate getCarbs() {
 		return carbs;
 	}
+	
 	/**
-	 * @param carbs the carbs to set
+	 * @param carbs
+	 *            the carbs to set
 	 */
 	public void setCarbs(Carbohydrate carbs) {
 		this.carbs = carbs;
@@ -170,14 +188,17 @@ public class Ingredient extends DatabaseObject implements Getable, GetAllable, C
 	public void setCarbs(MyResultRow r) {
 		this.carbs = new Carbohydrate(r);
 	}
+	
 	/**
 	 * @return the fat
 	 */
 	public Fat getFat() {
 		return fat;
 	}
+	
 	/**
-	 * @param fat the fat to set
+	 * @param fat
+	 *            the fat to set
 	 */
 	public void setFat(Fat fat) {
 		this.fat = fat;
@@ -186,19 +207,22 @@ public class Ingredient extends DatabaseObject implements Getable, GetAllable, C
 	public void setFat(MyResultRow r) {
 		this.fat = new Fat(r);
 	}
+	
 	/**
 	 * @return the protein
 	 */
 	public Protein getProtein() {
 		return protein;
 	}
+	
 	/**
-	 * @param protein the protein to set
+	 * @param protein
+	 *            the protein to set
 	 */
 	public void setProtein(Protein protein) {
 		this.protein = protein;
 	}
-
+	
 	public void setProtein(MyResultRow r) {
 		this.protein = new Protein(r);
 	}
@@ -206,8 +230,10 @@ public class Ingredient extends DatabaseObject implements Getable, GetAllable, C
 	public Serving getDefaultServing() {
 		return defaultServing;
 	}
+	
 	/**
-	 * @param defaultServing the defaultServing to set
+	 * @param defaultServing
+	 *            the defaultServing to set
 	 */
 	public void setDefaultServing(Serving defaultServing) {
 		this.defaultServing = defaultServing;
@@ -220,8 +246,10 @@ public class Ingredient extends DatabaseObject implements Getable, GetAllable, C
 	public Serving getAlternateServing() {
 		return this.alternateServing;
 	}
+	
 	/**
-	 * @param alternateServing the alternateServing to set
+	 * @param alternateServing
+	 *            the alternateServing to set
 	 */
 	public void setAlternateServing(AltServing alternateServing) {
 		this.alternateServing = alternateServing;
@@ -238,7 +266,10 @@ public class Ingredient extends DatabaseObject implements Getable, GetAllable, C
 	public String getServingUnit() {
 		return this.defaultServing.getUnitName();
 	}
-	/* (non-Javadoc)
+	
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
@@ -259,10 +290,21 @@ public class Ingredient extends DatabaseObject implements Getable, GetAllable, C
 				return i.getPrimaryKey().equals(this.primaryKey);
 			}
 			else {
-				return name.equals(i.getName()) && brand.equals(i.getBrand())
-						&& category.equals(i.getCategory()) /*&& defaultServing.equals(i.getDefaultServing())
-						&& alternateServing.equals(getAlternateServing()) && calories.equals(i.getCalories())
-						&& fat.equals(i.getFat()) && carbs.equals(i.getCarbs()) && protein.equals(i.getProtein())*/;
+				return name.equals(i.getName()) && brand.equals(i.getBrand()) && category.equals(i.getCategory()) /*
+																												 * &&
+																												 * defaultServing.equals(i
+																												 * .getDefaultServing()) &&
+																												 * alternateServing
+																												 * .equals(getAlternateServing
+																												 * ()) &&
+																												 * calories.equals(i.getCalories
+																												 * ()) &&
+																												 * fat.equals(i.getFat()) &&
+																												 * carbs
+																												 * .equals(i.getCarbs()) &&
+																												 * protein
+																												 * .equals(i.getProtein())
+																												 */;
 			}
 		}
 		else

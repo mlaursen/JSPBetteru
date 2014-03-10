@@ -6,11 +6,13 @@
 <t:nocontainer>
   <jsp:attribute name="title">View Meals</jsp:attribute>
   <jsp:attribute name="additional_css">
-  <link href="${pageContext.request.contextPath}/css/meals.css" rel="stylesheet" />
+  <link href="${pageContext.request.contextPath}/css/meals.css"
+      rel="stylesheet" />
   </jsp:attribute>
   <jsp:attribute name="content">
   <div class="meal-container">
-    <jsp:include page="meal_table.jsp"><jsp:param value="${meals}" name="meals"/></jsp:include>
+    <jsp:include page="meal_table.jsp"><jsp:param
+          value="${meals}" name="meals" /></jsp:include>
   </div>
   </jsp:attribute>
   <jsp:attribute name="additional_js">

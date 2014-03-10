@@ -21,6 +21,7 @@ import com.github.mlaursen.database.procedures.Updateable;
  */
 public class Weight extends DatabaseObject implements Filterable, Getable, Updateable, Createable {
 
+	private static final long serialVersionUID = 5085280940250171356L;
 	@DatabaseField(values={DatabaseFieldType.NEW, DatabaseFieldType.UPDATE, DatabaseFieldType.FILTER})
 	protected String accountId;
 	@DatabaseField(values={DatabaseFieldType.NEW, DatabaseFieldType.UPDATE})

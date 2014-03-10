@@ -19,6 +19,10 @@ import com.github.mlaursen.database.procedures.Updateable;
  */
 public class DailyMealIntake extends DailyIntakeTemplate implements Filterable, Updateable, Createable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3993754071827932686L;
 	@DatabaseField(values={DatabaseFieldType.NEW, DatabaseFieldType.UPDATE})
 	protected String mealId;
 	public DailyMealIntake() {

@@ -25,6 +25,10 @@ import com.github.mlaursen.database.procedures.GetAllable;
 @DatabaseViewClass(MealPart.class)
 public class MealPartView extends DatabaseView implements Filterable, GetAllable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6015082463095946774L;
 	@DatabaseField(values={DatabaseFieldType.FILTER})
 	private String mealId;
 	private double amount;

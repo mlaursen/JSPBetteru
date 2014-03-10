@@ -18,6 +18,11 @@ import com.github.mlaursen.database.procedures.Updateable;
  */
 public class MealPart extends DatabaseObject implements Createable, Getable, Updateable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5642177442504142550L;
+
 	@DatabaseField(values={DatabaseFieldType.NEW, DatabaseFieldType.UPDATE})
 	protected String mealId;
 	

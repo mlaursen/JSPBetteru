@@ -74,7 +74,7 @@ public abstract class Template extends DatabaseObject implements Getable, GetAll
 		if(this.getClass().getSimpleName().equals("Brand")) {
 			choices.add(new Brand("New Brand"));
 		}
-		choices.addAll((List<DropdownChoice>) new ObjectManager(this.getClass()).getAll(this.getClass()));
+		choices.addAll(new ObjectManager(this.getClass()).getAll(this.getClass()));
 		for(int i = 0; i < choices.size(); i++) {
 			choices.get(i).setDropdownKey(i);
 		}

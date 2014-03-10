@@ -29,6 +29,7 @@ public class ViewIngredients extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/ingredients/table.jsp");
 		List<Ingredient> allIngs = manager.getAll(Ingredient.class);

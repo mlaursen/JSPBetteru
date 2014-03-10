@@ -29,6 +29,7 @@ public class FilterIngredients extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/ingredients/load_table.jsp");
 		request.setAttribute("ingredients", manager.filter(Ingredient.class, request.getParameter("category"), request.getParameter("brand")));
@@ -38,6 +39,7 @@ public class FilterIngredients extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 	}

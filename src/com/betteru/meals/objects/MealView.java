@@ -26,6 +26,10 @@ import com.github.mlaursen.database.procedures.Getable;
 @DatabaseViewClass(Meal.class)
 public class MealView extends DatabaseView implements Getable, GetAllable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1350205600740619670L;
 	private String name;
 	private MyClob description;
 	private Calorie totalCalories;

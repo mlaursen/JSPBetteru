@@ -13,6 +13,8 @@ import com.github.mlaursen.database.procedures.Deleteable;
 import com.github.mlaursen.database.procedures.Getable;
 
 public class TempAccount extends AccountTemplate implements Getable, Createable, Deleteable {
+	
+	private static final long serialVersionUID = -4675987132129139814L;
 	public static final String NEW_ACCOUNT = "newaccount";
 	@DatabaseField(values = { DatabaseFieldType.NEW })
 	private String code;

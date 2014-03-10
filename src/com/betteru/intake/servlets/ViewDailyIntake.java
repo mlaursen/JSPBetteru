@@ -1,6 +1,7 @@
 package com.betteru.intake.servlets;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,14 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.betteru.accounts.objects.Account;
-import com.betteru.ingredients.forms.CreateIngredientForm;
 import com.betteru.intake.objects.DailyIntake;
 import com.betteru.intake.objects.DailyMealIntake;
-import com.betteru.intake.objects.HarrisBenedict;
-import com.betteru.intake.objects.MifflinStJoer;
+import com.betteru.intake.objects.Formula;
 import com.betteru.intake.objects.Weight;
 import com.github.mlaursen.database.managers.ObjectManager;
-import com.github.mlaursen.database.utils.ClassUtil;
 
 /**
  * Servlet implementation class ViewDailyIntake
@@ -30,24 +28,32 @@ public class ViewDailyIntake extends HttpServlet {
 	 */
 	public ViewDailyIntake() {
 		super();
-		manager = new ObjectManager(DailyIntake.class, DailyMealIntake.class, MifflinStJoer.class, HarrisBenedict.class, Account.class, Weight.class);
-		manager.renamePackage(MifflinStJoer.class, DailyIntake.class);
-		manager.renamePackage(HarrisBenedict.class, DailyIntake.class);
-		System.out.println(manager);
+		manager = new ObjectManager(DailyIntake.class, DailyMealIntake.class, Formula.class, Account.class, Weight.class);
+		manager.renamePackage(Formula.class, DailyIntake.class);
 	}
 	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/intake/view.jsp");
-		System.out.println(manager.executeCustomGetAllProcedure(MifflinStJoer.MIFFLIN_ST_JOER, MifflinStJoer.class, 0, null));
+		String userid = (String) request.getSession().getAttribute("userid");
+		userid = userid == null ? "0" : userid;
+		List<Formula> formulas = manager.executeCustomGetAllProcedure(Formula.GET_FROM_FORMULA, Formula.class, userid, null);
+		Formula.generateMeals(formulas, manager);
+		for(Formula f : formulas) {
+			System.out.println(f);
+		}
+		request.setAttribute("formulas", formulas);
+		//System.out.println(manager.executeCustomGetAllProcedure(MifflinStJoer.MIFFLIN_ST_JOER, MifflinStJoer.class, 0, null));
 		rd.forward(request, response);
 	}
 	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 	}
