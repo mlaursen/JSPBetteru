@@ -19,30 +19,30 @@
   </tr>
   <tr>
   <th>Total Calories</th><c:forEach items="${formula.meals}" var="meal"><td><c:out value="${meal.totalCalories}" /></td></c:forEach>
-  <td><c:out value="${formula.calorieAmount}" /></td>
-  <td><c:out value="${formula.totalCalories }" /></td>
+  <td><c:out value="${formula.expectedCalories}" /></td>
+  <td><c:out value="${formula.totalCalories}" /></td>
   <td><c:out value="${formula.remainingCalories}" /></td>
   </tr>
   <tr>
   <th>Total Fat</th>
   <c:forEach items="${formula.meals}" var="meal"><td><c:out value="${meal.totalFat}" /></td></c:forEach>
-  <td></td>
-  <td></td>
-  <td></td>
+  <td><c:out value="${formula.expectedFat}" /></td>
+  <td><c:out value="${formula.totalFat}" /></td>
+  <td><c:out value="${formula.remainingFat}" /></td>
   </tr>
   <tr>
   <th>Total Carbohydrates</th>
   <c:forEach items="${formula.meals}" var="meal"><td><c:out value="${meal.totalCarbs}" /></td></c:forEach>
-  <td><c:out value="${formula.totalCalories}" /></td>
-  <td></td>
-  <td><c:out value="${formula.calorieAmount}" /></td>
+  <td><c:out value="${formula.expectedCarbs}" /></td>
+  <td><c:out value="${formula.totalCarbs}" /></td>
+  <td><c:out value="${formula.remainingCarbs}" /></td>
   </tr>
   <tr>
   <th>Total Protein</th>
   <c:forEach items="${formula.meals}" var="meal"><td><c:out value="${meal.totalProtein}" /></td></c:forEach>
-  <td></td>
-  <td></td>
-  <td></td>
+  <td><c:out value="${formula.expectedProtein}" /></td>
+  <td><c:out value="${formula.totalProtein}" /></td>
+  <td><c:out value="${formula.remainingProtein}" /></td>
   </tr>
 </table>
   </c:forEach>

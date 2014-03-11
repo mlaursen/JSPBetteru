@@ -21,4 +21,5 @@ public class Fat extends Macro {
 		super(r);
 		setToCals(9);
 	}
+	
 }

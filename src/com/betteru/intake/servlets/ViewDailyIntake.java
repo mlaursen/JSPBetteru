@@ -46,7 +46,6 @@ public class ViewDailyIntake extends HttpServlet {
 		List<Formula> formulas = manager.executeCustomGetAllProcedure(Formula.GET_FROM_FORMULA, Formula.class, userid, null);
 		Formula.generateMeals(formulas, manager);
 		request.setAttribute("formulas", formulas);
-		//System.out.println(manager.executeCustomGetAllProcedure(MifflinStJoer.MIFFLIN_ST_JOER, MifflinStJoer.class, 0, null));
 		rd.forward(request, response);
 	}
 	

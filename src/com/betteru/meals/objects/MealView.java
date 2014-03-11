@@ -11,6 +11,7 @@ import com.betteru.ingredients.Carbohydrate;
 import com.betteru.ingredients.Fat;
 import com.betteru.ingredients.Macro;
 import com.betteru.ingredients.Protein;
+import com.betteru.utils.StringNumberUtil;
 import com.github.mlaursen.annotations.DatabaseViewClass;
 import com.github.mlaursen.database.managers.ObjectManager;
 import com.github.mlaursen.database.objects.DatabaseView;
