@@ -346,7 +346,8 @@ public class Formula extends DatabaseObject implements Serializable {
 	}
 	
 	public void setMealIds(MyResultRow r) {
-		this.mealIds = Arrays.asList(r.get("meal_ids").split(","));
+		String ids = r.get("meal_ids");
+		this.mealIds = ids == null ? new ArrayList<String>() : Arrays.asList(ids.split(","));
 	}
 	
 	public void setIntakeDate(MyResultRow r) {

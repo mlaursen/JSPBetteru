@@ -366,8 +366,7 @@ CREATE OR REPLACE PACKAGE DAILY_INTAKE_PKG AS
   -- Returns a single daily_intake by id
   PROCEDURE GET(PID IN INTEGER, PCURSOR OUT SYS_REFCURSOR);
   
-  -- Returns a single daily_intake for an account on a certain date.
-  -- If the date is null, it returns all daily_intake for the user
+  -- Returns a
   PROCEDURE FILTER(PID IN INTEGER, PDATE IN DATE, PCURSOR OUT SYS_REFCURSOR);
   
   -- Creates a new daily_intake for an account by id, date, and calorie change
@@ -380,9 +379,17 @@ CREATE OR REPLACE PACKAGE DAILY_INTAKE_PKG AS
                , PPROT IN DECIMAL DEFAULT 0.0
                , PID IN INTEGER DEFAULT SEQ_DAILY_INTAKE_ID.NEXTVAL );
   
+  -- Generates a daily_intake week for an account. sets everthing to 0.
+  -- Needs to be updated later
+  PROCEDURE GENERATEINTAKEWEEK(PACTID IN INTEGER);
+  
   -- Returns a sys_refcursor for a daily_intake with the correct formula
+  -- Returns 7 rows
   PROCEDURE GETFROMFORMULA(PID IN INTEGER, PDATE IN DATE, PCURSOR OUT SYS_REFCURSOR);
   
+  -- Returns a sys_refcursor for a daily_intake combined with the account's formula
+  -- and returns pamt rows
+  PROCEDURE GETFROMFORMULA(PID IN INTEGER, PDATE IN DATE, PAMT IN INTEGER, PCURSOR OUT SYS_REFCURSOR);
 
 END DAILY_INTAKE_PKG;
 /

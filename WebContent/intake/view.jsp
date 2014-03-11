@@ -6,6 +6,12 @@
 <t:base>
   <jsp:attribute name="title">Daily Intake</jsp:attribute>
   <jsp:attribute name="content">
+  <div class="row-fluid">
+    <div class="span8 offset2">
+      <t:successfield success="${success}" />
+      <t:errorfield errors="${nonFieldError}" />
+      </div>
+  </div>
   <c:forEach items="${formulas}" var="formula"><h4><c:out value="${formula.getIntakeDateString()}"> /</c:out></h4>
   <table class="table table-striped table-bordered table-hover table-condensed">
   <tr>
@@ -44,5 +50,14 @@
   </tr>
 </table>
   </c:forEach>
+  </jsp:attribute>
+  <jsp:attribute name="additional_js">
+  <script type="text/javascript">
+  	$(function() {
+  		window.setTimeout(function() {
+  			$('.alert').alert('close');
+  		}, 3000);
+  	});
+  </script>
   </jsp:attribute>
 </t:base>

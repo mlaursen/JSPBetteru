@@ -28,6 +28,7 @@ public class DailyIntake extends DailyIntakeTemplate implements Updateable, Crea
 	private static final long serialVersionUID = 7842332693437947749L;
 	public static final String MIFFLIN_ST_JOER = "getFromMifflinStJoer";
 	public static final String HARRIS_BENEDICT = "getFromHarrisBenedict";
+	public static final String GENERATE_WEEK   = "generateIntakeWeek";
 	@DatabaseField(values={DatabaseFieldType.NEW, DatabaseFieldType.UPDATE})
 	protected int calorieChange;
 	public DailyIntake() {
@@ -70,6 +71,13 @@ public class DailyIntake extends DailyIntakeTemplate implements Updateable, Crea
 	
 	public void setCalorieChange(MyResultRow r) {
 		this.calorieChange = r.getInt("calorie_change");
+	}
+	
+	@Override
+	public List<Procedure> getCustomProcedures() {
+		Procedure genWeek = new Procedure(GENERATE_WEEK, "id");
+		genWeek.setHasCursor(false);
+		return Arrays.asList(genWeek);
 	}
 
 	/* (non-Javadoc)
