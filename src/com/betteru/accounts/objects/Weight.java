@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.betteru.intake.objects;
+package com.betteru.accounts.objects;
 
 import java.sql.Date;
 
@@ -12,36 +12,25 @@ import com.github.mlaursen.database.objects.MyResultRow;
 import com.github.mlaursen.database.procedures.Createable;
 import com.github.mlaursen.database.procedures.Filterable;
 import com.github.mlaursen.database.procedures.Getable;
-import com.github.mlaursen.database.procedures.Updateable;
+import com.github.mlaursen.database.utils.DateUtil;
 
 
 /**
  * @author mikkel.laursen
  *
  */
-public class Weight extends DatabaseObject implements Filterable, Getable, Updateable, Createable {
-
-	private static final long serialVersionUID = 5085280940250171356L;
-	@DatabaseField(values={DatabaseFieldType.NEW, DatabaseFieldType.UPDATE, DatabaseFieldType.FILTER})
-	protected String accountId;
-	@DatabaseField(values={DatabaseFieldType.NEW, DatabaseFieldType.UPDATE})
-	protected Date weightDate;
-	@DatabaseField(values={DatabaseFieldType.NEW, DatabaseFieldType.UPDATE})
-	protected double weight;
-	public Weight() {
-		// TODO Auto-generated constructor stub
-	}
+public class Weight extends DatabaseObject implements Getable, Filterable, Createable {
 	
-	/**
-	 * @param accountId
-	 * @param weightDate
-	 * @param weight
-	 */
-	public Weight(String accountId, Date weightDate, double weight) {
-		this.accountId = accountId;
-		this.weightDate = weightDate;
-		this.weight = weight;		
-	}
+	private static final long serialVersionUID = -9117246937927484713L;
+
+	@DatabaseField(values={DatabaseFieldType.NEW, DatabaseFieldType.FILTER})
+	private String accountId;
+	@DatabaseField(values={DatabaseFieldType.NEW, DatabaseFieldType.FILTER})
+	private Date weightDate;
+	
+	@DatabaseField(values={DatabaseFieldType.NEW})
+	private double weight;
+	public Weight() { }
 	
 	/**
 	 * @param r
@@ -50,6 +39,11 @@ public class Weight extends DatabaseObject implements Filterable, Getable, Updat
 		super(r);
 	}
 
+	public Weight(String userid, double weight) {
+		this.accountId = userid;
+		this.weight = weight;
+		this.weightDate = DateUtil.createSysdate();
+	}
 	
 	/**
 	 * @return the accountId

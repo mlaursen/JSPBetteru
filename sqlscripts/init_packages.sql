@@ -77,7 +77,6 @@ CREATE OR REPLACE PACKAGE ACCOUNT_PKG AS
                          , PUNITSYSTEM IN ACCOUNT.UNIT%TYPE
                          , PBIRTHDAY IN ACCOUNT.BIRTHDAY%TYPE
                          );
-  
 END ACCOUNT_PKG;
 /
 

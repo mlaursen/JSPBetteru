@@ -6,12 +6,18 @@
 <t:base>
   <jsp:attribute name="title">Daily Intake</jsp:attribute>
   <jsp:attribute name="content">
+    <c:if test="${not empty weight}"><div class="row-fluid">
+    <div class="span8 offset2 alert alert-info alert-block">
+      <form action="/accounts/addweight.jsp" method="post" class="form-inline">
+        <label>${weight}</label>
+        <input type="text" id="weight" name="weight" placeHolder="0.00" class="span2" />
+        <button name="submit" type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+  </div></c:if>
+    <t:successfield success="${success}" />
+    <t:errorfield errors="${nonFieldError}" />
   <div class="row-fluid">
-    <div class="span8 offset2">
-      <t:successfield success="${success}" />
-      <t:errorfield errors="${nonFieldError}" />
-      </div>
-  </div>
   <c:forEach items="${formulas}" var="formula"><div class="row-fluid">
     <h4><c:out value="${formula.getIntakeDateString()}"> /</c:out></h4>
     <table class="table table-striped table-bordered table-hover table-condensed">
@@ -56,7 +62,7 @@
   <script type="text/javascript">
   	$(function() {
   		window.setTimeout(function() {
-  			$('.alert').alert('close');
+  			$('.alert-success').alert('close');
   		}, 3000);
   	});
   </script>
