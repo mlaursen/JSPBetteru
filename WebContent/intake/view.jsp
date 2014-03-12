@@ -57,6 +57,7 @@
       </tr>
     </table>
   </div></c:forEach>
+  </div>
   </jsp:attribute>
   <jsp:attribute name="additional_js">
   <script type="text/javascript">
