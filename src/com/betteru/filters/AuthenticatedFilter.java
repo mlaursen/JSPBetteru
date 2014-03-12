@@ -32,15 +32,13 @@ public class AuthenticatedFilter implements Filter {
 	 */
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		// TODO Auto-generated method stub
-		// place your code here
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse res = (HttpServletResponse) response;
-		if(!isIndex(req) && req.getSession().getAttribute("userid") == null) {
+		if(isAuthenticatedNeeded(req) && req.getSession().getAttribute("userid") == null) {
+			req.getSession().setAttribute("errors", "You must be logged in to view this page. Please log in.");
 			res.sendRedirect(contextPath + "/");
 		}
 		else {
-			// pass the request along the filter chain
 			chain.doFilter(request, response);
 		}
 	}
@@ -48,6 +46,11 @@ public class AuthenticatedFilter implements Filter {
 	public boolean isIndex(HttpServletRequest request) {
 		String uri = request.getRequestURI();
 		return uri.matches(contextPath + "/(index.jsp)?");
+	}
+	
+	private boolean isAuthenticatedNeeded(HttpServletRequest request) {
+		String uri = request.getRequestURI();
+		return !uri.matches(contextPath + "/((info|index)\\.jsp)?");
 	}
 	
 	/**

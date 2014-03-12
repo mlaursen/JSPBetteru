@@ -79,6 +79,10 @@
   <filter-mapping>
     <filter-name>AuthenticatedFilter</filter-name>
     <url-pattern>/accounts/*</url-pattern>
+    <url-pattern>/intake/*</url-pattern>
+    <url-pattern>/ingredients/*</url-pattern>
+    <url-pattern>/meals/*</url-pattern>
+    <url-pattern>/stats/*</url-pattern>
   </filter-mapping>
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>

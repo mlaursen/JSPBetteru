@@ -31,6 +31,11 @@ public class LoginPageServlet extends HttpServlet {
 	 */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String errors = (String) request.getSession().getAttribute("errors");
+		if(errors != null) {
+			request.getSession().removeAttribute("errors");
+			request.setAttribute("errors", errors);
+		}
 		RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/accounts/login.jsp");
 		request.setAttribute("modals", new CreateAccountForm().asModal());
 		request.setAttribute("form", new LoginForm().toHtml());
