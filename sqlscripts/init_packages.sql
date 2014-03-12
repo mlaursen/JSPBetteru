@@ -374,9 +374,9 @@ CREATE OR REPLACE PACKAGE DAILY_INTAKE_PKG AS
   PROCEDURE NEW( PACTID IN INTEGER
                , PDATE IN DATE
                , PCAL IN INTEGER DEFAULT 0
-               , PFAT IN DECIMAL DEFAULT 0.0
-               , PCARB IN DECIMAL DEFAULT 0.0
-               , PPROT IN DECIMAL DEFAULT 0.0
+               , PFAT IN DECIMAL DEFAULT 0.5
+               , PCARB IN DECIMAL DEFAULT 0.5
+               , PPROT IN DECIMAL DEFAULT 1.0
                , PID IN INTEGER DEFAULT SEQ_DAILY_INTAKE_ID.NEXTVAL );
   
   -- Generates a daily_intake week for an account. sets everthing to 0.

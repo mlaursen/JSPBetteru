@@ -1,7 +1,7 @@
 package com.betteru.intake.servlets;
 
 import java.io.IOException;
-import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -9,8 +9,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import oracle.sql.DATE;
 
 import com.betteru.accounts.objects.Account;
 import com.betteru.intake.objects.DailyIntake;
@@ -49,8 +47,9 @@ public class ViewDailyIntake extends HttpServlet {
 		userid = userid == null ? "0" : userid;
 		List<Formula> formulas = manager.executeCustomGetAllProcedure(Formula.GET_FROM_FORMULA, Formula.class, userid, DateUtil.createSysdate());
 		if(formulas.isEmpty()) {
-			manager.executeCustomGetAllProcedure(DailyIntake.GENERATE_WEEK, DailyIntake.class, userid);
+			manager.executeCustomProcedure(DailyIntake.GENERATE_WEEK, DailyIntake.class, userid);
 			request.setAttribute("success", "A new week has been created.");
+			formulas = manager.executeCustomGetAllProcedure(Formula.GET_FROM_FORMULA, Formula.class, userid, DateUtil.createSysdate());
 		}
 		Formula.generateMeals(formulas, manager);
 		request.setAttribute("formulas", formulas);

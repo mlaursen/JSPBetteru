@@ -63,3 +63,13 @@ body.page404 {
 .myspan-small {
   width: 80px;
 }
+
+body {
+  padding-bottom:65px;
+}
+
+@media (max-width: 979px) {
+  body {
+    padding-bottom: 0px;
+  }
+}

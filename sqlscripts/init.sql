@@ -1,9 +1,10 @@
-start init_tables.sql;
-START INIT_SEQUENCES.SQL
-start init_functions.sql;
-start init_packages.sql;
-start init_package_body.sql;
-start init_views.sql;
+START INIT_TABLES.SQL;
+START INIT_SEQUENCES.SQL;
+START INIT_FUNCTIONS.SQL;
+START INIT_PACKAGES.SQL;
+START INIT_VIEWS.SQL;
+START INIT_PACKAGE_BODY.SQL;
+
 
 -- I don't understand this. even with substring from 1-10, the size of the string is 40
 ALTER TABLE CALORIE_SPLIT
@@ -11,7 +12,7 @@ ADD (ABBREVIATION VARCHAR2(40) GENERATED ALWAYS AS
     (SUBSTR(CALORIE_SPLIT_PKG.FORABBR(WORKOUT_MULTIPLIER, REST_MULTIPLIER),1,10)));
 
 
-start init_values.sql;
+START INIT_VALUES.SQL;
 
 ALTER TABLE UNIT_SYSTEM READ ONLY;
 ALTER TABLE WEEKDAY READ ONLY;
