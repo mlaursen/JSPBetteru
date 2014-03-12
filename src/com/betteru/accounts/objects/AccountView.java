@@ -147,6 +147,10 @@ public class AccountView extends DatabaseView {
 		return this.accountSetting;
 	}
 	
+	public boolean isCompletedSettings() {
+		return this.account.isCompletedSettings() && this.accountSetting.isCompletedSettings();
+	}
+	
 	@Override
 	public List<Procedure> getCustomProcedures() {
 		Procedure p = new Procedure(GET_FROM_VIEW, "id");

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import com.betteru.accounts.forms.CreateAccountForm;
 import com.betteru.accounts.forms.LoginForm;
 import com.betteru.accounts.objects.Account;
+import com.betteru.accounts.objects.AccountView;
 import com.betteru.accounts.objects.TempAccount;
 import com.github.mlaursen.database.managers.ObjectManager;
 
@@ -23,7 +24,7 @@ public class LoginPageServlet extends HttpServlet {
     private ObjectManager manager;
     public LoginPageServlet() {
         super();
-        manager = new ObjectManager(Account.class, TempAccount.class);
+        manager = new ObjectManager(Account.class, TempAccount.class, AccountView.class);
     }
 
 	/**
@@ -56,7 +57,12 @@ public class LoginPageServlet extends HttpServlet {
 				HttpSession session = request.getSession(true);
 				session.setAttribute("userid", a.getPrimaryKey());
 				a.updateLastLogin(manager);
-				response.sendRedirect("accounts/index.jsp");
+				if(manager.executeCustomGetProcedure(AccountView.GET_FROM_VIEW, AccountView.class, a.getPrimaryKey()).isCompletedSettings()) {
+					response.sendRedirect("intake/index.jsp");
+				}
+				else {
+					response.sendRedirect("accounts/index.jsp");
+				}
 				return;
 			}
 			else {

@@ -172,6 +172,10 @@ public class Account extends AccountTemplate implements Getable, Createable, Upd
 		this.lastLogin = r.getDate("last_login");
 	}
 	
+	public boolean isCompletedSettings() {
+		return this.birthday != null && !this.gender.equals(Gender.DEFAULT) && !this.unitSystem.equals(UnitSystem.DEFAULT);
+	}
+	
 	/** toString **/
 	
 	@Override

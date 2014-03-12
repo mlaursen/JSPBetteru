@@ -17,26 +17,28 @@ import com.github.mlaursen.database.procedures.Getable;
 
 /**
  * @author mikkel.laursen
- *
+ * 
  */
 public class AccountSetting extends DatabaseObject implements Getable, Createable {
-
+	
 	private static final long serialVersionUID = -5183565110659336141L;
-
-	@DatabaseField(values={DatabaseFieldType.NEW})
+	
+	@DatabaseField(values = { DatabaseFieldType.NEW })
 	private String accountId;
-
-	@DatabaseField(values={DatabaseFieldType.NEW})
+	
+	@DatabaseField(values = { DatabaseFieldType.NEW })
 	private Weekday weekday;
-	@DatabaseField(values={DatabaseFieldType.NEW})
+	@DatabaseField(values = { DatabaseFieldType.NEW })
 	private Multiplier multiplier;
-	@DatabaseField(values={DatabaseFieldType.NEW})
+	@DatabaseField(values = { DatabaseFieldType.NEW })
 	private double height;
-	@DatabaseField(values={DatabaseFieldType.NEW})
+	@DatabaseField(values = { DatabaseFieldType.NEW })
 	private Formula formula;
 	
 	private Date dateChanged;
+	
 	public AccountSetting() {}
+	
 	public AccountSetting(String primaryKey) {
 		super(primaryKey);
 	}
@@ -53,39 +55,43 @@ public class AccountSetting extends DatabaseObject implements Getable, Createabl
 		this.height = av.getHeight();
 		this.formula = av.getFormula();
 	}
+	
 	/**
 	 * @return the accountId
 	 */
 	public String getAccountId() {
 		return accountId;
 	}
+	
 	/**
-	 * @param accountId the accountId to set
+	 * @param accountId
+	 *            the accountId to set
 	 */
 	public void setAccountId(String accountId) {
 		this.accountId = accountId;
 	}
 	
-	
 	/**
-	 * Set the account id from a myresultrow.
-	 * It first attempts to set it to the column ACCOUNTID
-	 * If account id doesn't exist (The MyResultRow is a AccountView result row),
-	 * it sets the account id to the ID column
+	 * Set the account id from a myresultrow. It first attempts to set it to the column ACCOUNTID If account id doesn't exist (The
+	 * MyResultRow is a AccountView result row), it sets the account id to the ID column
+	 * 
 	 * @param r
 	 */
 	public void setAccountId(MyResultRow r) {
 		String id = r.get("accountid");
 		this.accountId = id == null ? r.get("id") : id;
 	}
+	
 	/**
 	 * @return the multiplier
 	 */
 	public Multiplier getMultiplier() {
 		return multiplier;
 	}
+	
 	/**
-	 * @param multiplier the multiplier to set
+	 * @param multiplier
+	 *            the multiplier to set
 	 */
 	public void setMultiplier(Multiplier multiplier) {
 		this.multiplier = multiplier;
@@ -94,14 +100,17 @@ public class AccountSetting extends DatabaseObject implements Getable, Createabl
 	public void setMultiplier(MyResultRow r) {
 		this.multiplier = new Multiplier(r.get("multiplier"));
 	}
+	
 	/**
 	 * @return the weekday
 	 */
 	public Weekday getWeekday() {
 		return weekday;
 	}
+	
 	/**
-	 * @param weekday the weekday to set
+	 * @param weekday
+	 *            the weekday to set
 	 */
 	public void setWeekday(Weekday weekday) {
 		this.weekday = weekday;
@@ -110,37 +119,43 @@ public class AccountSetting extends DatabaseObject implements Getable, Createabl
 	public void setWeekday(MyResultRow r) {
 		this.weekday = new Weekday(r.get("weekday"));
 	}
+	
 	/**
 	 * @return the height
 	 */
 	public double getHeight() {
 		return height;
 	}
+	
 	/**
-	 * @param height the height to set
+	 * @param height
+	 *            the height to set
 	 */
 	public void setHeight(double height) {
 		this.height = height;
 	}
 	
 	public void setHeight(MyResultRow r) {
-		this.height = r.getDouble("height");//StringNumberUtil.attemptParseDouble(r, "height");
+		this.height = r.getDouble("height");// StringNumberUtil.attemptParseDouble(r, "height");
 	}
+	
 	/**
 	 * @return the dateChanged
 	 */
 	public Date getDateChanged() {
 		return dateChanged;
 	}
+	
 	/**
-	 * @param dateChanged the dateChanged to set
+	 * @param dateChanged
+	 *            the dateChanged to set
 	 */
 	public void setDateChanged(Date dateChanged) {
 		this.dateChanged = dateChanged;
 	}
-
+	
 	public void setDateChanged(MyResultRow r) {
-		this.dateChanged = r.getDate("date_changed");//DateUtil.stringToDate(r.get("date_changed"));
+		this.dateChanged = r.getDate("date_changed");// DateUtil.stringToDate(r.get("date_changed"));
 	}
 	
 	/**
@@ -151,7 +166,8 @@ public class AccountSetting extends DatabaseObject implements Getable, Createabl
 	}
 	
 	/**
-	 * @param formula the formula to set
+	 * @param formula
+	 *            the formula to set
 	 */
 	public void setFormula(Formula formula) {
 		this.formula = formula;
@@ -160,7 +176,13 @@ public class AccountSetting extends DatabaseObject implements Getable, Createabl
 	public void setFormula(MyResultRow r) {
 		this.formula = new Formula(r.get("formula"));
 	}
-	/* (non-Javadoc)
+	
+	public boolean isCompletedSettings() {
+		return this.height != 0 && !this.multiplier.equals(Multiplier.DEFAULT) && !this.formula.equals(Formula.DEFAULT);
+	}
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
@@ -168,7 +190,5 @@ public class AccountSetting extends DatabaseObject implements Getable, Createabl
 		return "AccountSetting [primaryKey=" + primaryKey + ", accountId=" + accountId + ", multiplier=" + multiplier + ", weekday="
 				+ weekday + ", height=" + height + ", dateChanged=" + dateChanged + "]";
 	}
-	
-	
 	
 }
