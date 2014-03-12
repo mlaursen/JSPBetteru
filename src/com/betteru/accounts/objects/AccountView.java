@@ -7,6 +7,7 @@ import java.sql.Date;
 import java.util.Arrays;
 import java.util.List;
 
+import com.betteru.databasechoices.accounts.Formula;
 import com.betteru.databasechoices.accounts.Gender;
 import com.betteru.databasechoices.accounts.Multiplier;
 import com.betteru.databasechoices.accounts.UnitSystem;
@@ -20,24 +21,26 @@ import com.github.mlaursen.database.utils.DateUtil;
 
 /**
  * @author mikkel.laursen
- *
+ * 
  */
 @DatabaseViewClass(Account.class)
 public class AccountView extends DatabaseView {
-
+	
 	private static final long serialVersionUID = 1049140216859207089L;
 	public static String GET_FROM_VIEW = "getfromview";
 	private Account account;
 	private AccountSetting accountSetting;
 	private int age;
-	public AccountView() { }
+	
+	public AccountView() {}
 	
 	public AccountView(MyResultRow r) {
 		super(r);
 	}
 	
 	/**
-	 * @param a the a to set
+	 * @param a
+	 *            the a to set
 	 */
 	public void setAccount(Account a) {
 		this.account = a;
@@ -53,18 +56,20 @@ public class AccountView extends DatabaseView {
 	}
 	
 	/**
-	 * @param as the as to set
+	 * @param as
+	 *            the as to set
 	 */
 	public void setAccountSetting(AccountSetting as) {
 		this.accountSetting = as;
 	}
-
+	
 	public void setAccountSetting(MyResultRow r) {
 		this.accountSetting = new AccountSetting();
 		this.accountSetting.setAccountId(r);
 		this.accountSetting.setHeight(r);
 		this.accountSetting.setMultiplier(r);
 		this.accountSetting.setWeekday(r);
+		this.accountSetting.setFormula(r);
 	}
 	
 	public Date getBirthday() {
@@ -82,6 +87,7 @@ public class AccountView extends DatabaseView {
 	public UnitSystem getUnitSystem() {
 		return account.getUnitSystem();
 	}
+	
 	public Multiplier getMultiplier() {
 		return accountSetting.getMultiplier();
 	}
@@ -114,6 +120,14 @@ public class AccountView extends DatabaseView {
 		accountSetting.setWeekday(new Weekday(w));
 	}
 	
+	public void setFormula(Formula f) {
+		accountSetting.setFormula(f);
+	}
+	
+	public Formula getFormula() {
+		return accountSetting.getFormula();
+	}
+	
 	/**
 	 * @return the age
 	 */
@@ -125,8 +139,13 @@ public class AccountView extends DatabaseView {
 		this.age = r.getInt("age");
 	}
 	
-	public Account getAccount() { return this.account; }
-	public AccountSetting getAccountSetting() { return this.accountSetting; }
+	public Account getAccount() {
+		return this.account;
+	}
+	
+	public AccountSetting getAccountSetting() {
+		return this.accountSetting;
+	}
 	
 	@Override
 	public List<Procedure> getCustomProcedures() {
@@ -134,16 +153,16 @@ public class AccountView extends DatabaseView {
 		return Arrays.asList(p);
 	}
 	
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "AccountView [primaryKey=" + primaryKey + ", username=" + account.getUsername() + ", birthday=" 
-				+ account.getBirthday() + ", gender=" + account.getGender() + ", unitsystem=" + account.getUnitSystem()
-				+ ", height=" + accountSetting.getHeight() + ", multiplier=" + accountSetting.getMultiplier()
-				+ ", weekday=" + accountSetting.getWeekday() + ", activeSince=" + account.getActiveSince() + "]";
+		return "AccountView [primaryKey=" + primaryKey + ", age=" + age + ", getBirthday()=" + getBirthday() + ", getHeight()="
+				+ getHeight() + ", getGender()=" + getGender() + ", getUnitSystem()=" + getUnitSystem() + ", getMultiplier()="
+				+ getMultiplier() + ", getWeekday()=" + getWeekday() + ", getFormula()=" + getFormula() + "]";
 	}
-	
 	
 }

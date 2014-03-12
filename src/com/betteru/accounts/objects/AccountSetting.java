@@ -5,6 +5,7 @@ package com.betteru.accounts.objects;
 
 import java.sql.Date;
 
+import com.betteru.databasechoices.accounts.Formula;
 import com.betteru.databasechoices.accounts.Multiplier;
 import com.betteru.databasechoices.accounts.Weekday;
 import com.github.mlaursen.annotations.DatabaseField;
@@ -31,6 +32,9 @@ public class AccountSetting extends DatabaseObject implements Getable, Createabl
 	private Multiplier multiplier;
 	@DatabaseField(values={DatabaseFieldType.NEW})
 	private double height;
+	@DatabaseField(values={DatabaseFieldType.NEW})
+	private Formula formula;
+	
 	private Date dateChanged;
 	public AccountSetting() {}
 	public AccountSetting(String primaryKey) {
@@ -47,6 +51,7 @@ public class AccountSetting extends DatabaseObject implements Getable, Createabl
 		this.weekday = av.getWeekday();
 		this.multiplier = av.getMultiplier();
 		this.height = av.getHeight();
+		this.formula = av.getFormula();
 	}
 	/**
 	 * @return the accountId
@@ -136,6 +141,24 @@ public class AccountSetting extends DatabaseObject implements Getable, Createabl
 
 	public void setDateChanged(MyResultRow r) {
 		this.dateChanged = r.getDate("date_changed");//DateUtil.stringToDate(r.get("date_changed"));
+	}
+	
+	/**
+	 * @return the formula
+	 */
+	public Formula getFormula() {
+		return formula;
+	}
+	
+	/**
+	 * @param formula the formula to set
+	 */
+	public void setFormula(Formula formula) {
+		this.formula = formula;
+	}
+	
+	public void setFormula(MyResultRow r) {
+		this.formula = new Formula(r.get("formula"));
 	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()

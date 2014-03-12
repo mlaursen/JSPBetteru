@@ -13,6 +13,7 @@ import com.github.mlaursen.bootstrap.forms.fields.input.DateField;
 import com.github.mlaursen.bootstrap.forms.fields.input.NumberField;
 import com.betteru.accounts.objects.AccountView;
 import com.betteru.databasechoices.accounts.AccountChoice;
+import com.betteru.databasechoices.accounts.Formula;
 import com.betteru.databasechoices.accounts.Gender;
 import com.betteru.databasechoices.accounts.Multiplier;
 import com.betteru.databasechoices.accounts.UnitSystem;
@@ -21,11 +22,12 @@ import com.betteru.databasechoices.accounts.Weekday;
 public class EditAccountForm extends HtmlForm {
 	public static final String ACTION = "index.jsp";
 	public static final String BIRTHDAY = "birthday", GENDER="gender", UNIT="unit", MULTIPLIER="multiplier",
-			WEEKDAY="weekday", HEIGHT="height";
+			WEEKDAY="weekday", HEIGHT="height",FORMULA="formula";
 	public static final List<DropdownChoice> GENDERS = new Gender().getAllChoices(),
 											 UNITS   = new UnitSystem().getAllChoices(),
 											 MULTIPLIERS = new Multiplier().getAllChoices(),
-											 WEEKDAYS = new Weekday().getAllChoices();
+											 WEEKDAYS = new Weekday().getAllChoices(),
+											 FORMULAS = new Formula().getAllChoices();
 	public EditAccountForm(AccountView av) {
 		super(ACTION);
 		DateField bday = new DateField(BIRTHDAY);
@@ -48,9 +50,12 @@ public class EditAccountForm extends HtmlForm {
 		Dropdown weekdays = new Dropdown(WEEKDAY, WEEKDAYS);
 		weekdays.setValue(getKey(av.getWeekday(), WEEKDAYS));
 		
+		Dropdown formulas = new Dropdown(FORMULA, FORMULAS);
+		formulas.setValue(getKey(av.getFormula(), FORMULAS));
+		
 		SubmitButton update = new SubmitButton("update");
 		update.setValue("Update");
-		this.addFields(ControlGroup.wrap(bday, genders, unitSystems, height, weekdays, multipliers, update));
+		this.addFields(ControlGroup.wrap(bday, genders, unitSystems, height, weekdays, multipliers, formulas, update));
 	}
 	
 	public EditAccountForm(HttpServletRequest request, AccountView av) {
@@ -61,6 +66,7 @@ public class EditAccountForm extends HtmlForm {
 		updateValue(HEIGHT, request);
 		updateValue(WEEKDAY, request);
 		updateValue(MULTIPLIER, request);
+		updateValue(FORMULA, request);
 	}
 	
 	public String getGender() {
@@ -85,6 +91,10 @@ public class EditAccountForm extends HtmlForm {
 	
 	public String getHeight() {
 		return getFieldValue(HEIGHT);
+	}
+	
+	public String getFormula() {
+		return getFieldValue(FORMULA);
 	}
 	
 	private String getKey(AccountChoice ac, List<DropdownChoice> choices) {
