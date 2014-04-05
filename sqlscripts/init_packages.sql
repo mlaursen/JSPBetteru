@@ -92,6 +92,7 @@ CREATE OR REPLACE PACKAGE ACCOUNT_SETTING_PKG AS
                , PWEEKDAY IN ACCOUNT_SETTING.WEEKDAY%TYPE
                , PMULT IN ACCOUNT_SETTING.MULTIPLIER%TYPE
                , PHEIGHT IN ACCOUNT_SETTING.HEIGHT%TYPE
+               , PFORMULA IN ACCOUNT_SETTING.FORMULA%TYPE
                );
   
   -- Gets all columns and all rows from the latest account settings
