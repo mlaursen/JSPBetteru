@@ -63,8 +63,10 @@ public abstract class AccountChoice extends DatabaseObject implements Getable, G
 	 */
 	@Override
 	public String toString() {
-		return "AccountChoice [" + (primaryKey != null ? "primaryKey=" + primaryKey + ", " : "") + "dropdownKey=" + dropdownKey + "]";
+		return primaryKey;
 	}
 
-	
+	public String toStringDebug() {
+		return "AccountChoice [" + (primaryKey != null ? "primaryKey=" + primaryKey + ", " : "") + "dropdownKey=" + dropdownKey + "]";
+	}
 }

@@ -67,9 +67,10 @@ public class Multiplier extends AccountChoice {
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
-	public String toString() {
+	public String toStringDebug() {
 		return "Multiplier [" + (primaryKey != null ? "primaryKey=" + primaryKey + ", " : "") + "amount=" + amount + ", dropdownKey=" + dropdownKey + "]";
 	}
+	
 	/* (non-Javadoc)
 	 * @see com.github.mlaursen.bootstrap.forms.fields.DropdownChoice#getAllChoices()
 	 */
