@@ -15,6 +15,7 @@ import com.betteru.accounts.objects.Account;
 import com.betteru.accounts.objects.AccountSetting;
 import com.betteru.accounts.objects.AccountView;
 import com.betteru.accounts.objects.TempAccount;
+import com.betteru.databasechoices.accounts.Formula;
 import com.betteru.databasechoices.accounts.Gender;
 import com.betteru.databasechoices.accounts.Multiplier;
 import com.betteru.databasechoices.accounts.UnitSystem;
@@ -83,6 +84,7 @@ public class AccountObjectsTest {
 		as.setHeight(71);
 		as.setMultiplier(Multiplier.SEDENTARY);
 		as.setWeekday(Weekday.TUESDAY);
+		as.setFormula(Formula.HARRIS_BENEDICT);
 		assertTrue(tom.create(as));
 		return as;
 	}

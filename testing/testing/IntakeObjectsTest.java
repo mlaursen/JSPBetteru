@@ -17,9 +17,9 @@ import com.betteru.accounts.objects.Account;
 import com.betteru.accounts.objects.AccountSetting;
 import com.betteru.accounts.objects.AccountView;
 import com.betteru.accounts.objects.TempAccount;
+import com.betteru.accounts.objects.Weight;
 import com.betteru.intake.objects.DailyIntake;
 import com.betteru.intake.objects.DailyMealIntake;
-import com.betteru.intake.objects.Weight;
 import com.github.mlaursen.database.managers.TestingObjectManager;
 import com.github.mlaursen.database.utils.DateUtil;
 
@@ -55,7 +55,7 @@ protected static TestingObjectManager tom;
 		}
 	};
 	
-	@Test
+	
 	public void test() {
 		Account a = AccountObjectsTest.createTestingAccount("test", "test", tom);
 		String id = a.getPrimaryKey();
