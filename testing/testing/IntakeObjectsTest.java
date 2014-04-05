@@ -55,7 +55,7 @@ protected static TestingObjectManager tom;
 		}
 	};
 	
-	
+	@Test
 	public void test() {
 		Account a = AccountObjectsTest.createTestingAccount("test", "test", tom);
 		String id = a.getPrimaryKey();
