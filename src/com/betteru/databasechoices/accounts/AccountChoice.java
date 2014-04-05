@@ -16,6 +16,8 @@ import com.github.mlaursen.database.utils.ClassUtil;
  *
  */
 public abstract class AccountChoice extends DatabaseObject implements Getable, GetAllable, DropdownChoice {
+	
+	private static final long serialVersionUID = -2950820576979866840L;
 	protected int dropdownKey;
 	public AccountChoice() {
 		super();
@@ -63,10 +65,6 @@ public abstract class AccountChoice extends DatabaseObject implements Getable, G
 	 */
 	@Override
 	public String toString() {
-		return primaryKey;
-	}
-
-	public String toStringDebug() {
 		return "AccountChoice [" + (primaryKey != null ? "primaryKey=" + primaryKey + ", " : "") + "dropdownKey=" + dropdownKey + "]";
 	}
 }

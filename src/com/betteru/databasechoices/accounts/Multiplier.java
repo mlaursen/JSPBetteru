@@ -67,7 +67,7 @@ public class Multiplier extends AccountChoice {
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
-	public String toStringDebug() {
+	public String toString() {
 		return "Multiplier [" + (primaryKey != null ? "primaryKey=" + primaryKey + ", " : "") + "amount=" + amount + ", dropdownKey=" + dropdownKey + "]";
 	}
 	

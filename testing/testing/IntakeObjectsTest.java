@@ -62,7 +62,7 @@ protected static TestingObjectManager tom;
 		assertNotNull(id);
 		Weight w = new Weight(id, DateUtil.stringToDate("10-FEB-14", "dd-MMM-yy"), 180);
 		assertTrue(tom.create(w));
-		List<Weight> weights = tom.filter(Weight.class, 0);
+		List<Weight> weights = tom.filter(Weight.class, 0, DateUtil.stringToDate("10-FEB-14", "dd-MMM-yy"));
 		assertEquals(1, weights.size());
 		Weight wDB = weights.get(0);
 		assertNotNull(wDB);
